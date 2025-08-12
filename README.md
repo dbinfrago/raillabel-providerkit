@@ -6,15 +6,15 @@
 # RailLabel Providerkit
 
 <!-- prettier-ignore -->
-![image](https://github.com/DSD-DBS/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
-![image](https://github.com/DSD-DBS/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
+![image](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
+![image](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
 
 A library for annotation providers of raillabel-formatted data.
 
 # Documentation
 
 <!-- prettier-ignore -->
-Read the [full documentation on Github pages](https://dsd-dbs.github.io/raillabel-providerkit).
+Read the [full documentation on Github pages](https://dbinfrago.github.io/raillabel-providerkit).
 
 # Installation
 
@@ -29,7 +29,7 @@ virtual environment.
 
 ```zsh
 # Note that contributors should clone via ssh instead as GitHub does not allow pushing via https!
-git clone https://github.com/DSD-DBS/raillabel-providerkit
+git clone https://github.com/dbinfrago/raillabel-providerkit
 cd raillabel-providerkit
 python -m venv .venv
 
