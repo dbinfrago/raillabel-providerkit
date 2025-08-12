@@ -17,9 +17,9 @@ our style guidelines outlined below.
 
 <!-- prettier-ignore -->
 [open an issue]:
-  https://github.com/DSD-DBS/raillabel-providerkit/issues
+  https://github.com/dbinfrago/raillabel-providerkit/issues
 [open a pull request]:
-  https://github.com/DSD-DBS/raillabel-providerkit/pulls
+  https://github.com/dbinfrago/raillabel-providerkit/pulls
 
 ## Developing
 

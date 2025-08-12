@@ -45,8 +45,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/DSD-DBS/raillabel-providerkit"
-Documentation = "https://dsd-dbs.github.io/raillabel-providerkit"
+Homepage = "https://github.com/dbinfrago/raillabel-providerkit"
+Documentation = "https://dbinfrago.github.io/raillabel-providerkit"
 
 [project.optional-dependencies]
 docs = [

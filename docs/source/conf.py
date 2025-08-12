@@ -98,7 +98,7 @@ html_theme_options = {
     "footer_icons": [
         {
             "name": "GitHub",
-            "url": "https://github.com/DSD-DBS/raillabel",
+            "url": "https://github.com/dbinfrago/raillabel",
             "html": '<img src="/_static/img/github-logo.svg"/>',
             "class": "",
         },
