@@ -22,6 +22,9 @@ from . import (
     validate_sensors,
     validate_uris,
 )
+from .validate_annotation_type_per_sensor.validate_annotation_type_per_sensor import (
+    validate_annotation_type_per_sensor,
+)
 
 
 def validate(  # noqa: C901, PLR0913
@@ -34,6 +37,7 @@ def validate(  # noqa: C901, PLR0913
     validate_for_uris: bool = True,
     validate_for_dimensions: bool = True,
     validate_for_horizon: bool = True,
+    validate_for_annotation_type_per_sensor: bool = True,
 ) -> list[Issue]:
     """Validate a scene based on the Deutsche Bahn Requirements.
 
@@ -56,6 +60,8 @@ def validate(  # noqa: C901, PLR0913
         validate_for_dimensions: If True, issues are returned if the dimensions of cuboids are
             outside the expected values range.
         validate_for_horizon: If True, issues are returned if annotations cross the horizon.
+        validate_for_annotation_type_per_sensor: Validate that annotation types match sensor types.
+
 
     Returns:
         List of all requirement errors in the scene. If an empty list is returned, then there are no
@@ -95,5 +101,8 @@ def validate(  # noqa: C901, PLR0913
 
     if validate_for_horizon:
         errors.extend(validate_horizon(scene))
+
+    if validate_for_annotation_type_per_sensor:
+        errors.extend(validate_annotation_type_per_sensor(scene))
 
     return errors

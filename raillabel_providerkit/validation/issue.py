@@ -28,6 +28,7 @@ class IssueType(Enum):
     SENSOR_TYPE_WRONG = "SensorTypeWrong"
     UNEXPECTED_CLASS = "UnexpectedClassIssue"
     URI_FORMAT = "UriFormatIssue"
+    ANNOTATION_SENSOR_MISMATCH = "AnnotationSensorMismatch"
 
     @classmethod
     def names(cls) -> list[str]:
