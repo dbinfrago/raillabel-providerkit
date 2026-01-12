@@ -42,18 +42,44 @@ If you have not been provided with an ontology file, just leave the field empty.
 Supported Ontologies
 ####################
 
-Currently supported ontologies include:
+Pre-built ontology parameter files are provided in the ``config/parameters/`` directory:
 
-**OSDAR23**
-    Railway environment annotation for the OSDAR23 dataset
+**OSDAR23** (``config/parameters/osdar23.yaml``)
+    Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes.
 
-**OpenDataset v2**
+**OpenDataset v2** (``config/parameters/opendataset_v2.yaml``)
     Extended railway environment ontology featuring:
     
+    - **25 object classes** for comprehensive railway environment annotation
     - Comprehensive signal aspects (Hp_0/1/2, Ks_1/2, Vr_0/1/2, Zs_2/2v/3/3v, Sh_0/1/2 in light and shape variants)
     - Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%
     - Additional object classes: personal_item (suitcase, backpack, handbag, bag, etc.), pram (stroller, buggy, babySeat), scooter (eScooter, scooter, hoverboard)
     - Enhanced animal species coverage (dog, cat, racoon, badger, swan, sheep, cow, horse, pig, fox, wolf, wildBoar, deer, stork, rabbit, bird)
     - Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)
+    - Hazard detection (flame, smoke)
 
-When using OpenDataset v2, ensure your annotations conform to the extended signal aspect notation and the new occlusion percentage ranges.
+**AutomatedTrain** (``config/parameters/automatedtrain.yaml``)
+    Specialized ontology for automated train perception and safety-critical railway environment annotation:
+    
+    - **Safety-critical classes**: obstacle, platform, level_crossing, speed_sign
+    - Switch state tracking (straight, diverging)
+    - Emergency vehicle detection
+    - Level crossing state monitoring (open, closing, closed, opening)
+    - Boolean safety indicators for critical situations
+
+Usage Examples
+##############
+
+.. code-block:: python
+
+    from pathlib import Path
+    from raillabel_providerkit import validate
+
+    # Using OpenDataset v2 ontology
+    scene_path = Path("path/to/scene.json")
+    ontology_path = Path("config/parameters/opendataset_v2.yaml")
+    issues = validate(scene_path, ontology_path)
+
+    # Using AutomatedTrain ontology
+    ontology_path = Path("config/parameters/automatedtrain.yaml")
+    issues = validate(scene_path, ontology_path)

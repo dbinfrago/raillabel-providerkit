@@ -67,11 +67,50 @@ Note that you need to provide a project-specific ontology (in .yaml format) to m
 python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/output_folder --ontology /path/to/project-ontology.yaml
 ```
 
-## Supported Ontologies
+## Supported Ontologies / Parameter Files
 
-Currently supported ontologies include:
-- **OSDAR23**: Railway environment annotation for the OSDAR23 dataset
-- **OpenDataset v2**: Extended railway environment ontology with comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional object classes (personal_item, pram, scooter)
+Pre-built ontology parameter files are provided in the `config/parameters/` directory:
+
+| File | Dataset | Description |
+|------|---------|-------------|
+| `osdar23.yaml` | OSDAR23 | Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes. |
+| `opendataset_v2.yaml` | Open Dataset v2 | Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional classes (personal_item, pram, scooter, flame, smoke). |
+| `automatedtrain.yaml` | AutomatedTrain | Specialized ontology for automated train perception and safety-critical annotation. Includes additional classes for autonomous operation: obstacle detection, platform recognition, level crossings, and speed signs. Uses boolean attributes for safety-critical indicators. |
+
+### Usage Instructions
+
+To validate scenes against a specific ontology, specify the parameter file:
+
+```zsh
+# Using OpenDataset v2 ontology
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/opendataset_v2.yaml
+
+# Using AutomatedTrain ontology
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/automatedtrain.yaml
+
+# Using OSDAR23 ontology
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar23.yaml
+```
+
+### OpenDataset v2 Classes
+
+The OpenDataset v2 ontology supports the following 25 classes:
+- **Persons**: `person`, `crowd`
+- **Personal Mobility**: `personal_item`, `pram`, `scooter`, `wheelchair`
+- **Vehicles**: `bicycle`, `group_of_bicycles`, `motorcycle`, `road_vehicle`
+- **Animals**: `animal`, `group_of_animals`
+- **Railway Vehicles**: `train`, `wagon`, `drag_shoe`
+- **Track Infrastructure**: `track`, `transition`, `switch`
+- **Signaling**: `signal`, `signal_pole`, `signal_bridge`, `catenary_pole`, `buffer_stop`
+- **Hazards**: `flame`, `smoke`
+
+### AutomatedTrain Classes
+
+The AutomatedTrain ontology supports safety-critical classes for automated train operation:
+- **Core Classes**: `person`, `crowd`, `train`, `wagon`, `track`, `transition`, `switch`
+- **Signaling**: `signal`, `signal_pole`, `signal_bridge`, `catenary_pole`, `buffer_stop`
+- **Vehicles**: `road_vehicle`, `bicycle`, `motorcycle`, `animal`
+- **Safety-Critical**: `obstacle`, `platform`, `level_crossing`, `speed_sign`
 
 # Contributing
 
