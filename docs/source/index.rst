@@ -35,7 +35,7 @@ If you want a quickstart at how to use this package, head right into the
    howto
 
 .. toctree::
-   :caption: Modules
+   :caption: API Reference
    :maxdepth: 4
 
-   code/modules
+   api
