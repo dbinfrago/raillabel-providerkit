@@ -75,6 +75,7 @@ instance/
 docs/_build/
 docs/source/code/
 docs/source/_build
+docs/build/
 
 # PyBuilder
 .pybuilder/
