@@ -38,3 +38,22 @@ Under certain circumstances you might want to switch off certain validations. Th
     issues_in_scene = validate(scene_path, validate_for_dimensions=False)
 
 If you have not been provided with an ontology file, just leave the field empty. The scene is then not checked against ontology issues.
+
+Supported Ontologies
+####################
+
+Currently supported ontologies include:
+
+**OSDAR23**
+    Railway environment annotation for the OSDAR23 dataset
+
+**OpenDataset v2**
+    Extended railway environment ontology featuring:
+    
+    - Comprehensive signal aspects (Hp_0/1/2, Ks_1/2, Vr_0/1/2, Zs_2/2v/3/3v, Sh_0/1/2 in light and shape variants)
+    - Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%
+    - Additional object classes: personal_item (suitcase, backpack, handbag, bag, etc.), pram (stroller, buggy, babySeat), scooter (eScooter, scooter, hoverboard)
+    - Enhanced animal species coverage (dog, cat, racoon, badger, swan, sheep, cow, horse, pig, fox, wolf, wildBoar, deer, stork, rabbit, bird)
+    - Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)
+
+When using OpenDataset v2, ensure your annotations conform to the extended signal aspect notation and the new occlusion percentage ranges.

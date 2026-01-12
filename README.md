@@ -67,6 +67,12 @@ Note that you need to provide a project-specific ontology (in .yaml format) to m
 python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/output_folder --ontology /path/to/project-ontology.yaml
 ```
 
+## Supported Ontologies
+
+Currently supported ontologies include:
+- **OSDAR23**: Railway environment annotation for the OSDAR23 dataset
+- **OpenDataset v2**: Extended railway environment ontology with comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional object classes (personal_item, pram, scooter)
+
 # Contributing
 
 We'd love to see your bug reports and improvement suggestions! Please take a
