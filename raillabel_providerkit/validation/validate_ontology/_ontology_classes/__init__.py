@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 from ._annotation_with_metadata import _AnnotationWithMetadata
 from ._attributes._any_attribute import _AnyAttribute

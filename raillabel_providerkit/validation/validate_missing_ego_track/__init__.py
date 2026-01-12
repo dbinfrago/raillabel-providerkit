@@ -1,3 +1,3 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Package for validating a scene for missing ego track errors."""

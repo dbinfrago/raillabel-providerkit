@@ -1,0 +1,4 @@
+include raillabel_providerkit/ontologies/*.yaml
+include raillabel_providerkit/ontologies/*.license
+recursive-include raillabel_providerkit/format *.json
+recursive-include raillabel_providerkit/format *.license
