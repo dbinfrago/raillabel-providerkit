@@ -167,3 +167,5 @@ cython_debug/
 # Project related
 playground/
 scripts/
+.github/instructions.md
+.instructions*

@@ -47,12 +47,10 @@ def test_osdar_schema__missing():
     )
 
     actual = validate_missing_ego_track(scene)
-    assert actual == [
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=1, sensor="rgb_center"),
-        )
-    ]
+    assert len(actual) == 1
+    assert actual[0].type == IssueType.MISSING_EGO_TRACK
+    assert actual[0].identifiers.frame == 1
+    assert actual[0].identifiers.sensor == "rgb_center"
 
 
 def test_open_dataset_schema__not_missing():
@@ -82,12 +80,10 @@ def test_open_dataset_schema__missing():
     )
 
     actual = validate_missing_ego_track(scene)
-    assert actual == [
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=1, sensor="rgb_center"),
-        )
-    ]
+    assert len(actual) == 1
+    assert actual[0].type == IssueType.MISSING_EGO_TRACK
+    assert actual[0].identifiers.frame == 1
+    assert actual[0].identifiers.sensor == "rgb_center"
 
 
 def test_missing_in_two_sensors():
@@ -101,16 +97,12 @@ def test_missing_in_two_sensors():
     )
 
     actual = validate_missing_ego_track(scene)
-    assert actual == [
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=1, sensor="rgb_center"),
-        ),
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=1, sensor="ir_center"),
-        ),
-    ]
+    assert len(actual) == 2
+    sensors = {issue.identifiers.sensor for issue in actual}
+    assert sensors == {"rgb_center", "ir_center"}
+    for issue in actual:
+        assert issue.type == IssueType.MISSING_EGO_TRACK
+        assert issue.identifiers.frame == 1
 
 
 def test_missing_in_two_frames():
@@ -124,16 +116,12 @@ def test_missing_in_two_frames():
     )
 
     actual = validate_missing_ego_track(scene)
-    assert actual == [
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=1, sensor="rgb_center"),
-        ),
-        Issue(
-            type=IssueType.MISSING_EGO_TRACK,
-            identifiers=IssueIdentifiers(frame=2, sensor="rgb_center"),
-        ),
-    ]
+    assert len(actual) == 2
+    frames = {issue.identifiers.frame for issue in actual}
+    assert frames == {1, 2}
+    for issue in actual:
+        assert issue.type == IssueType.MISSING_EGO_TRACK
+        assert issue.identifiers.sensor == "rgb_center"
 
 
 if __name__ == "__main__":

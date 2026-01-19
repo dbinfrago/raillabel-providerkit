@@ -12,12 +12,12 @@ import raillabel
 from raillabel_providerkit.validation.issue import Issue, IssueIdentifiers, IssueType
 
 # Mapping:
-# - camera: Bbox
-# - lidar: Cuboid
-# - radar: und Cuboid
+# - camera: Bbox, Poly2d (for tracks/transitions)
+# - lidar: Cuboid, Poly3d (for tracks), Seg3d (for segmentation)
+# - radar: Bbox and Cuboid
 _ALLOWED_BY_SENSOR_TYPE: dict[str, tuple[str, ...]] = {
-    "camera": ("Bbox",),
-    "lidar": ("Cuboid",),
+    "camera": ("Bbox", "Poly2d"),
+    "lidar": ("Cuboid", "Poly3d", "Seg3d"),
     "radar": ("Bbox", "Cuboid"),
 }
 
