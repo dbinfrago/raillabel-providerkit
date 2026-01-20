@@ -1,8 +1,6 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
+
 """Module containing all relevant understand.ai format classes."""
 
 from .bounding_box_2d import BoundingBox2d

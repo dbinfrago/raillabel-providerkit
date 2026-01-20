@@ -1,7 +1,4 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """Built-in ontology definitions for raillabel-providerkit.

@@ -1,7 +1,4 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """Validate that both rails (left and right) of the ego track exist in center cameras."""
