@@ -1,8 +1,6 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
+
 """Format classes from the provider formats."""
 
 from . import understand_ai

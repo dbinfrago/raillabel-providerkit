@@ -1,10 +1,5 @@
 <!--
  ~ Copyright DB InfraGO AG and contributors
- ~ SPDX-License-Identifier: Apache-2.0
- -->
-
-<!--
- ~ Copyright DB InfraGO AG and contributors
  ~ SPDX-License-Identifier: MIT
  -->
 
@@ -98,6 +93,35 @@ If you want to output in .csv format instead of .json format, you can use this c
 
 ```zsh
 python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/output_folder --use-csv --no-json
+```
+
+## Exporting Scenes
+
+Export multiple scenes to different formats (JSON, CSV) for analysis or integration with other tools:
+
+```zsh
+# Export to JSON format
+python -m raillabel_providerkit export /path/to/scenes/ /path/to/output/ --format json
+
+# Export to CSV format (creates separate files for annotations, metadata, objects, sensors)
+python -m raillabel_providerkit export /path/to/scenes/ /path/to/output/ --format csv
+
+# Export to both formats
+python -m raillabel_providerkit export /path/to/scenes/ /path/to/output/ --format json --format csv
+```
+
+Or programmatically from Python:
+
+```python
+from pathlib import Path
+from raillabel_providerkit import export_scenes
+
+stats = export_scenes(
+    input_folder=Path("/path/to/scenes/"),
+    output_folder=Path("/path/to/output/"),
+    formats=["json", "csv"]
+)
+print(f"Exported {stats['exported']} scenes, {stats['errors']} errors")
 ```
 
 ## Using Built-in Ontologies

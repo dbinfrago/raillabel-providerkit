@@ -1,8 +1,6 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
+
 """Package for validating raillabel data regarding the format requirements."""
 
 from .issue import Issue, IssueIdentifiers, IssueType

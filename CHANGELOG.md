@@ -1,6 +1,6 @@
 <!--
  ~ Copyright DB InfraGO AG and contributors
- ~ SPDX-License-Identifier: Apache-2.0
+ ~ SPDX-License-Identifier: MIT
  -->
 
 # Changelog
@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+#### Multi-Scene Export (NEW)
+- **Batch Export Functionality**: Export multiple scenes to different formats at once
+  - `export_scenes(input_folder, output_folder, formats)`: Core export function
+  - Supported formats: JSON (raillabel format), CSV (annotations, metadata, sensors, objects)
+  - Recursive processing of all scene files in input folder
+  - Progress bar with export statistics
+- **CLI Export Subcommand**: `python -m raillabel_providerkit export`
+  - `--format json`: Export to JSON format
+  - `--format csv`: Export to CSV format (4 separate files per scene)
+  - Supports multiple formats: `--format json --format csv`
+- **CSV Export Structure**:
+  - `{scene}_annotations.csv`: All annotations with attributes
+  - `{scene}_metadata.csv`: Scene metadata
+  - `{scene}_objects.csv`: Object definitions
+  - `{scene}_sensors.csv`: Sensor configurations
 
 #### OSDAR26 Sensor Support
 - **Full OSDAR26 sensor coverage**: All OSDAR26 sensors now recognized and validated

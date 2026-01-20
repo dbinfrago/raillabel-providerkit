@@ -1,8 +1,6 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
-
-# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
+
 """Package containing the loader classes for all supported formats."""
 
 from importlib import import_module
