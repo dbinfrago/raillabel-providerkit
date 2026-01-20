@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """Tests for validate_ego_track_both_rails."""
@@ -67,35 +70,21 @@ def add_non_ego_track_rail(
 
 def test_validate_ego_track_both_rails__no_center_cameras():
     """No issues when there are no center cameras."""
-    scene = (
-        SceneBuilder.empty()
-        .add_sensor("lidar")
-        .add_frame(1)
-        .result
-    )
+    scene = SceneBuilder.empty().add_sensor("lidar").add_frame(1).result
     issues = validate_ego_track_both_rails(scene)
     assert issues == []
 
 
 def test_validate_ego_track_both_rails__no_ego_track_annotations():
     """No issues when no ego track annotations exist (handled by validate_missing_ego_track)."""
-    scene = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-        .result
-    )
+    scene = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1).result
     issues = validate_ego_track_both_rails(scene)
     assert issues == []
 
 
 def test_validate_ego_track_both_rails__valid_overlapping_rails():
     """No issues when both rails exist with overlapping y-ranges."""
-    builder = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-    )
+    builder = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1)
     builder = add_ego_track_left_rail(builder, [(100, 200), (100, 400), (100, 600)])
     builder = add_ego_track_right_rail(builder, [(200, 200), (200, 400), (200, 600)])
     scene = builder.result
@@ -106,11 +95,7 @@ def test_validate_ego_track_both_rails__valid_overlapping_rails():
 
 def test_validate_ego_track_both_rails__non_overlapping_y_ranges():
     """Issue when left and right rails don't have overlapping y-ranges."""
-    builder = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-    )
+    builder = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1)
     # Left rail: y 100-200, Right rail: y 300-400 (no overlap)
     builder = add_ego_track_left_rail(builder, [(100, 100), (100, 200)])
     builder = add_ego_track_right_rail(builder, [(200, 300), (200, 400)])
@@ -124,11 +109,7 @@ def test_validate_ego_track_both_rails__non_overlapping_y_ranges():
 
 def test_validate_ego_track_both_rails__multiple_rails_at_common_y():
     """Issue when there are multiple left rails at the common y."""
-    builder = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-    )
+    builder = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1)
     # Two left rails at the same y range
     builder = add_ego_track_left_rail(builder, [(100, 200), (100, 600)], object_name="track_ego1")
     builder = add_ego_track_left_rail(builder, [(150, 200), (150, 600)], object_name="track_ego2")
@@ -143,11 +124,7 @@ def test_validate_ego_track_both_rails__multiple_rails_at_common_y():
 
 def test_validate_ego_track_both_rails__one_side_missing_no_issue():
     """No issue when only one side exists (disabled as in original - too many false positives)."""
-    builder = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-    )
+    builder = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1)
     # Only left rail, no right rail
     builder = add_ego_track_left_rail(builder, [(100, 200), (100, 600)])
     scene = builder.result
@@ -159,11 +136,7 @@ def test_validate_ego_track_both_rails__one_side_missing_no_issue():
 
 def test_validate_ego_track_both_rails__non_ego_track_ignored():
     """Non-ego-track annotations should be ignored."""
-    builder = (
-        SceneBuilder.empty()
-        .add_sensor("rgb_middle")
-        .add_frame(1)
-    )
+    builder = SceneBuilder.empty().add_sensor("rgb_middle").add_frame(1)
     # Non-ego-track rails with non-overlapping y ranges - should not cause issues
     builder = add_non_ego_track_rail(builder, [(100, 100), (100, 200)], "leftRail")
     builder = add_non_ego_track_rail(builder, [(200, 300), (200, 400)], "rightRail")

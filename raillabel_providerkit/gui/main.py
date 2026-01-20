@@ -1,13 +1,17 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """GUI application for RailLabel Providerkit validation."""
 
 import sys
+import warnings
 from pathlib import Path
 
 try:
-    from PyQt6.QtCore import Qt, QThread, pyqtSignal
+    from PyQt6.QtCore import QThread, pyqtSignal
     from PyQt6.QtWidgets import (
         QApplication,
         QComboBox,
@@ -25,8 +29,10 @@ try:
         QWidget,
     )
 except ImportError as e:
-    print("PyQt6 is not installed. Please install it with:")
-    print("  pip install 'raillabel-providerkit[gui]'")
+    warnings.warn(
+        "PyQt6 is not installed. Install with: pip install 'raillabel-providerkit[gui]'",
+        stacklevel=2,
+    )
     raise SystemExit(1) from e
 
 from raillabel_providerkit import list_available_ontologies, validate
@@ -40,7 +46,7 @@ class ValidationWorker(QThread):
     finished = pyqtSignal(dict)  # results
     error = pyqtSignal(str)
 
-    def __init__(self, input_folder: Path, output_folder: Path, ontology_path: Path | None):
+    def __init__(self, input_folder: Path, output_folder: Path, ontology_path: Path | None) -> None:
         """Initialize the validation worker.
 
         Parameters
@@ -57,7 +63,7 @@ class ValidationWorker(QThread):
         self.output_folder = output_folder
         self.ontology_path = ontology_path
 
-    def run(self):
+    def run(self) -> None:
         """Run the validation process."""
         try:
             # Find all JSON files
@@ -89,22 +95,22 @@ class ValidationWorker(QThread):
                     results["processed"] += 1
                     results["issues"] += len(issues)
 
-                except Exception as e:
+                except (OSError, ValueError, KeyError) as e:
                     results["errors"] += 1
-                    print(f"Error processing {scene_path}: {e}")
+                    warnings.warn(f"Error processing {scene_path}: {e}", stacklevel=2)
 
                 self.progress.emit(i + 1, len(scene_files))
 
             self.finished.emit(results)
 
-        except Exception as e:
+        except (OSError, ValueError) as e:
             self.error.emit(str(e))
 
 
 class RailLabelGUI(QMainWindow):
     """Main GUI window for RailLabel Providerkit."""
 
-    def __init__(self):
+    def __init__(self) -> None:  # noqa: PLR0915
         """Initialize the GUI."""
         super().__init__()
         self.setWindowTitle("RailLabel Providerkit - Validation Tool")
@@ -198,23 +204,23 @@ class RailLabelGUI(QMainWindow):
         self.worker = None
         self.log("Ready. Select input/output folders and start validation.")
 
-    def log(self, message: str):
+    def log(self, message: str) -> None:
         """Add a message to the status log."""
         self.status_text.append(message)
 
-    def browse_input(self):
+    def browse_input(self) -> None:
         """Open folder browser for input folder."""
         folder = QFileDialog.getExistingDirectory(self, "Select Input Folder")
         if folder:
             self.input_path.setText(folder)
 
-    def browse_output(self):
+    def browse_output(self) -> None:
         """Open folder browser for output folder."""
         folder = QFileDialog.getExistingDirectory(self, "Select Output Folder")
         if folder:
             self.output_path.setText(folder)
 
-    def browse_ontology(self):
+    def browse_ontology(self) -> None:
         """Open file browser for custom ontology."""
         file, _ = QFileDialog.getOpenFileName(
             self, "Select Ontology File", "", "YAML Files (*.yaml *.yml)"
@@ -223,12 +229,12 @@ class RailLabelGUI(QMainWindow):
             self.custom_ontology.setText(file)
             self.ontology_dropdown.setCurrentIndex(0)  # Reset dropdown
 
-    def on_builtin_selected(self, index):
+    def on_builtin_selected(self, index: int) -> None:
         """Handle built-in ontology selection."""
         if index > 0:  # Not "(No ontology validation)"
             self.custom_ontology.clear()
 
-    def start_validation(self):
+    def start_validation(self) -> None:
         """Start the validation process."""
         # Validate inputs
         if not self.input_path.text():
@@ -277,13 +283,13 @@ class RailLabelGUI(QMainWindow):
         self.worker.error.connect(self.on_error)
         self.worker.start()
 
-    def on_progress(self, current: int, total: int):
+    def on_progress(self, current: int, total: int) -> None:
         """Update progress bar."""
         self.progress_bar.setMaximum(total)
         self.progress_bar.setValue(current)
         self.log(f"Processing: {current}/{total}")
 
-    def on_finished(self, results: dict):
+    def on_finished(self, results: dict) -> None:
         """Handle validation completion."""
         self.validate_btn.setEnabled(True)
         self.progress_bar.setVisible(False)
@@ -304,7 +310,7 @@ class RailLabelGUI(QMainWindow):
             f"Results saved to {self.output_path.text()}",
         )
 
-    def on_error(self, error_msg: str):
+    def on_error(self, error_msg: str) -> None:
         """Handle validation error."""
         self.validate_btn.setEnabled(True)
         self.progress_bar.setVisible(False)
@@ -312,7 +318,7 @@ class RailLabelGUI(QMainWindow):
         QMessageBox.critical(self, "Validation Error", error_msg)
 
 
-def launch_gui():
+def launch_gui() -> None:
     """Launch the RailLabel Providerkit GUI."""
     app = QApplication(sys.argv)
     app.setStyle("Fusion")  # Modern look on all platforms

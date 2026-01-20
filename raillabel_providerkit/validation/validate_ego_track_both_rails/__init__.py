@@ -1,5 +1,10 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
+
+"""Validation for ego track having both rails."""
 
 from .validate_ego_track_both_rails import validate_ego_track_both_rails
 

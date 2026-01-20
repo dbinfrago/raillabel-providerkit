@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 import pytest
@@ -125,7 +128,11 @@ def test_validate_empty_frames__no_error(middle_camera, sample_bbox):
     scene = raillabel.Scene(
         metadata=raillabel.format.Metadata(schema_version="1.0.0"),
         sensors={"rgb_center": middle_camera},
-        objects={UUID("7df959d7-0ec2-4722-8b62-bb2e529de2ec"): raillabel.format.Object(name="obj", type="person")},
+        objects={
+            UUID("7df959d7-0ec2-4722-8b62-bb2e529de2ec"): raillabel.format.Object(
+                name="obj", type="person"
+            )
+        },
         frames={
             0: raillabel.format.Frame(
                 timestamp=None,

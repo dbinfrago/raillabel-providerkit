@@ -195,7 +195,7 @@ from raillabel.format import Camera, Lidar, Radar, GpsImu
 
 SENSOR_METADATA = {
     # ... existing sensors ...
-    
+
     # Add your custom sensors
     "my_custom_camera": Camera,
     "my_custom_lidar": Lidar,

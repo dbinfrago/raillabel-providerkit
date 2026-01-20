@@ -1,3 +1,6 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: CC0-1.0
 
@@ -690,4 +693,3 @@ speed_sign:
   isTruncated:
     attribute_type: boolean
     scope: annotation
-
