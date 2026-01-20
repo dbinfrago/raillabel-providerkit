@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -29,7 +32,7 @@ from .validate_annotation_type_per_sensor.validate_annotation_type_per_sensor im
 )
 
 
-def validate(  # noqa: C901, PLR0913
+def validate(  # noqa: C901, PLR0912, PLR0913
     scene_source: dict | Path,
     ontology_source: dict | Path | None = None,
     validate_for_empty_frames: bool = True,

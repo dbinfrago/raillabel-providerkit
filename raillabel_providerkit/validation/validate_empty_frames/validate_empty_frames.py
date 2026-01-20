@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -33,15 +36,15 @@ def validate_empty_frames(scene: raillabel.Scene) -> list[Issue]:
 
     for frame_uid, frame in scene.frames.items():
         # Check each sensor that requires annotations
-        for sensor_id in sensors_requiring_annotations:
-            if not _sensor_has_annotations_in_frame(sensor_id, frame):
-                errors.append(
-                    Issue(
-                        type=IssueType.EMPTY_FRAMES,
-                        identifiers=IssueIdentifiers(frame=frame_uid, sensor=sensor_id),
-                        reason="There are no annotations in this sensor frame.",
-                    )
-                )
+        errors.extend(
+            Issue(
+                type=IssueType.EMPTY_FRAMES,
+                identifiers=IssueIdentifiers(frame=frame_uid, sensor=sensor_id),
+                reason="There are no annotations in this sensor frame.",
+            )
+            for sensor_id in sensors_requiring_annotations
+            if not _sensor_has_annotations_in_frame(sensor_id, frame)
+        )
 
     return errors
 
@@ -64,7 +67,4 @@ def _get_sensors_requiring_annotations(
 
 def _sensor_has_annotations_in_frame(sensor_id: str, frame: raillabel.format.Frame) -> bool:
     """Check if a sensor has any annotations in the given frame."""
-    for annotation in frame.annotations.values():
-        if annotation.sensor_id == sensor_id:
-            return True
-    return False
+    return any(annotation.sensor_id == sensor_id for annotation in frame.annotations.values())

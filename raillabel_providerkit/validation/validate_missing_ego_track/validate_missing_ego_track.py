@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 import raillabel
@@ -39,7 +42,7 @@ def validate_missing_ego_track(scene: raillabel.Scene) -> list[Issue]:
 
     sensors_that_require_ego_track = _filter_sensors_that_require_ego_track(scene.sensors)
     for frame_id, frame in scene.frames.items():
-        issues.extend(_validate_for_frame(frame_id, frame, sensors_that_require_ego_track, scene))
+        issues.extend(_validate_for_frame(frame_id, frame, sensors_that_require_ego_track))
 
     return issues
 
@@ -65,11 +68,10 @@ def _validate_for_frame(
     frame_id: int,
     frame: raillabel.format.Frame,
     sensors_that_require_ego_track: list[tuple[str, type]],
-    scene: raillabel.Scene,
 ) -> list[Issue]:
     issues = []
     for sensor_id, sensor_type in sensors_that_require_ego_track:
-        issues.extend(_validate_for_sensor_frame(sensor_id, sensor_type, frame, frame_id, scene))
+        issues.extend(_validate_for_sensor_frame(sensor_id, sensor_type, frame, frame_id))
     return issues
 
 
@@ -78,7 +80,6 @@ def _validate_for_sensor_frame(
     sensor_type: type,
     frame: raillabel.format.Frame,
     frame_id: int,
-    scene: raillabel.Scene,
 ) -> list[Issue]:
     ego_track_is_in_sensor_frame = False
     for annotation in frame.annotations.values():
@@ -95,13 +96,12 @@ def _validate_for_sensor_frame(
             ):
                 ego_track_is_in_sensor_frame = True
                 break
-        else:
-            # For cameras, check any annotation type
-            if _annotation_is_ego_track_osdar23(annotation) or _annotation_is_ego_track_open_data(
-                annotation
-            ):
-                ego_track_is_in_sensor_frame = True
-                break
+        # For cameras, check any annotation type
+        elif _annotation_is_ego_track_osdar23(annotation) or _annotation_is_ego_track_open_data(
+            annotation
+        ):
+            ego_track_is_in_sensor_frame = True
+            break
 
     if ego_track_is_in_sensor_frame:
         return []

@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -38,9 +41,7 @@ def validate_transition(scene: raillabel.Scene) -> list[Issue]:
 
             # Flag issue if startTrack == endTrack and both are not None
             if start_track == end_track and start_track is not None:
-                reason = (
-                    f"This transition's startTrack and endTrack are identical: {start_track}."
-                )
+                reason = f"This transition's startTrack and endTrack are identical: {start_track}."
                 issues.append(
                     Issue(
                         type=IssueType.TRANSITION_IDENTICAL_START_END,
