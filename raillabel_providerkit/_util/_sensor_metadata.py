@@ -4,6 +4,7 @@
 from raillabel.format import Camera, GpsImu, Lidar, Radar
 
 SENSOR_METADATA = {
+    # OSDAR23 sensors
     "rgb_center": Camera,
     "rgb_left": Camera,
     "rgb_right": Camera,
@@ -19,4 +20,14 @@ SENSOR_METADATA = {
     "lidar": Lidar,
     "radar": Radar,
     "gps_imu": GpsImu,
+    # OSDAR26 sensors
+    "rgb_12mp_left": Camera,
+    "rgb_12mp_middle": Camera,
+    "rgb_12mp_right": Camera,
+    "rgb_5mp_left": Camera,
+    "rgb_5mp_middle": Camera,
+    "rgb_5mp_right": Camera,
+    "ir_middle": Camera,
+    "lidar_merged": Lidar,
+    "radar_cartesian": Radar,
 }
