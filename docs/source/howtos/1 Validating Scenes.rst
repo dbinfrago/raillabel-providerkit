@@ -87,3 +87,50 @@ Usage Examples
     # Using AutomatedTrain ontology
     ontology_path = Path("config/parameters/automatedtrain.yaml")
     issues = validate(scene_path, ontology_path)
+
+Supported Sensors
+#################
+
+The sensor validation checks that all sensors in a scene have recognized names and correct types. Both OSDAR23 and OSDAR26 sensor naming conventions are supported.
+
+**OSDAR23 Sensors:**
+
+- RGB cameras: ``rgb_center``, ``rgb_left``, ``rgb_right``
+- High-resolution RGB: ``rgb_highres_center``, ``rgb_highres_left``, ``rgb_highres_right``
+- Long-range RGB: ``rgb_longrange_center``, ``rgb_longrange_left``, ``rgb_longrange_right``
+- Infrared cameras: ``ir_center``, ``ir_left``, ``ir_right``
+- Lidar: ``lidar``
+- Radar: ``radar``
+- GPS/IMU: ``gps_imu``
+
+**OSDAR26 Sensors:**
+
+- 12MP RGB cameras: ``rgb_12mp_left``, ``rgb_12mp_middle``, ``rgb_12mp_right``
+- 5MP RGB cameras: ``rgb_5mp_left``, ``rgb_5mp_middle``, ``rgb_5mp_right``
+- Infrared cameras: ``ir_left``, ``ir_middle``, ``ir_right``
+- Merged lidar: ``lidar_merged``
+- Cartesian radar: ``radar_cartesian``
+
+Adding Custom Sensors
+#####################
+
+To add support for additional sensors, edit the ``SENSOR_METADATA`` dictionary in ``raillabel_providerkit/_util/_sensor_metadata.py``:
+
+.. code-block:: python
+
+    from raillabel.format import Camera, Lidar, Radar, GpsImu
+
+    SENSOR_METADATA = {
+        # ... existing sensors ...
+
+        # Add your custom sensors
+        "my_custom_camera": Camera,
+        "my_custom_lidar": Lidar,
+    }
+
+Calibration Detection
+#####################
+
+The horizon validation automatically detects the calibration format (OSDAR23 vs OSDAR26) based on sensor naming patterns. OSDAR26 uses different extrinsics rotation axis conventions compared to OSDAR23.
+
+The detection is performed once per scene by checking all sensor names. If any sensor matches the OSDAR26 pattern (e.g., ``rgb_12mp_left``, ``ir_middle``), the OSDAR26 calibration is applied to the entire scene.

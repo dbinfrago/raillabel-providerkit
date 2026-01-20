@@ -10,11 +10,12 @@
 
 # RailLabel Providerkit
 
-**Version 1.0.0**
-
 <!-- prettier-ignore -->
-![image](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
-![image](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/dbinfrago/raillabel-providerkit/releases)
+![Build](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
+![Lint](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
+[![Python](https://img.shields.io/badge/python-3.10%2B-green.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 A library for annotation providers of raillabel-formatted data.
 
@@ -158,6 +159,52 @@ The AutomatedTrain ontology supports safety-critical classes for automated train
 - **Signaling**: `signal`, `signal_pole`, `signal_bridge`, `catenary_pole`, `buffer_stop`
 - **Vehicles**: `road_vehicle`, `bicycle`, `motorcycle`, `animal`
 - **Safety-Critical**: `obstacle`, `platform`, `level_crossing`, `speed_sign`
+
+## Supported Sensors
+
+RailLabel Providerkit supports sensors from both OSDAR23 and OSDAR26 datasets. The sensor validation checks that all sensors in a scene have recognized names and correct types.
+
+### OSDAR23 Sensors
+
+| Sensor ID | Type | Description |
+|-----------|------|-------------|
+| `rgb_center`, `rgb_left`, `rgb_right` | Camera | Standard RGB cameras |
+| `rgb_highres_center`, `rgb_highres_left`, `rgb_highres_right` | Camera | High-resolution RGB cameras |
+| `rgb_longrange_center`, `rgb_longrange_left`, `rgb_longrange_right` | Camera | Long-range RGB cameras |
+| `ir_center`, `ir_left`, `ir_right` | Camera | Infrared cameras |
+| `lidar` | Lidar | Single lidar sensor |
+| `radar` | Radar | Single radar sensor |
+| `gps_imu` | GpsImu | GPS/IMU sensor |
+
+### OSDAR26 Sensors
+
+| Sensor ID | Type | Description |
+|-----------|------|-------------|
+| `rgb_12mp_left`, `rgb_12mp_middle`, `rgb_12mp_right` | Camera | 12 megapixel RGB cameras |
+| `rgb_5mp_left`, `rgb_5mp_middle`, `rgb_5mp_right` | Camera | 5 megapixel RGB cameras |
+| `ir_left`, `ir_middle`, `ir_right` | Camera | Infrared cameras |
+| `lidar_merged` | Lidar | Merged lidar data |
+| `radar_cartesian` | Radar | Radar in cartesian coordinates |
+
+### Adding Custom Sensors
+
+To add support for additional sensors, edit the `SENSOR_METADATA` dictionary in `raillabel_providerkit/_util/_sensor_metadata.py`:
+
+```python
+from raillabel.format import Camera, Lidar, Radar, GpsImu
+
+SENSOR_METADATA = {
+    # ... existing sensors ...
+    
+    # Add your custom sensors
+    "my_custom_camera": Camera,
+    "my_custom_lidar": Lidar,
+}
+```
+
+## Calibration Detection
+
+The horizon validation automatically detects the calibration format (OSDAR23 vs OSDAR26) based on sensor naming patterns. OSDAR26 uses different extrinsics rotation axis conventions compared to OSDAR23. The detection is performed once per scene by checking all sensor names - if any sensor matches the OSDAR26 pattern (e.g., `rgb_12mp_left`, `ir_middle`), the OSDAR26 calibration is applied to the entire scene.
 
 # Contributing
 

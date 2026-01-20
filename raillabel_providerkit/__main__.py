@@ -109,16 +109,21 @@ def store_issues_to_csv(issues: list[Issue], filepath: Path) -> None:
     file.close()
 
 
+# Time constants for duration formatting
+_SECONDS_PER_MINUTE = 60
+_MINUTES_PER_HOUR = 60
+
+
 def _format_duration(seconds: float) -> str:
     """Format a duration in seconds to a human-readable string."""
-    if seconds < 60:
+    if seconds < _SECONDS_PER_MINUTE:
         return f"{seconds:.1f}s"
-    minutes = int(seconds // 60)
-    remaining_seconds = seconds % 60
-    if minutes < 60:
+    minutes = int(seconds // _SECONDS_PER_MINUTE)
+    remaining_seconds = seconds % _SECONDS_PER_MINUTE
+    if minutes < _MINUTES_PER_HOUR:
         return f"{minutes}m {remaining_seconds:.0f}s"
-    hours = int(minutes // 60)
-    remaining_minutes = minutes % 60
+    hours = int(minutes // _MINUTES_PER_HOUR)
+    remaining_minutes = minutes % _MINUTES_PER_HOUR
     return f"{hours}h {remaining_minutes}m {remaining_seconds:.0f}s"
 
 
