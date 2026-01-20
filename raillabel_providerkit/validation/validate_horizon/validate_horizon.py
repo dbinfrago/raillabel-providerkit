@@ -48,10 +48,7 @@ def _scene_uses_osdar26_calibration(scene: raillabel.Scene) -> bool:
     bool
         True if the scene uses OSDAR26 calibration conventions.
     """
-    for sensor_id in scene.sensors:
-        if _OSDAR26_SENSOR_PATTERN.match(sensor_id):
-            return True
-    return False
+    return any(_OSDAR26_SENSOR_PATTERN.match(sensor_id) for sensor_id in scene.sensors)
 
 
 def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
