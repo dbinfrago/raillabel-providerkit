@@ -14,8 +14,8 @@ import click
 import jsonschema
 from tqdm import tqdm
 
-from raillabel_providerkit import validate
-from raillabel_providerkit.validation.issue import ISSUES_SCHEMA, Issue
+from raillabel_providerkit import export_scenes, validate
+from raillabel_providerkit.validation.issue import ISSUES_SCHEMA, Issue, IssueIdentifiers
 
 
 def store_issues_to_json(issues: list[Issue], filepath: Path) -> None:
@@ -222,7 +222,11 @@ def _print_attribute_details(scene_issues: dict[str, list[Issue]]) -> None:
     for issues in scene_issues.values():
         for issue in issues:
             issue_type = issue.type.value
-            if issue_type in attribute_issue_types and issue.identifiers.attribute:
+            if (
+                issue_type in attribute_issue_types
+                and isinstance(issue.identifiers, IssueIdentifiers)
+                and issue.identifiers.attribute
+            ):
                 if issue_type not in attribute_details:
                     attribute_details[issue_type] = Counter()
                 attribute_details[issue_type][issue.identifiers.attribute] += 1
@@ -239,7 +243,12 @@ def _print_attribute_details(scene_issues: dict[str, list[Issue]]) -> None:
                 click.echo(f"      {count:>5}x {attr_name}")
 
 
-@click.command()
+@click.group()
+def cli() -> None:
+    """RailLabel Providerkit - Tools for annotation providers."""
+
+
+@cli.command(name="validate")
 @click.argument(
     "annotations_folder",
     type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=Path),
@@ -264,7 +273,7 @@ def _print_attribute_details(scene_issues: dict[str, list[Issue]]) -> None:
 )
 @click.option("--use-json/--no-json", default=True, help="Create .json files containing the issues")
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
-def run_raillabel_providerkit(  # noqa: PLR0913
+def validate_command(  # noqa: PLR0913
     annotations_folder: Path,
     output_folder: Path,
     ontology: Path | None,
@@ -272,7 +281,19 @@ def run_raillabel_providerkit(  # noqa: PLR0913
     use_json: bool,
     quiet: bool,
 ) -> None:
-    """Check a raillabel scene's annotations for errors."""
+    """Check raillabel scenes' annotations for errors."""
+    _run_validation(annotations_folder, output_folder, ontology, use_csv, use_json, quiet)
+
+
+def _run_validation(  # noqa: PLR0913
+    annotations_folder: Path,
+    output_folder: Path,
+    ontology: Path | None,
+    use_csv: bool,
+    use_json: bool,
+    quiet: bool,
+) -> None:
+    """Validate all scenes in a folder and output validation results."""
     # Stop early if there is nothing to output
     if not use_csv and not use_json:
         return
@@ -318,5 +339,124 @@ def run_raillabel_providerkit(  # noqa: PLR0913
     _print_summary(scene_issues, len(scene_files), elapsed_time, quiet)
 
 
+@cli.command(name="export")
+@click.argument(
+    "input_folder",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=Path),
+)
+@click.argument(
+    "output_folder",
+    type=click.Path(exists=False, file_okay=False, dir_okay=True, path_type=Path),
+)
+@click.option(
+    "--format",
+    "formats",
+    type=click.Choice(["json", "csv"], case_sensitive=False),
+    multiple=True,
+    default=["json"],
+    help="Export format(s). Can be specified multiple times for multiple formats.",
+)
+@click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
+def export_command(
+    input_folder: Path,
+    output_folder: Path,
+    formats: tuple[str, ...],
+    quiet: bool,
+) -> None:
+    """Export multiple scenes to different formats (JSON, CSV)."""
+    if not formats:
+        formats = ("json",)
+
+    # Convert tuple to list and cast to ExportFormat list
+    from typing import cast
+
+    from raillabel_providerkit.export.export_scenes import ExportFormat
+
+    format_list = cast(list[ExportFormat], list(formats))
+
+    # Start timing
+    start_time = time.time()
+
+    if not quiet:
+        click.echo(f"Exporting scenes from: {input_folder}")
+        click.echo(f"Output folder: {output_folder}")
+        click.echo(f"Format(s): {', '.join(format_list)}")
+        click.echo()
+
+    # Export scenes
+    stats = export_scenes(input_folder, output_folder, format_list, quiet)
+
+    # Calculate elapsed time
+    elapsed_time = time.time() - start_time
+
+    # Print summary
+    if not quiet:
+        click.echo()
+        click.echo("=" * 60)
+        click.echo("EXPORT SUMMARY")
+        click.echo("=" * 60)
+        click.echo(f"Total scenes found: {stats['total']}")
+        click.echo(f"Successfully exported: {stats['exported']}")
+        click.echo(f"Failed: {stats['errors']}")
+        click.echo(f"Time elapsed: {_format_duration(elapsed_time)}")
+
+        if stats["exported"] > 0:
+            click.echo()
+            click.secho("✓ Export complete!", fg="green", bold=True)
+        elif stats["errors"] > 0:
+            click.echo()
+            click.secho("✗ Some scenes failed to export", fg="red", bold=True)
+        elif stats["total"] == 0:
+            click.echo()
+            click.secho("⚠ No scenes found in input folder", fg="yellow", bold=True)
+
+        click.echo("=" * 60)
+
+
+# Maintain backward compatibility - run validate command if no subcommand specified
+@click.command()
+@click.argument(
+    "annotations_folder",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=Path),
+)
+@click.argument(
+    "output_folder",
+    type=click.Path(exists=False, file_okay=False, dir_okay=True, path_type=Path),
+)
+@click.option(
+    "--ontology",
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, path_type=Path),
+    default=None,
+    help=(
+        "The path to the ontology against which to validate attributes of all annotations,"
+        " by default none"
+    ),
+)
+@click.option(
+    "--use-csv/--no-csv",
+    default=False,
+    help="Create human-readable .csv files containing the issues",
+)
+@click.option("--use-json/--no-json", default=True, help="Create .json files containing the issues")
+@click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
+def run_raillabel_providerkit(  # noqa: PLR0913
+    annotations_folder: Path,
+    output_folder: Path,
+    ontology: Path | None,
+    use_csv: bool,
+    use_json: bool,
+    quiet: bool,
+) -> None:
+    """Check a raillabel scene's annotations for errors (legacy command)."""
+    _run_validation(annotations_folder, output_folder, ontology, use_csv, use_json, quiet)
+
+
 if __name__ == "__main__":
-    run_raillabel_providerkit()
+    import sys
+
+    # Check if we're being called with legacy interface or new CLI
+    if len(sys.argv) > 1 and sys.argv[1] in ["validate", "export"]:
+        cli()
+    else:
+        # Legacy mode - backward compatibility
+        run_raillabel_providerkit()

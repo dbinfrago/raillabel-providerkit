@@ -10,6 +10,7 @@ from importlib import metadata
 from . import format
 from .convert import loader_classes
 from .convert.convert import convert
+from .export.export_scenes import export_scenes
 from .ontologies import get_ontology_path, list_available_ontologies
 from .validation.validate import validate
 
@@ -23,6 +24,7 @@ __all__ = [
     "format",
     "loader_classes",
     "convert",
+    "export_scenes",
     "validate",
     "get_ontology_path",
     "list_available_ontologies",
