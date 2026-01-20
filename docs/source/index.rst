@@ -1,6 +1,6 @@
 ..
    Copyright DB InfraGO AG and contributors
-   SPDX-License-Identifier: Apache-2.0
+   SPDX-License-Identifier: MIT
 
 *****************************
 Welcome to the documentation!
@@ -35,7 +35,7 @@ If you want a quickstart at how to use this package, head right into the
    howto
 
 .. toctree::
-   :caption: Modules
+   :caption: API Reference
    :maxdepth: 4
 
-   code/modules
+   api

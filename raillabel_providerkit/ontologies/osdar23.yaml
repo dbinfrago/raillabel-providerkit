@@ -1,0 +1,684 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+person:
+    function:
+        attribute_type:
+            type: single-select
+            options: [
+                passenger,
+                worker,
+                securityStaff,
+                otherStaff,
+                uniformedPerson,
+                unknown,
+                other
+            ]
+        scope: frame
+    isDummy:
+        attribute_type: boolean
+        scope: object
+    age:
+        attribute_type:
+            type: single-select
+            options: [adult, child]
+        scope: object
+    aid:
+        attribute_type:
+            type: single-select
+            options: [
+                none,
+                whiteCane,
+                walkingAid,
+                other
+            ]
+        scope: frame
+    isDistracted:
+        attribute_type: boolean
+        scope: frame
+    carrying:
+        attribute_type:
+            type: multi-select
+            options: [
+                none,
+                suitcase,
+                backpack,
+                umbrella,
+                baby,
+                other
+            ]
+        optional: true
+        scope: frame
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    pose:
+        attribute_type:
+            type: single-select
+            options: [
+                upright,
+                sitting,
+                lying,
+                other
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+crowd:
+    size:
+        attribute_type:
+            type: single-select
+            options: [
+                <25,
+                25-50,
+                50-75,
+                ">75"
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+train:
+    type:
+        attribute_type:
+            type: single-select
+            options: [
+                locomotive,
+                intercity,
+                regional,
+                commuter,
+                construction,
+                other
+            ]
+        scope: object
+    isTruncatedFront:
+        attribute_type: boolean
+        scope: annotation
+    isTruncatedBack:
+        attribute_type: boolean
+        scope: annotation
+    isFront:
+        attribute_type: boolean
+        scope: object
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+wagons:
+    type:
+        attribute_type:
+            type: single-select
+            options: [
+                intercity,
+                regional,
+                freight,
+                construction,
+                other
+            ]
+        scope: object
+    isTruncatedFront:
+        attribute_type: boolean
+        scope: annotation
+    isTruncatedBack:
+        attribute_type: boolean
+        scope: annotation
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+bicycle:
+    state:
+        attribute_type:
+            type: single-select
+            options: [
+                pushed,
+                ridden,
+                carried,
+                steady
+            ]
+        scope: frame
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+group_of_bicycles:
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+motorcycle:
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+road_vehicle:
+    type:
+        attribute_type:
+            type: single-select
+            options: [
+                car,
+                van,
+                truck,
+                bus,
+                constructionVehicle,
+                trailer,
+                other
+            ]
+        scope: object
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+animal:
+    size:
+        attribute_type:
+            type: single-select
+            options: [
+                small,
+                medium,
+                large
+            ]
+        scope: object
+    species:
+        attribute_type:
+            type: single-select
+            options: [
+                dog,
+                deer,
+                fox,
+                rabbit,
+                wildBoar,
+                cow,
+                otherAnimal
+            ]
+        scope: object
+    pose:
+        attribute_type:
+            type: single-select
+            options: [
+                upright,
+                sitting,
+                lying,
+                other
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+group_of_animals:
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+wheelchair:
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+drag_shoe:
+    onTrack:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2",
+                other,
+                none
+            ]
+        scope: frame
+    railSide:
+        attribute_type:
+            type: single-select
+            options: [
+                leftRail,
+                rightRail,
+                none
+            ]
+        scope: object
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+track:
+    trackID:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2"
+            ]
+        scope: frame
+    railSide:
+        attribute_type:
+            type: single-select
+            options: [
+                leftRail,
+                rightRail
+            ]
+        scope: object
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+transition:
+    railSide:
+        attribute_type:
+            type: single-select
+            options: [
+                leftRail,
+                rightRail
+            ]
+        scope: object
+    startTrack:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2"
+            ]
+        scope: frame
+    endTrack:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2"
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+switch:
+    onTrack:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2"
+            ]
+        scope: frame
+    state:
+        attribute_type:
+            type: single-select
+            options: [
+                left,
+                center,
+                right,
+                unknown
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+catenary_pole:
+    type:
+        attribute_type:
+            type: single-select
+            options: [solid, structured]
+        scope: object
+    isTruncatedTop:
+        attribute_type: boolean
+        scope: annotation
+    isTruncatedBottom:
+        attribute_type: boolean
+        scope: annotation
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+signal_pole:
+    type:
+        attribute_type:
+            type: single-select
+            options: [solid, structured]
+        scope: object
+    isTruncatedTop:
+        attribute_type: boolean
+        scope: annotation
+    isTruncatedBottom:
+        attribute_type: boolean
+        scope: annotation
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+signal:
+    type:
+        attribute_type:
+            type: single-select
+            options: [light, shape]
+        scope: object
+    signalFace:
+        attribute_type:
+            type: single-select
+            options: [
+                front,
+                back,
+                unknown
+            ]
+        scope: frame
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+signal_bridge:
+    type:
+        attribute_type:
+            type: single-select
+            options: [solid, structured]
+        scope: object
+    isTruncatedLeft:
+        attribute_type: boolean
+        scope: annotation
+    isTruncatedRight:
+        attribute_type: boolean
+        scope: annotation
+    connectedTo:
+        attribute_type: multi-reference
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+buffer_stop:
+    onTrack:
+        attribute_type:
+            type: single-select
+            options: [
+                "-2",
+                "-1",
+                "0",
+                "+1",
+                "1",
+                "+2",
+                "2",
+                other,
+                none
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+flame:
+    size:
+        attribute_type:
+            type: single-select
+            options: [big, small]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation
+
+smoke:
+    size:
+        attribute_type:
+            type: single-select
+            options: [big, small]
+        scope: frame
+    color:
+        attribute_type:
+            type: single-select
+            options: [
+                white,
+                gray,
+                black,
+                other
+            ]
+        scope: frame
+    occlusion:
+        attribute_type:
+            type: single-select
+            options: [
+                0-25 %,
+                25-50 %,
+                50-75 %,
+                75-99 %,
+                100 %,
+                undefined
+            ]
+        scope: annotation

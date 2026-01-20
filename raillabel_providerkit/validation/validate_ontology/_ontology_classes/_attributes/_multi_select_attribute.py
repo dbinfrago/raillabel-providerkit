@@ -1,6 +1,9 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -46,6 +49,11 @@ class _MultiSelectAttribute(_Attribute):
         attribute_values: bool | float | str | list,
         identifiers: IssueIdentifiers,
     ) -> list[Issue]:
+        # Accept single strings as a list with one element (for backwards compatibility
+        # with annotation tools that output single-select format for multi-select attributes)
+        if isinstance(attribute_values, str):
+            attribute_values = [attribute_values]
+
         type_issues = super().check_type_and_value(attribute_name, attribute_values, identifiers)
         if len(type_issues) > 0:
             return type_issues
@@ -64,6 +72,29 @@ class _MultiSelectAttribute(_Attribute):
                 ]
 
         return []
+
+    def check_scope_for_two_annotations(
+        self,
+        attribute_name: str,
+        attribute_value_1: bool | float | str | list,
+        attribute_value_2: bool | float | str | list,
+        annotation_1_identifiers: IssueIdentifiers,
+        annotation_2_identifiers: IssueIdentifiers,
+    ) -> list[Issue]:
+        # Accept single strings as a list with one element (for backwards compatibility
+        # with annotation tools that output single-select format for multi-select attributes)
+        if isinstance(attribute_value_1, str):
+            attribute_value_1 = [attribute_value_1]
+        if isinstance(attribute_value_2, str):
+            attribute_value_2 = [attribute_value_2]
+
+        return super().check_scope_for_two_annotations(
+            attribute_name,
+            attribute_value_1,
+            attribute_value_2,
+            annotation_1_identifiers,
+            annotation_2_identifiers,
+        )
 
     def _stringify_options(self) -> str:
         options_str = ""

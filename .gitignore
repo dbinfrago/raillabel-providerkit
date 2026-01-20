@@ -75,6 +75,7 @@ instance/
 docs/_build/
 docs/source/code/
 docs/source/_build
+docs/build/
 
 # PyBuilder
 .pybuilder/
@@ -166,3 +167,5 @@ cython_debug/
 # Project related
 playground/
 scripts/
+.github/instructions.md
+.instructions*

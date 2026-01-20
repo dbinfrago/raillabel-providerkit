@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 from decimal import Decimal
 from pathlib import Path
@@ -40,11 +40,13 @@ def test_validate_schema_included():
 
 
 def test_validate_empty_frames_included():
-    scene = SceneBuilder.empty().add_frame().result
+    # Create a scene with a middle camera sensor and an empty frame
+    # The validate_empty_frames now only checks middle cameras and lidar
+    scene = SceneBuilder.empty().add_sensor("rgb_center").add_frame(1).result
     scene_dict = scene_to_dict(scene)
 
-    assert len(validate(scene_dict, validate_for_empty_frames=False)) == 0
-    assert len(validate(scene_dict, validate_for_empty_frames=True)) == 1
+    assert len(validate(scene_dict, validate_for_empty_frames=False, validate_for_missing_ego_track=False)) == 0
+    assert len(validate(scene_dict, validate_for_empty_frames=True, validate_for_missing_ego_track=False)) == 1
 
 
 def test_validate_rail_side_included():
@@ -111,8 +113,8 @@ def test_validate_uris_included():
     scene.frames[1].sensors["lidar"] = SensorReference(timestamp=Decimal(0), uri="/INVALID/0.pcd")
     scene_dict = scene_to_dict(scene)
 
-    assert len(validate(scene_dict, validate_for_uris=False)) == 0
-    assert len(validate(scene_dict, validate_for_uris=True)) == 1
+    assert len(validate(scene_dict, validate_for_uris=False, validate_for_missing_ego_track=False, validate_for_empty_frames=False)) == 0
+    assert len(validate(scene_dict, validate_for_uris=True, validate_for_missing_ego_track=False, validate_for_empty_frames=False)) == 1
 
 
 def test_validate_dimensions_included():
@@ -123,8 +125,8 @@ def test_validate_dimensions_included():
     )
     scene_dict = scene_to_dict(scene)
 
-    assert len(validate(scene_dict, validate_for_dimensions=False)) == 0
-    assert len(validate(scene_dict, validate_for_dimensions=True)) == 1
+    assert len(validate(scene_dict, validate_for_dimensions=False, validate_for_missing_ego_track=False, validate_for_empty_frames=False)) == 0
+    assert len(validate(scene_dict, validate_for_dimensions=True, validate_for_missing_ego_track=False, validate_for_empty_frames=False)) == 1
 
 
 if __name__ == "__main__":

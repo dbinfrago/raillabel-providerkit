@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ def validate_rail_side(scene: raillabel.Scene) -> list[Issue]:
     for camera_uid in camera_uids:
         filtered_scene = scene.filter(
             [
-                IncludeObjectTypeFilter(["track"]),
+                IncludeObjectTypeFilter(["track", "transition"]),
                 IncludeSensorIdFilter([camera_uid]),
                 IncludeAnnotationTypeFilter(["poly2d"]),
             ]

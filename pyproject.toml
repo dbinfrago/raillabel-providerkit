@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 [build-system]
 requires = [
@@ -16,14 +16,14 @@ name = "raillabel-providerkit"
 description = "A devkit for working with recorded and annotated train ride data from Deutsche Bahn."
 readme = "README.md"
 requires-python = ">=3.10, <3.14"
-license = { text = "Apache-2.0" }
+license = { text = "MIT" }
 authors = [
   { name = "DB InfraGO AG" },
 ]
 keywords = []
 classifiers = [
   "Development Status :: 1 - Planning",
-  "License :: OSI Approved :: Apache Software License",
+  "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3 :: Only",
@@ -54,6 +54,10 @@ docs = [
   "sphinx",
   "sphinx-copybutton",
   "tomli; python_version<'3.14'",
+]
+
+gui = [
+  "PyQt6>=6.4.0",
 ]
 
 test = [

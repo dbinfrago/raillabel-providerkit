@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ from raillabel_providerkit.validation import Issue
 
 from . import (
     validate_dimensions,
+    validate_ego_track_both_rails,
     validate_empty_frames,
     validate_horizon,
     validate_missing_ego_track,
@@ -20,6 +21,7 @@ from . import (
     validate_rail_side,
     validate_schema,
     validate_sensors,
+    validate_transition,
     validate_uris,
 )
 from .validate_annotation_type_per_sensor.validate_annotation_type_per_sensor import (
@@ -33,11 +35,13 @@ def validate(  # noqa: C901, PLR0913
     validate_for_empty_frames: bool = True,
     validate_for_rail_side_order: bool = True,
     validate_for_missing_ego_track: bool = True,
+    validate_for_ego_track_both_rails: bool = True,
     validate_for_sensors: bool = True,
     validate_for_uris: bool = True,
     validate_for_dimensions: bool = True,
     validate_for_horizon: bool = True,
     validate_for_annotation_type_per_sensor: bool = True,
+    validate_for_transition: bool = True,
 ) -> list[Issue]:
     """Validate a scene based on the Deutsche Bahn Requirements.
 
@@ -47,12 +51,16 @@ def validate(  # noqa: C901, PLR0913
             file. If not None, issues are returned if the scene contains annotations with invalid
             attributes or object types. Default is None.
         validate_for_empty_frames (optional): If True, issues are returned if the scene contains
-            frames without annotations. Default is True.
+            sensor frames without annotations. Only checks middle/center cameras and lidar sensors.
+            Default is True.
         validate_for_rail_side_order: If True, issues are returned if the scene contains track with
             a mismatching rail side order. Default is True.
         validate_for_missing_ego_track: If True, issues are returned if the scene contains frames
-            where the ego track (the track the recording train is driving on) is missing. Default is
-            True.
+            where the ego track (the track the recording train is driving on) is missing. Checks
+            both middle/center cameras and lidar sensors. Default is True.
+        validate_for_ego_track_both_rails: If True, issues are returned if the ego track rails
+            don't have overlapping y-ranges or don't have exactly one left and one right rail.
+            Default is True.
         validate_for_sensors: If True, issues are returned if the scene contains sensors that are
             not supported or have the wrong sensor type.
         validate_for_uris: If True, issues are returned if the uri fields in the scene contain
@@ -61,6 +69,8 @@ def validate(  # noqa: C901, PLR0913
             outside the expected values range.
         validate_for_horizon: If True, issues are returned if annotations cross the horizon.
         validate_for_annotation_type_per_sensor: Validate that annotation types match sensor types.
+        validate_for_transition: If True, issues are returned if transition annotations have
+            identical startTrack and endTrack values. Default is True.
 
 
     Returns:
@@ -90,6 +100,9 @@ def validate(  # noqa: C901, PLR0913
     if validate_for_missing_ego_track:
         errors.extend(validate_missing_ego_track(scene))
 
+    if validate_for_ego_track_both_rails:
+        errors.extend(validate_ego_track_both_rails(scene))
+
     if validate_for_sensors:
         errors.extend(validate_sensors(scene))
 
@@ -104,5 +117,8 @@ def validate(  # noqa: C901, PLR0913
 
     if validate_for_annotation_type_per_sensor:
         errors.extend(validate_annotation_type_per_sensor(scene))
+
+    if validate_for_transition:
+        errors.extend(validate_transition(scene))
 
     return errors

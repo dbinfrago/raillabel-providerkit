@@ -1,0 +1,693 @@
+# SPDX-FileCopyrightText: Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: CC0-1.0
+
+# AutomatedTrain Ontology
+# Schema Version: AutomatedTrain v1 (ProviderKit compatible)
+# Last Updated: January 12, 2026
+# Status: Production Ready
+#
+# This ontology defines classes and attributes for automated train perception
+# and safety-critical railway environment annotation.
+
+person:
+  function:
+    attribute_type:
+      type: single-select
+      options:
+        - passenger
+        - worker
+        - securityStaff
+        - otherStaff
+        - uniformedPerson
+        - unknown
+        - other
+    scope: frame
+  isDummy:
+    attribute_type: boolean
+    scope: object
+  age:
+    attribute_type:
+      type: single-select
+      options:
+        - adult
+        - child
+        - baby
+        - unknown
+    scope: object
+  aid:
+    attribute_type:
+      type: single-select
+      options:
+        - none
+        - whiteCane
+        - walkingAid
+        - wheelchair
+        - other
+        - unknown
+    scope: frame
+  isDistracted:
+    attribute_type: boolean
+    scope: frame
+  carrying:
+    attribute_type:
+      type: multi-select
+      options:
+        - none
+        - suitcase
+        - backpack
+        - umbrella
+        - baby
+        - other
+    optional: true
+    scope: frame
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  pose:
+    attribute_type:
+      type: single-select
+      options:
+        - upright
+        - sitting
+        - lying
+        - other
+        - unknown
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+crowd:
+  size:
+    attribute_type:
+      type: single-select
+      options:
+        - "<25"
+        - 25-50
+        - 50-75
+        - ">75"
+        - unknown
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+train:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - locomotive
+        - intercity
+        - regional
+        - commuter
+        - construction
+        - freight
+        - other
+        - unknown
+    scope: object
+  isTruncatedFront:
+    attribute_type: boolean
+    scope: annotation
+  isTruncatedBack:
+    attribute_type: boolean
+    scope: annotation
+  isFront:
+    attribute_type: boolean
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+
+wagon:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - intercity
+        - regional
+        - freight
+        - construction
+        - other
+        - unknown
+    scope: object
+  order:
+    attribute_type:
+      type: single-select
+      options:
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        - "6"
+        - "7"
+        - "8"
+        - "9"
+        - "10"
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+track:
+  trackID:
+    attribute_type: integer
+    scope: object
+  railSide:
+    attribute_type:
+      type: single-select
+      options:
+        - leftRail
+        - rightRail
+    scope: annotation
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+
+transition:
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+
+switch:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - simpleSwitch
+        - curvedSwitch
+        - crossSwitch
+        - unknown
+    scope: object
+  state:
+    attribute_type:
+      type: single-select
+      options:
+        - straight
+        - diverging
+        - unknown
+    scope: frame
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+buffer_stop:
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+signal:
+  signalType:
+    attribute_type:
+      type: single-select
+      options:
+        - hauptsignal
+        - vorsignal
+        - sperrsignal
+        - rangiersignal
+        - zusatzsignal
+        - other
+        - unknown
+    scope: object
+  signalFace:
+    attribute_type:
+      type: single-select
+      options:
+        - front
+        - back
+        - other
+        - unknown
+    scope: frame
+  signalAspect:
+    attribute_type:
+      type: single-select
+      options:
+        - Hp_0_light
+        - Hp_0_shape
+        - Hp_1_light
+        - Hp_1_shape
+        - Hp_2_light
+        - Hp_2_shape
+        - Ks_1
+        - Ks_2
+        - Vr_0_light
+        - Vr_0_shape
+        - Vr_1_light
+        - Vr_1_shape
+        - Vr_2_light
+        - Vr_2_shape
+        - Zs_2
+        - Zs_2v
+        - Zs_3_light
+        - Zs_3_shape
+        - Zs_3v_light
+        - Zs_3v_shape
+        - Sh_0_light
+        - Sh_0_shape
+        - Sh_1_light
+        - Sh_1_shape
+        - Sh_2_shape
+        - other_light
+        - other_shape
+        - invalid
+        - unknown
+    scope: frame
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+signal_pole:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - solid
+        - structured
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+signal_bridge:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - solid
+        - structured
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+catenary_pole:
+  isBottomVisible:
+    attribute_type: boolean
+    scope: annotation
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - solid
+        - structured
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+road_vehicle:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - car
+        - truck
+        - bus
+        - van
+        - trailer
+        - emergencyVehicle
+        - constructionVehicle
+        - other
+        - unknown
+    scope: object
+  isEmergency:
+    attribute_type: boolean
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+bicycle:
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  isElectrical:
+    attribute_type: boolean
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+motorcycle:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - motorcycle
+        - scooter
+        - other
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  isElectrical:
+    attribute_type: boolean
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+animal:
+  species:
+    attribute_type:
+      type: single-select
+      options:
+        - dog
+        - cat
+        - fox
+        - deer
+        - wildBoar
+        - bird
+        - other
+        - unknown
+    scope: object
+  size:
+    attribute_type:
+      type: single-select
+      options:
+        - small
+        - medium
+        - large
+        - unknown
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: frame
+  pose:
+    attribute_type:
+      type: single-select
+      options:
+        - upright
+        - sitting
+        - lying
+        - other
+        - unknown
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+obstacle:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - debris
+        - rock
+        - tree
+        - branch
+        - construction
+        - barrier
+        - other
+        - unknown
+    scope: object
+  isOnTrack:
+    attribute_type: boolean
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+platform:
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        - standard
+        - low
+        - high
+        - other
+        - unknown
+    scope: object
+  side:
+    attribute_type:
+      type: single-select
+      options:
+        - left
+        - right
+        - both
+        - unknown
+    scope: frame
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+level_crossing:
+  state:
+    attribute_type:
+      type: single-select
+      options:
+        - open
+        - closing
+        - closed
+        - opening
+        - unknown
+    scope: frame
+  hasBarrier:
+    attribute_type: boolean
+    scope: object
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+
+speed_sign:
+  value:
+    attribute_type: integer
+    scope: object
+  isTemporary:
+    attribute_type: boolean
+    scope: object
+  occlusion:
+    attribute_type:
+      type: single-select
+      options:
+        - 0-25 %
+        - 25-50 %
+        - 50-75 %
+        - 75-99 %
+        - 100 %
+    scope: annotation
+  isTruncated:
+    attribute_type: boolean
+    scope: annotation
+

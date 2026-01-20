@@ -1,5 +1,5 @@
 # Copyright DB InfraGO AG and contributors
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 from dataclasses import dataclass
 from enum import Enum
@@ -19,6 +19,7 @@ class IssueType(Enum):
     ATTRIBUTE_UNDEFINED = "AttributeUndefined"
     ATTRIBUTE_VALUE = "AttributeValueIssue"
     DIMENSION_INVALID = "DimensionInvalidIssue"
+    EGO_TRACK_BOTH_RAILS = "EgoTrackBothRails"
     EMPTY_FRAMES = "EmptyFramesIssue"
     HORIZON_CROSSED = "HorizonCrossedIssue"
     MISSING_EGO_TRACK = "MissingEgoTrackIssue"
@@ -26,6 +27,7 @@ class IssueType(Enum):
     RAIL_SIDE = "RailSide"
     SENSOR_ID_UNKNOWN = "SensorIdUnknown"
     SENSOR_TYPE_WRONG = "SensorTypeWrong"
+    TRANSITION_IDENTICAL_START_END = "TransitionIdenticalStartAndEnd"
     UNEXPECTED_CLASS = "UnexpectedClassIssue"
     URI_FORMAT = "UriFormatIssue"
     ANNOTATION_SENSOR_MISMATCH = "AnnotationSensorMismatch"

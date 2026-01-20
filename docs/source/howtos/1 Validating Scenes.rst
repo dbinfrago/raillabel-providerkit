@@ -2,6 +2,10 @@
    Copyright DB InfraGO AG and contributors
    SPDX-License-Identifier: Apache-2.0
 
+..
+   Copyright DB InfraGO AG and contributors
+   SPDX-License-Identifier: MIT
+
 ===================
 1 Validating Scenes
 ===================
@@ -38,3 +42,48 @@ Under certain circumstances you might want to switch off certain validations. Th
     issues_in_scene = validate(scene_path, validate_for_dimensions=False)
 
 If you have not been provided with an ontology file, just leave the field empty. The scene is then not checked against ontology issues.
+
+Supported Ontologies
+####################
+
+Pre-built ontology parameter files are provided in the ``config/parameters/`` directory:
+
+**OSDAR23** (``config/parameters/osdar23.yaml``)
+    Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes.
+
+**OSDAR26** (``config/parameters/osdar26.yaml``)
+    Extended railway environment ontology featuring:
+
+    - **25 object classes** for comprehensive railway environment annotation
+    - Comprehensive signal aspects (Hp_0/1/2, Ks_1/2, Vr_0/1/2, Zs_2/2v/3/3v, Sh_0/1/2 in light and shape variants)
+    - Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%
+    - Additional object classes: personal_item (suitcase, backpack, handbag, bag, etc.), pram (stroller, buggy, babySeat), scooter (eScooter, scooter, hoverboard)
+    - Enhanced animal species coverage (dog, cat, racoon, badger, swan, sheep, cow, horse, pig, fox, wolf, wildBoar, deer, stork, rabbit, bird)
+    - Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)
+    - Hazard detection (flame, smoke)
+
+**AutomatedTrain** (``config/parameters/automatedtrain.yaml``)
+    Specialized ontology for automated train perception and safety-critical railway environment annotation:
+
+    - **Safety-critical classes**: obstacle, platform, level_crossing, speed_sign
+    - Switch state tracking (straight, diverging)
+    - Emergency vehicle detection
+    - Level crossing state monitoring (open, closing, closed, opening)
+    - Boolean safety indicators for critical situations
+
+Usage Examples
+##############
+
+.. code-block:: python
+
+    from pathlib import Path
+    from raillabel_providerkit import validate
+
+    # Using OSDAR26 ontology
+    scene_path = Path("path/to/scene.json")
+    ontology_path = Path("config/parameters/osdar26.yaml")
+    issues = validate(scene_path, ontology_path)
+
+    # Using AutomatedTrain ontology
+    ontology_path = Path("config/parameters/automatedtrain.yaml")
+    issues = validate(scene_path, ontology_path)
