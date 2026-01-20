@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### OSDAR26 Sensor Support
+- **Full OSDAR26 sensor coverage**: All OSDAR26 sensors now recognized and validated
+  - 12MP RGB cameras: `rgb_12mp_left`, `rgb_12mp_middle`, `rgb_12mp_right`
+  - 5MP RGB cameras: `rgb_5mp_left`, `rgb_5mp_middle`, `rgb_5mp_right`
+  - Infrared cameras: `ir_left`, `ir_middle`, `ir_right`
+  - Merged lidar: `lidar_merged`
+  - Cartesian radar: `radar_cartesian`
+
 #### Ontology Management
 - **Built-in Ontology Files**: Three pre-configured ontology files now bundled with the package
   - `osdar26`: Extended railway environment ontology with 25 object classes
