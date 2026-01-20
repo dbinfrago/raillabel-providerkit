@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """Built-in ontology definitions for raillabel-providerkit.
@@ -8,7 +11,7 @@ for scene validation. Instead of managing ontology files separately, you can use
 
     from raillabel_providerkit.ontologies import get_ontology_path
 
-    path = get_ontology_path("opendataset_v2")
+    path = get_ontology_path("osdar26")
     issues = validate(scene_path, ontology=path)
 """
 
@@ -22,7 +25,7 @@ def get_ontology_path(ontology_name: str) -> Path:
     ----------
     ontology_name : str
         Name of the ontology to load. Supported values:
-        - "opendataset_v2": Extended railway environment ontology (25 classes)
+        - "osdar26": Extended railway environment ontology (25 classes)
         - "automatedtrain": Safety-critical classes for automated train operation
         - "osdar23": Original OSDAR23 dataset ontology
 
@@ -37,22 +40,24 @@ def get_ontology_path(ontology_name: str) -> Path:
         If the ontology name is not recognized
     """
     valid_ontologies = {
-        "opendataset_v2": "opendataset_v2.yaml",
+        "osdar26": "osdar26.yaml",
         "automatedtrain": "automatedtrain.yaml",
         "osdar23": "osdar23.yaml",
     }
 
     if ontology_name not in valid_ontologies:
-        raise ValueError(
+        msg = (
             f"Unknown ontology '{ontology_name}'. "
             f"Supported ontologies: {', '.join(valid_ontologies.keys())}"
         )
+        raise ValueError(msg)
 
     ontology_file = valid_ontologies[ontology_name]
     ontology_path = Path(__file__).parent / ontology_file
 
     if not ontology_path.exists():
-        raise FileNotFoundError(f"Ontology file not found: {ontology_path}")
+        msg = f"Ontology file not found: {ontology_path}"
+        raise FileNotFoundError(msg)
 
     return ontology_path
 
@@ -65,7 +70,7 @@ def list_available_ontologies() -> list[str]:
     list[str]
         List of available ontology names
     """
-    return ["opendataset_v2", "automatedtrain", "osdar23"]
+    return ["osdar26", "automatedtrain", "osdar23"]
 
 
 __all__ = ["get_ontology_path", "list_available_ontologies"]

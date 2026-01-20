@@ -1,5 +1,9 @@
 ..
    Copyright DB InfraGO AG and contributors
+   SPDX-License-Identifier: Apache-2.0
+
+..
+   Copyright DB InfraGO AG and contributors
    SPDX-License-Identifier: MIT
 
 ===========================
@@ -69,7 +73,7 @@ Built-in Ontologies
 
 Select from three pre-configured ontologies via dropdown:
 
-- **OpenDataset v2**: Extended railway environment (25 classes)
+- **OSDAR26**: Extended railway environment (25 classes)
 - **AutomatedTrain**: Safety-critical automated train perception
 - **OSDAR23**: Original OSDAR23 dataset ontology
 
@@ -143,7 +147,7 @@ Step-by-Step Validation
 
 4. **Choose Ontology**
 
-   - For built-in ontologies: Select from dropdown (e.g., "OpenDataset v2")
+   - For built-in ontologies: Select from dropdown (e.g., "OSDAR26")
    - For custom ontologies: Click "Browse..." under "Custom Ontology" and select your YAML file
 
 5. **Start Validation**
@@ -159,11 +163,11 @@ Step-by-Step Validation
 Example Workflow
 ================
 
-**Validating OpenDataset v2 Scenes**:
+**Validating OSDAR26 Scenes**:
 
 1. Input folder: ``/path/to/scenes/``
 2. Output folder: ``/path/to/results/``
-3. Ontology: Select "OpenDataset v2" from dropdown
+3. Ontology: Select "OSDAR26" from dropdown
 4. Click "Start Validation"
 
 **Using Custom Ontology**:

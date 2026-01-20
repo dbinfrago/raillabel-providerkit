@@ -1,9 +1,16 @@
 <!--
  ~ Copyright DB InfraGO AG and contributors
+ ~ SPDX-License-Identifier: Apache-2.0
+ -->
+
+<!--
+ ~ Copyright DB InfraGO AG and contributors
  ~ SPDX-License-Identifier: MIT
  -->
 
 # RailLabel Providerkit
+
+**Version 1.0.0**
 
 <!-- prettier-ignore -->
 ![image](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
@@ -66,7 +73,7 @@ launch_gui()
 
 The GUI provides:
 - 📁 Easy folder selection for input scenes and output results
-- 🎯 Built-in ontology selection (OpenDataset v2, AutomatedTrain, OSDAR23)
+- 🎯 Built-in ontology selection (OSDAR26, AutomatedTrain, OSDAR23)
 - 📊 Real-time progress tracking
 - ✅ Visual validation results
 
@@ -97,8 +104,8 @@ python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/outp
 RailLabel Providerkit comes with pre-built ontology parameter files that can be used directly:
 
 ```zsh
-# Using OpenDataset v2 ontology
-python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/opendataset_v2.yaml
+# Using OSDAR26 ontology
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar26.yaml
 
 # Using AutomatedTrain ontology
 python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/automatedtrain.yaml
@@ -110,12 +117,12 @@ Or programmatically from Python:
 from raillabel_providerkit import validate, get_ontology_path
 
 # Using a built-in ontology
-ontology_path = get_ontology_path("opendataset_v2")
+ontology_path = get_ontology_path("osdar26")
 issues = validate("path/to/scene.json", ontology=ontology_path)
 
 # List available ontologies
 from raillabel_providerkit import list_available_ontologies
-print(list_available_ontologies())  # ['osdar23', 'opendataset_v2', 'automatedtrain']
+print(list_available_ontologies())  # ['osdar23', 'osdar26', 'automatedtrain']
 ```
 
 You can also provide a custom ontology file:
@@ -131,10 +138,10 @@ Pre-built ontology parameter files are provided and accessible via the API:
 | Ontology | Name | Dataset | Description |
 |----------|------|---------|-------------|
 | `osdar23` | OSDAR23 | OSDAR23 | Original railway environment annotation ontology. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes. |
-| `opendataset_v2` | OpenDataset v2 | Open Dataset v2 | Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional classes. |
+| `osdar26` | OSDAR26 | OSDAR26 | Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional classes. |
 | `automatedtrain` | AutomatedTrain | AutomatedTrain | Specialized ontology for automated train perception and safety-critical annotation. Includes obstacle detection, platform recognition, level crossings, speed signs. |
 
-### OpenDataset v2 Classes (25 total)
+### OSDAR26 Classes (25 total)
 - **Persons**: `person`, `crowd`
 - **Personal Mobility**: `personal_item`, `pram`, `scooter`, `wheelchair`
 - **Vehicles**: `bicycle`, `group_of_bicycles`, `motorcycle`, `road_vehicle`

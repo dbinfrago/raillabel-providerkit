@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 import pytest
@@ -87,6 +90,20 @@ def test_check_type_and_value__wrong_value(example_multi_select_attribute_dict):
 def test_check_type_and_value__correct(example_multi_select_attribute_dict):
     attr = _MultiSelectAttribute.fromdict(example_multi_select_attribute_dict)
     assert attr.check_type_and_value("example_name", ["foo"], IssueIdentifiers()) == []
+
+
+def test_check_type_and_value__correct_single_string(example_multi_select_attribute_dict):
+    """Test that single strings are accepted as a list with one element."""
+    attr = _MultiSelectAttribute.fromdict(example_multi_select_attribute_dict)
+    assert attr.check_type_and_value("example_name", "foo", IssueIdentifiers()) == []
+
+
+def test_check_type_and_value__wrong_value_single_string(example_multi_select_attribute_dict):
+    """Test that invalid single strings are rejected."""
+    attr = _MultiSelectAttribute.fromdict(example_multi_select_attribute_dict)
+    errors = attr.check_type_and_value("example_name", "invalid_value", IssueIdentifiers())
+    assert len(errors) == 1
+    assert errors[0].type == IssueType.ATTRIBUTE_VALUE
 
 
 def test_check_scope_for_two_annotations__ignore_unmatched_types(

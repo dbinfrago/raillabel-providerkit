@@ -1,3 +1,8 @@
+<!--
+ ~ Copyright DB InfraGO AG and contributors
+ ~ SPDX-License-Identifier: Apache-2.0
+ -->
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -11,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Ontology Management
 - **Built-in Ontology Files**: Three pre-configured ontology files now bundled with the package
-  - `opendataset_v2`: Extended railway environment ontology with 25 object classes
+  - `osdar26`: Extended railway environment ontology with 25 object classes
   - `automatedtrain`: Safety-critical classes for automated train perception
   - `osdar23`: Original OSDAR23 dataset ontology
 - **New API Functions**:
@@ -22,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### GUI Application (NEW)
 - **PyQt6-based GUI** for users who prefer graphical interfaces over CLI
   - Easy folder selection for input scenes and output results
-  - Built-in ontology dropdown (OpenDataset v2, AutomatedTrain, OSDAR23)
+  - Built-in ontology dropdown (OSDAR26, AutomatedTrain, OSDAR23)
   - Custom ontology file browser support
   - Real-time progress tracking with visual progress bar
   - Multi-threaded validation (non-blocking UI)
@@ -31,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Launch**: `python -m raillabel_providerkit.gui`
 - **Platform Support**: macOS, Windows, and Linux
 
-#### OpenDataset v2 Ontology
+#### OSDAR26 Ontology
 - **25 Object Classes** for comprehensive railway environment annotation:
   - Persons: `person`, `crowd`
   - Personal Mobility: `personal_item`, `pram`, `scooter`, `wheelchair`
@@ -92,7 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Distribution**: `MANIFEST.in` ensures ontology YAML files are included
 
 #### Documentation
-- **README.md**: 
+- **README.md**:
   - Added GUI usage instructions
   - Enhanced ontology documentation with comparison table
   - Programmatic API examples
@@ -152,7 +157,7 @@ from raillabel_providerkit import validate, get_ontology_path
 issues = validate("scene.json", ontology="path/to/ontology.yaml")
 
 # New way (recommended)
-ontology_path = get_ontology_path("opendataset_v2")
+ontology_path = get_ontology_path("osdar26")
 issues = validate("scene.json", ontology=ontology_path)
 ```
 
@@ -175,7 +180,7 @@ launch_gui()
 from raillabel_providerkit import list_available_ontologies
 
 print(list_available_ontologies())
-# ['opendataset_v2', 'automatedtrain', 'osdar23']
+# ['osdar26', 'automatedtrain', 'osdar23']
 ```
 
 ## Contributors

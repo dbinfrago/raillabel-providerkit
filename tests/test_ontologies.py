@@ -1,4 +1,7 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 """Tests for the ontologies manager module."""
@@ -21,7 +24,7 @@ class TestListAvailableOntologies:
     def test_returns_expected_ontologies(self):
         """Test that all expected ontologies are present."""
         result = list_available_ontologies()
-        assert "opendataset_v2" in result
+        assert "osdar26" in result
         assert "automatedtrain" in result
         assert "osdar23" in result
 
@@ -34,11 +37,11 @@ class TestListAvailableOntologies:
 class TestGetOntologyPath:
     """Tests for get_ontology_path function."""
 
-    def test_opendataset_v2_path(self):
-        """Test that OpenDataset v2 ontology path is correct."""
-        path = get_ontology_path("opendataset_v2")
+    def test_osdar26_path(self):
+        """Test that OSDAR26 ontology path is correct."""
+        path = get_ontology_path("osdar26")
         assert isinstance(path, Path)
-        assert path.name == "opendataset_v2.yaml"
+        assert path.name == "osdar26.yaml"
         assert path.exists()
 
     def test_automatedtrain_path(self):
@@ -64,7 +67,7 @@ class TestGetOntologyPath:
 
     def test_path_contains_ontologies_directory(self):
         """Test that returned path is in the ontologies directory."""
-        path = get_ontology_path("opendataset_v2")
+        path = get_ontology_path("osdar26")
         assert "ontologies" in str(path)
 
     def test_all_ontologies_accessible(self):
@@ -78,21 +81,21 @@ class TestGetOntologyPath:
 class TestOntologyContent:
     """Tests for ontology file content and validity."""
 
-    def test_opendataset_v2_valid_yaml(self):
-        """Test that OpenDataset v2 ontology is valid YAML."""
+    def test_osdar26_valid_yaml(self):
+        """Test that OSDAR26 ontology is valid YAML."""
         import yaml
 
-        path = get_ontology_path("opendataset_v2")
+        path = get_ontology_path("osdar26")
         with path.open() as f:
             data = yaml.safe_load(f)
         assert isinstance(data, dict)
         assert len(data) > 0
 
-    def test_opendataset_v2_has_expected_classes(self):
-        """Test that OpenDataset v2 has expected classes."""
+    def test_osdar26_has_expected_classes(self):
+        """Test that OSDAR26 has expected classes."""
         import yaml
 
-        path = get_ontology_path("opendataset_v2")
+        path = get_ontology_path("osdar26")
         with path.open() as f:
             data = yaml.safe_load(f)
 

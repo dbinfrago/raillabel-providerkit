@@ -1,5 +1,9 @@
 ..
    Copyright DB InfraGO AG and contributors
+   SPDX-License-Identifier: Apache-2.0
+
+..
+   Copyright DB InfraGO AG and contributors
    SPDX-License-Identifier: MIT
 
 ====================
@@ -30,17 +34,17 @@ The ``raillabel_providerkit`` provides built-in ontology files that can be used 
 Available Ontologies
 --------------------
 
-**OpenDataset v2** (``opendataset_v2``)
-    Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects 
-    (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), 
+**OSDAR26** (``osdar26``)
+    Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects
+    (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%),
     and classes for personal_item, pram, scooter, flame, smoke.
 
 **AutomatedTrain** (``automatedtrain``)
-    Specialized ontology for automated train perception and safety-critical annotation. 
+    Specialized ontology for automated train perception and safety-critical annotation.
     Includes obstacle detection, platform recognition, level crossings, and speed signs.
 
 **OSDAR23** (``osdar23``)
-    Original railway environment annotation ontology for the OSDAR23 dataset. 
+    Original railway environment annotation ontology for the OSDAR23 dataset.
     Standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%).
 
 Usage Examples
@@ -52,10 +56,10 @@ Usage Examples
 
    # List available ontologies
    ontologies = list_available_ontologies()
-   print(ontologies)  # ['opendataset_v2', 'automatedtrain', 'osdar23']
+   print(ontologies)  # ['osdar26', 'automatedtrain', 'osdar23']
 
    # Get ontology path and validate
-   ontology_path = get_ontology_path("opendataset_v2")
+   ontology_path = get_ontology_path("osdar26")
    issues = validate("scene.json", ontology=ontology_path)
 
    # Validate with AutomatedTrain ontology

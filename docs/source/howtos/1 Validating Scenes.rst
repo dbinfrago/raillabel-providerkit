@@ -1,5 +1,9 @@
 ..
    Copyright DB InfraGO AG and contributors
+   SPDX-License-Identifier: Apache-2.0
+
+..
+   Copyright DB InfraGO AG and contributors
    SPDX-License-Identifier: MIT
 
 ===================
@@ -47,9 +51,9 @@ Pre-built ontology parameter files are provided in the ``config/parameters/`` di
 **OSDAR23** (``config/parameters/osdar23.yaml``)
     Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes.
 
-**OpenDataset v2** (``config/parameters/opendataset_v2.yaml``)
+**OSDAR26** (``config/parameters/osdar26.yaml``)
     Extended railway environment ontology featuring:
-    
+
     - **25 object classes** for comprehensive railway environment annotation
     - Comprehensive signal aspects (Hp_0/1/2, Ks_1/2, Vr_0/1/2, Zs_2/2v/3/3v, Sh_0/1/2 in light and shape variants)
     - Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%
@@ -60,7 +64,7 @@ Pre-built ontology parameter files are provided in the ``config/parameters/`` di
 
 **AutomatedTrain** (``config/parameters/automatedtrain.yaml``)
     Specialized ontology for automated train perception and safety-critical railway environment annotation:
-    
+
     - **Safety-critical classes**: obstacle, platform, level_crossing, speed_sign
     - Switch state tracking (straight, diverging)
     - Emergency vehicle detection
@@ -75,9 +79,9 @@ Usage Examples
     from pathlib import Path
     from raillabel_providerkit import validate
 
-    # Using OpenDataset v2 ontology
+    # Using OSDAR26 ontology
     scene_path = Path("path/to/scene.json")
-    ontology_path = Path("config/parameters/opendataset_v2.yaml")
+    ontology_path = Path("config/parameters/osdar26.yaml")
     issues = validate(scene_path, ontology_path)
 
     # Using AutomatedTrain ontology

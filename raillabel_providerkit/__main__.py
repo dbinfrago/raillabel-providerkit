@@ -1,8 +1,12 @@
 # Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
 import csv
 import json
+from collections import Counter
 from pathlib import Path
 
 import click
@@ -104,6 +108,94 @@ def store_issues_to_csv(issues: list[Issue], filepath: Path) -> None:
     file.close()
 
 
+def _print_summary(scene_issues: dict[str, list[Issue]], total_scenes: int, quiet: bool) -> None:
+    """Print a summary of all validation issues to the terminal.
+
+    Parameters
+    ----------
+    scene_issues : dict[str, list[Issue]]
+        Dictionary mapping scene names to their list of issues
+    total_scenes : int
+        Total number of scenes validated
+    quiet : bool
+        If True, skip printing the summary
+    """
+    if quiet:
+        return
+
+    total_issues = sum(len(issues) for issues in scene_issues.values())
+    scenes_with_issues = sum(1 for issues in scene_issues.values() if issues)
+
+    click.echo()
+    click.echo("=" * 60)
+    click.echo("VALIDATION SUMMARY")
+    click.echo("=" * 60)
+    click.echo(f"Scenes validated: {total_scenes}")
+    click.echo(f"Scenes with issues: {scenes_with_issues}")
+    click.echo(f"Total issues found: {total_issues}")
+
+    if total_issues == 0:
+        click.echo()
+        click.secho("✓ No issues found!", fg="green", bold=True)
+        return
+
+    click.echo()
+    click.echo("Issues by type:")
+    click.echo("-" * 40)
+
+    # Count issues by type across all scenes
+    issue_type_counter: Counter[str] = Counter()
+    for issues in scene_issues.values():
+        for issue in issues:
+            issue_type_counter[issue.type.value] += 1
+
+    # Sort by count (descending) and print
+    for issue_type, count in issue_type_counter.most_common():
+        click.echo(f"  {count:>5}x {issue_type}")
+
+    # Print detailed breakdown for attribute-related issues
+    _print_attribute_details(scene_issues)
+
+    click.echo("=" * 60)
+
+
+def _print_attribute_details(scene_issues: dict[str, list[Issue]]) -> None:
+    """Print detailed breakdown for attribute-related issues.
+
+    Groups issues by type and attribute name for better overview.
+    """
+    # Issue types that have attribute details worth showing
+    attribute_issue_types = {
+        "AttributeMissing",
+        "AttributeValueIssue",
+        "AttributeTypeIssue",
+        "AttributeUndefined",
+        "AttributeScopeInconsistency",
+    }
+
+    # Collect attribute details: {issue_type: {attribute_name: count}}
+    attribute_details: dict[str, Counter[str]] = {}
+
+    for issues in scene_issues.values():
+        for issue in issues:
+            issue_type = issue.type.value
+            if issue_type in attribute_issue_types and issue.identifiers.attribute:
+                if issue_type not in attribute_details:
+                    attribute_details[issue_type] = Counter()
+                attribute_details[issue_type][issue.identifiers.attribute] += 1
+
+    # Print details if any found
+    if attribute_details:
+        click.echo()
+        click.echo("Attribute details:")
+        click.echo("-" * 40)
+
+        for issue_type in sorted(attribute_details.keys()):
+            click.echo(f"  {issue_type}:")
+            for attr_name, count in attribute_details[issue_type].most_common():
+                click.echo(f"      {count:>5}x {attr_name}")
+
+
 @click.command()
 @click.argument(
     "annotations_folder",
@@ -150,6 +242,9 @@ def run_raillabel_providerkit(  # noqa: PLR0913
         set(annotations_folder.glob("**/*.json")) - set(annotations_folder.glob(".*/**/*"))
     )
 
+    # Collect all issues for summary
+    scene_issues: dict[str, list[Issue]] = {}
+
     for scene_path in tqdm(scene_files, desc="Validating files", disable=quiet):
         issues = validate(
             scene_path,
@@ -157,10 +252,14 @@ def run_raillabel_providerkit(  # noqa: PLR0913
         )
 
         scene_name = scene_path.name
+        scene_issues[scene_name] = issues
+
         if use_json:
             store_issues_to_json(issues, output_folder / scene_name.replace(".json", ".issues.json"))
         if use_csv:
             store_issues_to_csv(issues, output_folder / scene_name.replace(".json", ".issues.csv"))
+
+    _print_summary(scene_issues, len(scene_files), quiet)
 
 
 if __name__ == "__main__":
