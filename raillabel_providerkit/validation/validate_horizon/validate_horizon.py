@@ -22,9 +22,9 @@ from raillabel_providerkit.validation import Issue, IssueIdentifiers, IssueType
 from ._horizon_calculator import _HorizonCalculator
 
 # Sensor naming patterns for automatic calibration detection
-# OSDAR23 uses: rgb_center, rgb_left, rgb_right, ir_center, ir_left, ir_right
-# OSDAR26 uses: rgb_12mp_left, rgb_5mp_middle, ir_middle, etc.
-_OSDAR26_SENSOR_PATTERN = re.compile(r"^(rgb|ir)_\d+mp_(left|middle|right)$|^ir_middle$")
+# OSDAR23 uses: rgb_center, rgb_left, rgb_right, ir_center
+# OSDAR26 uses: rgb_12mp_left, rgb_5mp_middle, ir_left, ir_middle, ir_right
+_OSDAR26_SENSOR_PATTERN = re.compile(r"^rgb_\d+mp_(left|middle|right)$|^ir_(left|middle|right)$")
 
 
 def _uses_osdar26_calibration(sensor_id: str) -> bool:
