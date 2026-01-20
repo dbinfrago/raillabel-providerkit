@@ -27,24 +27,31 @@ from ._horizon_calculator import _HorizonCalculator
 _OSDAR26_SENSOR_PATTERN = re.compile(r"^rgb_\d+mp_(left|middle|right)$|^ir_(left|middle|right)$")
 
 
-def _uses_osdar26_calibration(sensor_id: str) -> bool:
-    """Detect if the sensor uses OSDAR26 calibration conventions.
+def _scene_uses_osdar26_calibration(scene: raillabel.Scene) -> bool:
+    """Detect if the scene uses OSDAR26 calibration conventions.
 
     OSDAR26 sensors have different extrinsics rotation axis conventions
-    compared to OSDAR23. This function detects the calibration type based on
-    sensor naming patterns.
+    compared to OSDAR23. This function checks ALL sensors in the scene and
+    determines the calibration type based on naming patterns.
+
+    A scene is considered OSDAR26 if ANY of its sensors match the OSDAR26
+    naming pattern. This is more robust than checking individual sensors,
+    as a scene is either entirely OSDAR23 or entirely OSDAR26.
 
     Parameters
     ----------
-    sensor_id : str
-        The sensor identifier to check.
+    scene : raillabel.Scene
+        The scene to check.
 
     Returns
     -------
     bool
-        True if the sensor uses OSDAR26 calibration conventions.
+        True if the scene uses OSDAR26 calibration conventions.
     """
-    return bool(_OSDAR26_SENSOR_PATTERN.match(sensor_id))
+    for sensor_id in scene.sensors:
+        if _OSDAR26_SENSOR_PATTERN.match(sensor_id):
+            return True
+    return False
 
 
 def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
@@ -52,6 +59,7 @@ def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
 
     The horizon validation automatically detects the calibration format based on
     sensor naming conventions and applies the appropriate coordinate transformation.
+    The detection is done once per scene by checking all sensor names.
 
     Parameters
     ----------
@@ -65,6 +73,9 @@ def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
         are no errors present.
     """
     issues = []
+
+    # Detect calibration format once for the entire scene
+    uses_osdar26 = _scene_uses_osdar26_calibration(scene)
 
     filtered_scene = scene.filter(
         [
@@ -80,7 +91,6 @@ def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
                 raise AssertionError  # noqa: TRY004
 
             sensor_id = annotation.sensor_id
-            uses_osdar26 = _uses_osdar26_calibration(sensor_id)
 
             identifiers = IssueIdentifiers(
                 annotation=annotation_uid,
