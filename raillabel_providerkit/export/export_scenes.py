@@ -139,22 +139,20 @@ def _export_to_csv(scene: raillabel.Scene, output_folder: Path, filename_stem: s
     annotations_data = []
 
     for frame_id, frame in scene.frames.items():
-        for object_id, object_data in frame.annotations.items():
-            for annotation_id, annotation in object_data.items():
-                row = {
-                    "frame_id": frame_id,
-                    "object_id": object_id,
-                    "annotation_id": annotation_id,
-                    "annotation_type": annotation.__class__.__name__,
-                    "sensor_id": getattr(annotation, "sensor_id", ""),
-                }
+        for object_id, annotation in frame.annotations.items():
+            row = {
+                "frame_id": frame_id,
+                "object_id": object_id,
+                "annotation_type": annotation.__class__.__name__,
+                "sensor_id": getattr(annotation, "sensor_id", ""),
+            }
 
-                # Add type-specific data
-                if hasattr(annotation, "attributes"):
-                    for attr_name, attr_value in annotation.attributes.items():
-                        row[f"attr_{attr_name}"] = attr_value
+            # Add type-specific data
+            if hasattr(annotation, "attributes"):
+                for attr_name, attr_value in annotation.attributes.items():
+                    row[f"attr_{attr_name}"] = attr_value
 
-                annotations_data.append(row)
+            annotations_data.append(row)
 
     if annotations_data:
         output_path = output_folder / f"{filename_stem}_annotations.csv"
@@ -185,7 +183,7 @@ def _export_to_csv(scene: raillabel.Scene, output_folder: Path, filename_stem: s
     sensors_data = [
         {
             "sensor_id": sensor_id,
-            "type": sensor.type,
+            "sensor_type": sensor.TYPE,
             "uri": getattr(sensor, "uri", ""),
         }
         for sensor_id, sensor in scene.sensors.items()
@@ -208,7 +206,15 @@ def _write_csv(data: list[dict], output_path: Path) -> None:
     if not data:
         return
 
+    # Collect all unique fieldnames across all rows
+    fieldnames: set[str] = set()
+    for row in data:
+        fieldnames.update(row.keys())
+
+    # Sort fieldnames for consistent output
+    fieldnames_sorted = sorted(fieldnames)
+
     with output_path.open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=data[0].keys())
+        writer = csv.DictWriter(f, fieldnames=fieldnames_sorted, restval="")
         writer.writeheader()
         writer.writerows(data)
