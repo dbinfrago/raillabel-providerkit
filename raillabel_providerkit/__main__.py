@@ -6,6 +6,7 @@
 
 import csv
 import json
+import time
 from collections import Counter
 from pathlib import Path
 
@@ -108,7 +109,41 @@ def store_issues_to_csv(issues: list[Issue], filepath: Path) -> None:
     file.close()
 
 
-def _print_summary(scene_issues: dict[str, list[Issue]], total_scenes: int, quiet: bool) -> None:
+def _format_duration(seconds: float) -> str:
+    """Format a duration in seconds to a human-readable string."""
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    minutes = int(seconds // 60)
+    remaining_seconds = seconds % 60
+    if minutes < 60:
+        return f"{minutes}m {remaining_seconds:.0f}s"
+    hours = int(minutes // 60)
+    remaining_minutes = minutes % 60
+    return f"{hours}h {remaining_minutes}m {remaining_seconds:.0f}s"
+
+
+def _estimate_duration(num_scenes: int, avg_time_per_scene: float = 1.5) -> str:
+    """Estimate and format the expected duration for validation.
+
+    Parameters
+    ----------
+    num_scenes : int
+        Number of scenes to validate
+    avg_time_per_scene : float
+        Estimated average time per scene in seconds (default: 1.5s)
+
+    Returns
+    -------
+    str
+        Formatted estimated duration
+    """
+    estimated_seconds = num_scenes * avg_time_per_scene
+    return _format_duration(estimated_seconds)
+
+
+def _print_summary(
+    scene_issues: dict[str, list[Issue]], total_scenes: int, elapsed_time: float, quiet: bool
+) -> None:
     """Print a summary of all validation issues to the terminal.
 
     Parameters
@@ -117,6 +152,8 @@ def _print_summary(scene_issues: dict[str, list[Issue]], total_scenes: int, quie
         Dictionary mapping scene names to their list of issues
     total_scenes : int
         Total number of scenes validated
+    elapsed_time : float
+        Total time elapsed in seconds
     quiet : bool
         If True, skip printing the summary
     """
@@ -133,6 +170,7 @@ def _print_summary(scene_issues: dict[str, list[Issue]], total_scenes: int, quie
     click.echo(f"Scenes validated: {total_scenes}")
     click.echo(f"Scenes with issues: {scenes_with_issues}")
     click.echo(f"Total issues found: {total_issues}")
+    click.echo(f"Time elapsed: {_format_duration(elapsed_time)}")
 
     if total_issues == 0:
         click.echo()
@@ -242,6 +280,16 @@ def run_raillabel_providerkit(  # noqa: PLR0913
         set(annotations_folder.glob("**/*.json")) - set(annotations_folder.glob(".*/**/*"))
     )
 
+    # Print estimated duration
+    if not quiet:
+        estimated = _estimate_duration(len(scene_files))
+        click.echo(f"Found {len(scene_files)} scene(s) to validate")
+        click.echo(f"Estimated duration: ~{estimated}")
+        click.echo()
+
+    # Start timing
+    start_time = time.time()
+
     # Collect all issues for summary
     scene_issues: dict[str, list[Issue]] = {}
 
@@ -259,7 +307,10 @@ def run_raillabel_providerkit(  # noqa: PLR0913
         if use_csv:
             store_issues_to_csv(issues, output_folder / scene_name.replace(".json", ".issues.csv"))
 
-    _print_summary(scene_issues, len(scene_files), quiet)
+    # Calculate elapsed time
+    elapsed_time = time.time() - start_time
+
+    _print_summary(scene_issues, len(scene_files), elapsed_time, quiet)
 
 
 if __name__ == "__main__":
