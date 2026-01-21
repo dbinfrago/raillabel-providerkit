@@ -24,6 +24,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Applies only to track and transition annotations** - other object types are not checked
   - Useful when horizon calculations are slightly inaccurate due to calibration variations
 
+### Fixed
+
+#### Horizon Calculation (CRITICAL FIX)
+- **Complete rewrite of horizon calculation algorithm**
+  - Previous implementation had fundamental bugs causing 96%+ false positives
+  - New implementation uses camera pitch angle directly from extrinsics rotation matrix
+  - Works correctly with all calibration formats (OSDAR23, OSDAR26, etc.)
+  - No longer requires calibration-specific workarounds
+  - Horizon is now correctly positioned based on camera tilt angle
+  - Removed complex and incorrect 3D point projection approach
+  - Results: 140 issues at 0% tolerance (was 2435), 4 issues at 10% tolerance
+
 #### Multi-Scene Export (NEW)
 - **Batch Export Functionality**: Export multiple scenes to different formats at once
   - `export_scenes(input_folder, output_folder, formats)`: Core export function

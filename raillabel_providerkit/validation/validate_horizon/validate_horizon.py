@@ -1,7 +1,7 @@
 # Copyright DB InfraGO AG and contributors
 # SPDX-License-Identifier: MIT
 
-import re
+"""Validate that track/transition annotations are below the horizon line."""
 
 import raillabel
 from raillabel.filter import (
@@ -18,35 +18,6 @@ from raillabel_providerkit.validation import Issue, IssueIdentifiers, IssueType
 
 from ._horizon_calculator import _HorizonCalculator
 
-# Sensor naming patterns for automatic calibration detection
-# OSDAR23 uses: rgb_center, rgb_left, rgb_right, ir_center
-# OSDAR26 uses: rgb_12mp_left, rgb_5mp_middle, ir_left, ir_middle, ir_right
-_OSDAR26_SENSOR_PATTERN = re.compile(r"^rgb_\d+mp_(left|middle|right)$|^ir_(left|middle|right)$")
-
-
-def _scene_uses_osdar26_calibration(scene: raillabel.Scene) -> bool:
-    """Detect if the scene uses OSDAR26 calibration conventions.
-
-    OSDAR26 sensors have different extrinsics rotation axis conventions
-    compared to OSDAR23. This function checks ALL sensors in the scene and
-    determines the calibration type based on naming patterns.
-
-    A scene is considered OSDAR26 if ANY of its sensors match the OSDAR26
-    naming pattern. This is more robust than checking individual sensors,
-    as a scene is either entirely OSDAR23 or entirely OSDAR26.
-
-    Parameters
-    ----------
-    scene : raillabel.Scene
-        The scene to check.
-
-    Returns
-    -------
-    bool
-        True if the scene uses OSDAR26 calibration conventions.
-    """
-    return any(_OSDAR26_SENSOR_PATTERN.match(sensor_id) for sensor_id in scene.sensors)
-
 
 def validate_horizon(
     scene: raillabel.Scene,
@@ -57,19 +28,19 @@ def validate_horizon(
     This validation only applies to **track** and **transition** object types.
     Other object types are not checked against the horizon line.
 
-    The horizon validation automatically detects the calibration format based on
-    sensor naming conventions and applies the appropriate coordinate transformation.
-    The detection is done once per scene by checking all sensor names.
+    The horizon is calculated based on each camera's pitch angle (tilt), derived
+    from the extrinsics rotation matrix. This approach is robust across different
+    calibration conventions (OSDAR23, OSDAR26, etc.).
 
     Parameters
     ----------
     scene : raillabel.Scene
         Scene that should be validated.
     horizon_tolerance_percent : float, optional
-        Tolerance buffer as percentage above the horizon line. Annotations within
-        this buffer zone are considered valid. For example, 10.0 means annotations
-        up to 10% above the horizon line are accepted. Default is 10.0 (10% buffer).
-        Helps reduce false positives from minor calibration inaccuracies.
+        Tolerance buffer as percentage of the horizon position from the top of the image.
+        Higher values move the horizon line up (smaller Y), making the validation more
+        permissive. For example, 10.0 means the horizon is moved up by 10% of its
+        distance from the top. Default is 10.0.
 
     Returns
     -------
@@ -78,9 +49,6 @@ def validate_horizon(
         annotations). If an empty list is returned, then there are no errors present.
     """
     issues = []
-
-    # Detect calibration format once for the entire scene
-    uses_osdar26 = _scene_uses_osdar26_calibration(scene)
 
     filtered_scene = scene.filter(
         [
@@ -110,7 +78,6 @@ def validate_horizon(
                     annotation,
                     filtered_scene.sensors[sensor_id],
                     identifiers,
-                    uses_osdar26,
                     horizon_tolerance_percent,
                 )
             )
@@ -122,29 +89,48 @@ def _validate_annotation_for_horizon(
     annotation: Poly2d,
     camera: Camera,
     identifiers: IssueIdentifiers,
-    use_osdar26_calibration: bool,
-    horizon_tolerance_percent: float = 0.0,
+    horizon_tolerance_percent: float = 10.0,
 ) -> list[Issue]:
-    horizon_calculator = _HorizonCalculator(
-        camera, alternative_calibration_workaround=use_osdar26_calibration
-    )
+    """Check if any point of the annotation is above the horizon line.
 
-    # Calculate the horizon from two points 10000m in front and then 1000m to each side
-    # with an assumed inclination of 1m per 100m distance (0.01 = 1%)
-    horizon_line_function = horizon_calculator.calculate_horizon(10000.0, 1000.0, 0.01)
+    Parameters
+    ----------
+    annotation : Poly2d
+        The polygon annotation to check.
+    camera : Camera
+        The camera sensor with calibration data.
+    identifiers : IssueIdentifiers
+        Identifiers for error reporting.
+    horizon_tolerance_percent : float
+        Tolerance buffer as percentage. Moves horizon up to reduce false positives.
+
+    Returns
+    -------
+    list[Issue]
+        List containing one Issue if a point is above horizon, empty otherwise.
+    """
+    horizon_calculator = _HorizonCalculator(camera)
+
+    # Calculate the horizon line (returns a function that gives Y for any X)
+    horizon_line_function = horizon_calculator.calculate_horizon()
 
     for point in annotation.points:
         horizon_y = horizon_line_function(point.x)
+
         # Apply tolerance buffer: move horizon line up by the tolerance percentage
+        # The horizon_y is measured from the top of the image (Y=0 is top)
+        # Moving it "up" means making it smaller
+        # tolerance_percent% of horizon_y is subtracted
         horizon_y_with_buffer = horizon_y * (1.0 - horizon_tolerance_percent / 100.0)
+
         if point.y < horizon_y_with_buffer:
             return [
                 Issue(
                     IssueType.HORIZON_CROSSED,
                     identifiers,
-                    f"The point {point} is above the expected"
-                    f" horizon line with {horizon_tolerance_percent}% tolerance "
-                    f"({point.y} < {horizon_y_with_buffer:.2f}, horizon: {horizon_y:.2f}).",
+                    f"The point ({point.x:.1f}, {point.y:.1f}) is above the horizon line "
+                    f"(horizon at Y={horizon_y:.1f}, with {horizon_tolerance_percent}% "
+                    f"tolerance: Y={horizon_y_with_buffer:.1f}).",
                 )
             ]
 
