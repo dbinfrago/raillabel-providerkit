@@ -42,7 +42,7 @@ def validate(  # noqa: C901, PLR0912, PLR0913
     validate_for_horizon: bool = True,
     validate_for_annotation_type_per_sensor: bool = True,
     validate_for_transition: bool = True,
-    horizon_tolerance_percent: float = 0.0,
+    horizon_tolerance_percent: float = 5.0,
 ) -> list[Issue]:
     """Validate a scene based on the Deutsche Bahn Requirements.
 
@@ -74,7 +74,8 @@ def validate(  # noqa: C901, PLR0912, PLR0913
             identical startTrack and endTrack values. Default is True.
         horizon_tolerance_percent: Tolerance buffer as percentage above the horizon line.
             Annotations within this buffer zone are considered valid. For example, 5.0 means
-            annotations up to 5% above the horizon line are accepted. Default is 0.0 (no buffer).
+            annotations up to 5% above the horizon line are accepted. Default is 5.0 (5% buffer).
+            This only affects track and transition annotations.
 
 
     Returns:

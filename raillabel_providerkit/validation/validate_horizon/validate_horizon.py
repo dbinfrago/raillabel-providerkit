@@ -50,9 +50,12 @@ def _scene_uses_osdar26_calibration(scene: raillabel.Scene) -> bool:
 
 def validate_horizon(
     scene: raillabel.Scene,
-    horizon_tolerance_percent: float = 0.0,
+    horizon_tolerance_percent: float = 5.0,
 ) -> list[Issue]:
     """Validate whether all track/transition annotations are below the horizon.
+
+    This validation only applies to **track** and **transition** object types.
+    Other object types are not checked against the horizon line.
 
     The horizon validation automatically detects the calibration format based on
     sensor naming conventions and applies the appropriate coordinate transformation.
@@ -65,13 +68,14 @@ def validate_horizon(
     horizon_tolerance_percent : float, optional
         Tolerance buffer as percentage above the horizon line. Annotations within
         this buffer zone are considered valid. For example, 5.0 means annotations
-        up to 5% above the horizon line are accepted. Default is 0.0 (no buffer).
+        up to 5% above the horizon line are accepted. Default is 5.0 (5% buffer).
+        Helps reduce false positives from minor calibration inaccuracies.
 
     Returns
     -------
     list[Issue]
-        List of all horizon crossing errors in the scene. If an empty list is returned, then there
-        are no errors present.
+        List of all horizon crossing errors in the scene (only for track/transition
+        annotations). If an empty list is returned, then there are no errors present.
     """
     issues = []
 
