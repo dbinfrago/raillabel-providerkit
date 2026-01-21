@@ -100,17 +100,17 @@ python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/outp
 For scenes where the horizon calculation might be slightly off due to calibration inaccuracies, you can add a tolerance buffer. This only applies to **track and transition** annotations:
 
 ```zsh
-# Add 5% tolerance above the calculated horizon line (default)
+# Use default 10% tolerance above the calculated horizon line
 python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/
 
 # Or customize the tolerance
-python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --horizon-tolerance 10.0
+python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --horizon-tolerance 15.0
 
 # With ontology validation
 python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar26.yaml --horizon-tolerance 10.0
 ```
 
-The tolerance is specified as a percentage. Annotations within this buffer zone above the horizon are considered valid. Default is 5.0% to account for typical calibration variations. This helps reduce false positives when horizon calculations are slightly inaccurate. **Note:** Horizon validation only checks track and transition annotations, not other object types.
+The tolerance is specified as a percentage. Annotations within this buffer zone above the horizon are considered valid. Default is 10.0% to account for typical calibration variations. This helps reduce false positives when horizon calculations are slightly inaccurate. **Note:** Horizon validation only checks track and transition annotations, not other object types.
 
 ## Exporting Scenes
 

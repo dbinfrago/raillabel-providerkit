@@ -272,10 +272,10 @@ def cli() -> None:
 @click.option(
     "--horizon-tolerance",
     type=float,
-    default=5.0,
+    default=10.0,
     help=(
-        "Tolerance buffer as percentage above horizon (e.g., 5.0 for 5%%). "
-        "Only applies to track/transition annotations. Default is 5.0."
+        "Tolerance buffer as percentage above horizon (e.g., 10.0 for 10%%). "
+        "Only applies to track/transition annotations. Default is 10.0."
     ),
 )
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")

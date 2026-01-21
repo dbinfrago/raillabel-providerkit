@@ -18,9 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Configurable Tolerance Buffer**: Reduce false positives from horizon calculations
   - `horizon_tolerance_percent` parameter in `validate()` and `validate_horizon()`
   - CLI option: `--horizon-tolerance FLOAT` (percentage above horizon line)
-  - **Default: 5.0%** - sensible default to account for typical calibration variations
+  - **Default: 10.0%** - sensible default to account for typical calibration variations
   - Annotations within tolerance buffer are considered valid
-  - Example: `--horizon-tolerance 10.0` accepts annotations up to 10% above calculated horizon
+  - Example: `--horizon-tolerance 15.0` accepts annotations up to 15% above calculated horizon
   - **Applies only to track and transition annotations** - other object types are not checked
   - Useful when horizon calculations are slightly inaccurate due to calibration variations
 
