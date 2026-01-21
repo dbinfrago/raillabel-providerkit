@@ -269,6 +269,12 @@ def cli() -> None:
     help="Create human-readable .csv files containing the issues",
 )
 @click.option("--use-json/--no-json", default=True, help="Create .json files containing the issues")
+@click.option(
+    "--horizon-tolerance",
+    type=float,
+    default=0.0,
+    help="Tolerance buffer as percentage above horizon (e.g., 5.0 for 5%%). Default is 0.0.",
+)
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
 def validate_command(  # noqa: PLR0913
     annotations_folder: Path,
@@ -276,10 +282,13 @@ def validate_command(  # noqa: PLR0913
     ontology: Path | None,
     use_csv: bool,
     use_json: bool,
+    horizon_tolerance: float,
     quiet: bool,
 ) -> None:
     """Check raillabel scenes' annotations for errors."""
-    _run_validation(annotations_folder, output_folder, ontology, use_csv, use_json, quiet)
+    _run_validation(
+        annotations_folder, output_folder, ontology, use_csv, use_json, horizon_tolerance, quiet
+    )
 
 
 def _run_validation(  # noqa: PLR0913
@@ -288,6 +297,7 @@ def _run_validation(  # noqa: PLR0913
     ontology: Path | None,
     use_csv: bool,
     use_json: bool,
+    horizon_tolerance_percent: float,
     quiet: bool,
 ) -> None:
     """Validate all scenes in a folder and output validation results."""
@@ -320,6 +330,7 @@ def _run_validation(  # noqa: PLR0913
         issues = validate(
             scene_path,
             ontology,
+            horizon_tolerance_percent=horizon_tolerance_percent,
         )
 
         scene_name = scene_path.name
@@ -435,6 +446,12 @@ def export_command(
     help="Create human-readable .csv files containing the issues",
 )
 @click.option("--use-json/--no-json", default=True, help="Create .json files containing the issues")
+@click.option(
+    "--horizon-tolerance",
+    type=float,
+    default=0.0,
+    help="Tolerance buffer as percentage above horizon (e.g., 5.0 for 5%%). Default is 0.0.",
+)
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
 def run_raillabel_providerkit(  # noqa: PLR0913
     annotations_folder: Path,
@@ -442,10 +459,13 @@ def run_raillabel_providerkit(  # noqa: PLR0913
     ontology: Path | None,
     use_csv: bool,
     use_json: bool,
+    horizon_tolerance: float,
     quiet: bool,
 ) -> None:
     """Check a raillabel scene's annotations for errors (legacy command)."""
-    _run_validation(annotations_folder, output_folder, ontology, use_csv, use_json, quiet)
+    _run_validation(
+        annotations_folder, output_folder, ontology, use_csv, use_json, horizon_tolerance, quiet
+    )
 
 
 if __name__ == "__main__":

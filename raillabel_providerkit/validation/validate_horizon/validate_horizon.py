@@ -48,7 +48,10 @@ def _scene_uses_osdar26_calibration(scene: raillabel.Scene) -> bool:
     return any(_OSDAR26_SENSOR_PATTERN.match(sensor_id) for sensor_id in scene.sensors)
 
 
-def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
+def validate_horizon(
+    scene: raillabel.Scene,
+    horizon_tolerance_percent: float = 0.0,
+) -> list[Issue]:
     """Validate whether all track/transition annotations are below the horizon.
 
     The horizon validation automatically detects the calibration format based on
@@ -59,6 +62,10 @@ def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
     ----------
     scene : raillabel.Scene
         Scene that should be validated.
+    horizon_tolerance_percent : float, optional
+        Tolerance buffer as percentage above the horizon line. Annotations within
+        this buffer zone are considered valid. For example, 5.0 means annotations
+        up to 5% above the horizon line are accepted. Default is 0.0 (no buffer).
 
     Returns
     -------
@@ -100,6 +107,7 @@ def validate_horizon(scene: raillabel.Scene) -> list[Issue]:
                     filtered_scene.sensors[sensor_id],
                     identifiers,
                     uses_osdar26,
+                    horizon_tolerance_percent,
                 )
             )
 
@@ -111,6 +119,7 @@ def _validate_annotation_for_horizon(
     camera: Camera,
     identifiers: IssueIdentifiers,
     use_osdar26_calibration: bool,
+    horizon_tolerance_percent: float = 0.0,
 ) -> list[Issue]:
     horizon_calculator = _HorizonCalculator(
         camera, alternative_calibration_workaround=use_osdar26_calibration
@@ -122,13 +131,16 @@ def _validate_annotation_for_horizon(
 
     for point in annotation.points:
         horizon_y = horizon_line_function(point.x)
-        if point.y < horizon_y:
+        # Apply tolerance buffer: move horizon line up by the tolerance percentage
+        horizon_y_with_buffer = horizon_y * (1.0 - horizon_tolerance_percent / 100.0)
+        if point.y < horizon_y_with_buffer:
             return [
                 Issue(
                     IssueType.HORIZON_CROSSED,
                     identifiers,
                     f"The point {point} is above the expected"
-                    f" horizon line ({point.y} < {horizon_y}).",
+                    f" horizon line with {horizon_tolerance_percent}% tolerance "
+                    f"({point.y} < {horizon_y_with_buffer:.2f}, horizon: {horizon_y:.2f}).",
                 )
             ]
 

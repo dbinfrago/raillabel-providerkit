@@ -95,6 +95,20 @@ If you want to output in .csv format instead of .json format, you can use this c
 python -m raillabel_providerkit /path/to/folder_containing_scenes/ /path/to/output_folder --use-csv --no-json
 ```
 
+### Horizon Validation Tolerance
+
+For scenes where the horizon calculation might be slightly off, you can add a tolerance buffer:
+
+```zsh
+# Add 5% tolerance above the calculated horizon line
+python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --horizon-tolerance 5.0
+
+# Or with ontology validation
+python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar26.yaml --horizon-tolerance 10.0
+```
+
+The tolerance is specified as a percentage. Annotations within this buffer zone above the horizon are considered valid. This helps reduce false positives when horizon calculations are slightly inaccurate.
+
 ## Exporting Scenes
 
 Export multiple scenes to different formats (JSON, CSV) for analysis or integration with other tools:

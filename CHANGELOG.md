@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Horizon Validation Tolerance (NEW)
+- **Configurable Tolerance Buffer**: Reduce false positives from horizon calculations
+  - `horizon_tolerance_percent` parameter in `validate()` and `validate_horizon()`
+  - CLI option: `--horizon-tolerance FLOAT` (percentage above horizon line)
+  - Annotations within tolerance buffer are considered valid
+  - Example: `--horizon-tolerance 5.0` accepts annotations up to 5% above calculated horizon
+  - Useful when horizon calculations are slightly inaccurate due to calibration variations
+
 #### Multi-Scene Export (NEW)
 - **Batch Export Functionality**: Export multiple scenes to different formats at once
   - `export_scenes(input_folder, output_folder, formats)`: Core export function

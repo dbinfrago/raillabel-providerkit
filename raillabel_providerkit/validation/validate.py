@@ -42,6 +42,7 @@ def validate(  # noqa: C901, PLR0912, PLR0913
     validate_for_horizon: bool = True,
     validate_for_annotation_type_per_sensor: bool = True,
     validate_for_transition: bool = True,
+    horizon_tolerance_percent: float = 0.0,
 ) -> list[Issue]:
     """Validate a scene based on the Deutsche Bahn Requirements.
 
@@ -71,6 +72,9 @@ def validate(  # noqa: C901, PLR0912, PLR0913
         validate_for_annotation_type_per_sensor: Validate that annotation types match sensor types.
         validate_for_transition: If True, issues are returned if transition annotations have
             identical startTrack and endTrack values. Default is True.
+        horizon_tolerance_percent: Tolerance buffer as percentage above the horizon line.
+            Annotations within this buffer zone are considered valid. For example, 5.0 means
+            annotations up to 5% above the horizon line are accepted. Default is 0.0 (no buffer).
 
 
     Returns:
@@ -113,7 +117,7 @@ def validate(  # noqa: C901, PLR0912, PLR0913
         errors.extend(validate_dimensions(scene))
 
     if validate_for_horizon:
-        errors.extend(validate_horizon(scene))
+        errors.extend(validate_horizon(scene, horizon_tolerance_percent))
 
     if validate_for_annotation_type_per_sensor:
         errors.extend(validate_annotation_type_per_sensor(scene))
