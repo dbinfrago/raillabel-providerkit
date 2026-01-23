@@ -107,7 +107,7 @@ python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/
 python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --horizon-tolerance 15.0
 
 # With ontology validation
-python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar26.yaml --horizon-tolerance 10.0
+python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ontology config/ontologies/osdar26.yaml --horizon-tolerance 10.0
 ```
 
 The tolerance is specified as a percentage. Annotations within this buffer zone above the horizon are considered valid. Default is 10.0% to account for typical calibration variations. This helps reduce false positives when horizon calculations are slightly inaccurate. **Note:** Horizon validation only checks track and transition annotations, not other object types.
@@ -147,10 +147,10 @@ RailLabel Providerkit comes with pre-built ontology parameter files that can be 
 
 ```zsh
 # Using OSDAR26 ontology
-python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/osdar26.yaml
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/ontologies/osdar26.yaml
 
 # Using AutomatedTrain ontology
-python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/parameters/automatedtrain.yaml
+python -m raillabel_providerkit /path/to/scenes/ /path/to/output/ --ontology config/ontologies/automatedtrain.yaml
 ```
 
 Or programmatically from Python:

@@ -13,6 +13,7 @@ import raillabel
 json_data_directories = [
     Path(__file__).parent / "__assets__",
     Path(__file__).parent.parent / "raillabel_providerkit" / "format",
+    Path(__file__).parent.parent / "config" / "schemas",
 ]
 
 

@@ -1,7 +1,9 @@
 # SPDX-FileCopyrightText: DB InfraGO AG and contributors
 # SPDX-License-Identifier: Apache-2.0
 
-include raillabel_providerkit/ontologies/*.yaml
-include raillabel_providerkit/ontologies/*.license
-recursive-include raillabel_providerkit/format *.json
-recursive-include raillabel_providerkit/format *.license
+# Central config directory with ontologies and schemas
+recursive-include config/ontologies *.yaml
+recursive-include config/ontologies *.license
+recursive-include config/schemas *.json
+recursive-include config/schemas *.yaml
+recursive-include config/schemas *.license

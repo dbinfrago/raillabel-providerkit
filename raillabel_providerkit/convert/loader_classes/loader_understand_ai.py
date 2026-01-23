@@ -11,6 +11,7 @@ from raillabel import Scene
 from raillabel.json_format import JSONScene
 
 from raillabel_providerkit.format import understand_ai as uai_format
+from raillabel_providerkit.ontologies import get_schema_path
 
 from ._loader_abc import LoaderABC
 
@@ -30,9 +31,10 @@ class LoaderUnderstandAi(LoaderABC):
     scene: uai_format.Scene
     warnings: list[str]
 
-    SCHEMA_PATH: Path = (
-        Path(__file__).parent.parent.parent / "format" / "understand_ai_t4_schema.json"
-    )
+    @property
+    def schema_path(self) -> Path:
+        """Get the path to the Understand.AI T4 schema file."""
+        return get_schema_path("understand_ai_t4")
 
     def load(self, data: dict, validate_schema: bool = False) -> uai_format.Scene:
         """Load the data into a UAIScene and return it.
@@ -87,7 +89,7 @@ class LoaderUnderstandAi(LoaderABC):
 
     def validate_schema(self, data: dict) -> list[str]:
         """Check if the schema is correct."""
-        with self.SCHEMA_PATH.open() as file:
+        with self.schema_path.open() as file:
             schema = json.load(file)
 
         validator = jsonschema.Draft7Validator(schema=schema)

@@ -10,6 +10,7 @@ import raillabel
 import yaml
 
 from raillabel_providerkit.exceptions import OntologySchemaError
+from raillabel_providerkit.ontologies import get_schema_path
 from raillabel_providerkit.validation import Issue
 
 from ._ontology_classes import _Ontology
@@ -50,7 +51,7 @@ def _load_ontology(path: Path) -> dict:
 
 
 def _validate_ontology_schema(ontology: dict) -> None:
-    schema_path = Path(__file__).parent / "ontology_schema_v2.yaml"
+    schema_path = get_schema_path("ontology")
 
     with schema_path.open() as f:
         ontology_schema = yaml.safe_load(f)

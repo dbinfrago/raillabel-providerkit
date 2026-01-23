@@ -3,7 +3,8 @@
 
 import json
 from dataclasses import dataclass
-from pathlib import Path
+
+from raillabel_providerkit.ontologies import get_schema_path
 
 
 @dataclass
@@ -82,9 +83,7 @@ class Metadata:
         }
 
     def _get_subschema_version(self) -> str:
-        raillabel_schema_path = (
-            Path(__file__).parent.parent.parent / "format" / "raillabel_schema.json"
-        )
+        raillabel_schema_path = get_schema_path("raillabel")
 
         with raillabel_schema_path.open() as schema_file:
             return json.load(schema_file)["version"]
