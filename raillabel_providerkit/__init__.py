@@ -9,7 +9,12 @@ from . import format
 from .convert import loader_classes
 from .convert.convert import convert
 from .export.export_scenes import export_scenes
-from .ontologies import get_ontology_path, list_available_ontologies
+from .ontologies import (
+    get_ontology_path,
+    get_schema_path,
+    list_available_ontologies,
+    list_available_schemas,
+)
 from .validation.validate import validate
 
 try:
@@ -25,5 +30,7 @@ __all__ = [
     "export_scenes",
     "validate",
     "get_ontology_path",
+    "get_schema_path",
     "list_available_ontologies",
+    "list_available_schemas",
 ]

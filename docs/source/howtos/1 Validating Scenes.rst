@@ -46,12 +46,12 @@ If you have not been provided with an ontology file, just leave the field empty.
 Supported Ontologies
 ####################
 
-Pre-built ontology parameter files are provided in the ``config/parameters/`` directory:
+Pre-built ontology parameter files are provided in the ``config/ontologies/`` directory:
 
-**OSDAR23** (``config/parameters/osdar23.yaml``)
+**OSDAR23** (``config/ontologies/osdar23.yaml``)
     Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes.
 
-**OSDAR26** (``config/parameters/osdar26.yaml``)
+**OSDAR26** (``config/ontologies/osdar26.yaml``)
     Extended railway environment ontology featuring:
 
     - **25 object classes** for comprehensive railway environment annotation
@@ -62,7 +62,7 @@ Pre-built ontology parameter files are provided in the ``config/parameters/`` di
     - Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)
     - Hazard detection (flame, smoke)
 
-**AutomatedTrain** (``config/parameters/automatedtrain.yaml``)
+**AutomatedTrain** (``config/ontologies/automatedtrain.yaml``)
     Specialized ontology for automated train perception and safety-critical railway environment annotation:
 
     - **Safety-critical classes**: obstacle, platform, level_crossing, speed_sign
@@ -81,11 +81,11 @@ Usage Examples
 
     # Using OSDAR26 ontology
     scene_path = Path("path/to/scene.json")
-    ontology_path = Path("config/parameters/osdar26.yaml")
+    ontology_path = Path("config/ontologies/osdar26.yaml")
     issues = validate(scene_path, ontology_path)
 
     # Using AutomatedTrain ontology
-    ontology_path = Path("config/parameters/automatedtrain.yaml")
+    ontology_path = Path("config/ontologies/automatedtrain.yaml")
     issues = validate(scene_path, ontology_path)
 
 Supported Sensors

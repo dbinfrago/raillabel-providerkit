@@ -8,17 +8,13 @@ from pathlib import Path
 import yaml
 import jsonschema
 
+from raillabel_providerkit.ontologies import get_ontology_path, get_schema_path
+
 # Path to the OSDAR26 ontology file
 OSDAR26_ONTOLOGY_PATH = Path(__file__).parent.parent.parent / "__assets__" / "osdar26_ontology.yaml"
 
 # Path to the ontology schema
-ONTOLOGY_SCHEMA_PATH = (
-    Path(__file__).parent.parent.parent.parent
-    / "raillabel_providerkit"
-    / "validation"
-    / "validate_ontology"
-    / "ontology_schema_v2.yaml"
-)
+ONTOLOGY_SCHEMA_PATH = get_schema_path("ontology")
 
 
 def _load_ontology(ontology_path: Path) -> dict:
