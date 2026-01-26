@@ -1,0 +1,45 @@
+tests package
+=============
+
+Submodules
+----------
+
+tests.conftest module
+---------------------
+
+.. automodule:: tests.conftest
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.master\_test module
+-------------------------
+
+.. automodule:: tests.master_test
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_ontologies module
+-----------------------------
+
+.. automodule:: tests.test_ontologies
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+tests.test\_ontology\_schema\_setup module
+------------------------------------------
+
+.. automodule:: tests.test_ontology_schema_setup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: tests
+   :members:
+   :show-inheritance:
+   :undoc-members:

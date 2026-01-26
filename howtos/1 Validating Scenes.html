@@ -1,0 +1,447 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="2 Converting Annotation Files" href="2%20Converting%20Files.html"><link rel="prev" title="How Tos" href="../howto.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>1 Validating Scenes - RailLabel Providerkit documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RailLabel Providerkit  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">RailLabel Providerkit  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Motivation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../howto.html">How Tos</a><input aria-label="Toggle navigation of How Tos" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">1 Validating Scenes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2%20Converting%20Files.html">2 Converting Annotation Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3%20Using%20the%20GUI.html">3 Using the GUI Application</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/howtos/1 Validating Scenes.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="validating-scenes">
+<h1>1 Validating Scenes<a class="headerlink" href="#validating-scenes" title="Link to this heading">¶</a></h1>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">¶</a></h2>
+<p>The validation of the project requirements should ideally be done as close to the source of the data as possible. This devkit therefore provides functionality to check for basic errors on the supplier side. If you are unsure whether your applications produce valid annotations, simply use the functions provided here to check. <strong>Only send us data, if the methods below say that no errors are present.</strong> If you find any bugs in the code, just hit us up and we will fix them as soon as possible (or you can create a PR).</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">raillabel_providerkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">scene_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/scene.json&quot;</span><span class="p">)</span>
+<span class="n">ontology_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/ontology.yaml&quot;</span><span class="p">)</span>  <span class="c1"># ontology file that should be provided by us</span>
+<span class="n">issues_in_scene</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">scene_path</span><span class="p">,</span> <span class="n">ontology_path</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">issues_in_scene</span> <span class="o">==</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>If this code does not raise any errors, you are good to go. If it does, read the content of the list <cite>validate</cite> returns carefully. It should tell you where the errors are. If you are unsure, contact your project partner or raise an issue on GitHub.</p>
+<p>Under certain circumstances you might want to switch off certain validations. This should only be done if agreed upon with us. In this case, validate excepts use something like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">raillabel_providerkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="n">scene_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/scene.json&quot;</span><span class="p">)</span>
+<span class="n">issues_in_scene</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">scene_path</span><span class="p">,</span> <span class="n">validate_for_dimensions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you have not been provided with an ontology file, just leave the field empty. The scene is then not checked against ontology issues.</p>
+</section>
+<section id="supported-ontologies">
+<h2>Supported Ontologies<a class="headerlink" href="#supported-ontologies" title="Link to this heading">¶</a></h2>
+<p>Pre-built ontology parameter files are provided in the <code class="docutils literal notranslate"><span class="pre">config/ontologies/</span></code> directory:</p>
+<dl class="simple">
+<dt><strong>OSDAR23</strong> (<code class="docutils literal notranslate"><span class="pre">config/ontologies/osdar23.yaml</span></code>)</dt><dd><p>Original railway environment annotation ontology for the OSDAR23 dataset. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes.</p>
+</dd>
+<dt><strong>OSDAR26</strong> (<code class="docutils literal notranslate"><span class="pre">config/ontologies/osdar26.yaml</span></code>)</dt><dd><p>Extended railway environment ontology featuring:</p>
+<ul class="simple">
+<li><p><strong>25 object classes</strong> for comprehensive railway environment annotation</p></li>
+<li><p>Comprehensive signal aspects (Hp_0/1/2, Ks_1/2, Vr_0/1/2, Zs_2/2v/3/3v, Sh_0/1/2 in light and shape variants)</p></li>
+<li><p>Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%</p></li>
+<li><p>Additional object classes: personal_item (suitcase, backpack, handbag, bag, etc.), pram (stroller, buggy, babySeat), scooter (eScooter, scooter, hoverboard)</p></li>
+<li><p>Enhanced animal species coverage (dog, cat, racoon, badger, swan, sheep, cow, horse, pig, fox, wolf, wildBoar, deer, stork, rabbit, bird)</p></li>
+<li><p>Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)</p></li>
+<li><p>Hazard detection (flame, smoke)</p></li>
+</ul>
+</dd>
+<dt><strong>AutomatedTrain</strong> (<code class="docutils literal notranslate"><span class="pre">config/ontologies/automatedtrain.yaml</span></code>)</dt><dd><p>Specialized ontology for automated train perception and safety-critical railway environment annotation:</p>
+<ul class="simple">
+<li><p><strong>Safety-critical classes</strong>: obstacle, platform, level_crossing, speed_sign</p></li>
+<li><p>Switch state tracking (straight, diverging)</p></li>
+<li><p>Emergency vehicle detection</p></li>
+<li><p>Level crossing state monitoring (open, closing, closed, opening)</p></li>
+<li><p>Boolean safety indicators for critical situations</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="usage-examples">
+<h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">raillabel_providerkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">validate</span>
+
+<span class="c1"># Using OSDAR26 ontology</span>
+<span class="n">scene_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/scene.json&quot;</span><span class="p">)</span>
+<span class="n">ontology_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;config/ontologies/osdar26.yaml&quot;</span><span class="p">)</span>
+<span class="n">issues</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">scene_path</span><span class="p">,</span> <span class="n">ontology_path</span><span class="p">)</span>
+
+<span class="c1"># Using AutomatedTrain ontology</span>
+<span class="n">ontology_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;config/ontologies/automatedtrain.yaml&quot;</span><span class="p">)</span>
+<span class="n">issues</span> <span class="o">=</span> <span class="n">validate</span><span class="p">(</span><span class="n">scene_path</span><span class="p">,</span> <span class="n">ontology_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="supported-sensors">
+<h2>Supported Sensors<a class="headerlink" href="#supported-sensors" title="Link to this heading">¶</a></h2>
+<p>The sensor validation checks that all sensors in a scene have recognized names and correct types. Both OSDAR23 and OSDAR26 sensor naming conventions are supported.</p>
+<p><strong>OSDAR23 Sensors:</strong></p>
+<ul class="simple">
+<li><p>RGB cameras: <code class="docutils literal notranslate"><span class="pre">rgb_center</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_left</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_right</span></code></p></li>
+<li><p>High-resolution RGB: <code class="docutils literal notranslate"><span class="pre">rgb_highres_center</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_highres_left</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_highres_right</span></code></p></li>
+<li><p>Long-range RGB: <code class="docutils literal notranslate"><span class="pre">rgb_longrange_center</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_longrange_left</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_longrange_right</span></code></p></li>
+<li><p>Infrared cameras: <code class="docutils literal notranslate"><span class="pre">ir_center</span></code>, <code class="docutils literal notranslate"><span class="pre">ir_left</span></code>, <code class="docutils literal notranslate"><span class="pre">ir_right</span></code></p></li>
+<li><p>Lidar: <code class="docutils literal notranslate"><span class="pre">lidar</span></code></p></li>
+<li><p>Radar: <code class="docutils literal notranslate"><span class="pre">radar</span></code></p></li>
+<li><p>GPS/IMU: <code class="docutils literal notranslate"><span class="pre">gps_imu</span></code></p></li>
+</ul>
+<p><strong>OSDAR26 Sensors:</strong></p>
+<ul class="simple">
+<li><p>12MP RGB cameras: <code class="docutils literal notranslate"><span class="pre">rgb_12mp_left</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_12mp_middle</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_12mp_right</span></code></p></li>
+<li><p>5MP RGB cameras: <code class="docutils literal notranslate"><span class="pre">rgb_5mp_left</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_5mp_middle</span></code>, <code class="docutils literal notranslate"><span class="pre">rgb_5mp_right</span></code></p></li>
+<li><p>Infrared cameras: <code class="docutils literal notranslate"><span class="pre">ir_left</span></code>, <code class="docutils literal notranslate"><span class="pre">ir_middle</span></code>, <code class="docutils literal notranslate"><span class="pre">ir_right</span></code></p></li>
+<li><p>Merged lidar: <code class="docutils literal notranslate"><span class="pre">lidar_merged</span></code></p></li>
+<li><p>Cartesian radar: <code class="docutils literal notranslate"><span class="pre">radar_cartesian</span></code></p></li>
+</ul>
+</section>
+<section id="adding-custom-sensors">
+<h2>Adding Custom Sensors<a class="headerlink" href="#adding-custom-sensors" title="Link to this heading">¶</a></h2>
+<p>To add support for additional sensors, edit the <code class="docutils literal notranslate"><span class="pre">SENSOR_METADATA</span></code> dictionary in <code class="docutils literal notranslate"><span class="pre">raillabel_providerkit/_util/_sensor_metadata.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">raillabel.format</span><span class="w"> </span><span class="kn">import</span> <span class="n">Camera</span><span class="p">,</span> <span class="n">Lidar</span><span class="p">,</span> <span class="n">Radar</span><span class="p">,</span> <span class="n">GpsImu</span>
+
+<span class="n">SENSOR_METADATA</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># ... existing sensors ...</span>
+
+    <span class="c1"># Add your custom sensors</span>
+    <span class="s2">&quot;my_custom_camera&quot;</span><span class="p">:</span> <span class="n">Camera</span><span class="p">,</span>
+    <span class="s2">&quot;my_custom_lidar&quot;</span><span class="p">:</span> <span class="n">Lidar</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="calibration-detection">
+<h2>Calibration Detection<a class="headerlink" href="#calibration-detection" title="Link to this heading">¶</a></h2>
+<p>The horizon validation automatically detects the calibration format (OSDAR23 vs OSDAR26) based on sensor naming patterns. OSDAR26 uses different extrinsics rotation axis conventions compared to OSDAR23.</p>
+<p>The detection is performed once per scene by checking all sensor names. If any sensor matches the OSDAR26 pattern (e.g., <code class="docutils literal notranslate"><span class="pre">rgb_12mp_left</span></code>, <code class="docutils literal notranslate"><span class="pre">ir_middle</span></code>), the OSDAR26 calibration is applied to the entire scene.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="2%20Converting%20Files.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">2 Converting Annotation Files</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../howto.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">How Tos</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; DB InfraGO AG and the raillabel-providerkit contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/dbinfrago/raillabel" aria-label="GitHub"><img src="/_static/img/github-logo.svg"/></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">1 Validating Scenes</a><ul>
+<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#supported-ontologies">Supported Ontologies</a></li>
+<li><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
+<li><a class="reference internal" href="#supported-sensors">Supported Sensors</a></li>
+<li><a class="reference internal" href="#adding-custom-sensors">Adding Custom Sensors</a></li>
+<li><a class="reference internal" href="#calibration-detection">Calibration Detection</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

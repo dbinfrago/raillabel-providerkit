@@ -1,0 +1,21 @@
+raillabel\_providerkit.gui package
+==================================
+
+Submodules
+----------
+
+raillabel\_providerkit.gui.main module
+--------------------------------------
+
+.. automodule:: raillabel_providerkit.gui.main
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.gui
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,1312 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>raillabel_providerkit.validation package - RailLabel Providerkit documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RailLabel Providerkit  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">RailLabel Providerkit  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Motivation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../howto.html">How Tos</a><input aria-label="Toggle navigation of How Tos" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/1%20Validating%20Scenes.html">1 Validating Scenes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/2%20Converting%20Files.html">2 Converting Annotation Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/3%20Using%20the%20GUI.html">3 Using the GUI Application</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/code/raillabel_providerkit.validation.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="raillabel-providerkit-validation-package">
+<h1>raillabel_providerkit.validation package<a class="headerlink" href="#raillabel-providerkit-validation-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html">raillabel_providerkit.validation.validate_annotation_type_per_sensor package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html#module-raillabel_providerkit.validation.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor">raillabel_providerkit.validation.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html#raillabel_providerkit.validation.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor"><code class="docutils literal notranslate"><span class="pre">validate_annotation_type_per_sensor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html#module-raillabel_providerkit.validation.validate_annotation_type_per_sensor">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_annotation_type_per_sensor.html#raillabel_providerkit.validation.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor"><code class="docutils literal notranslate"><span class="pre">validate_annotation_type_per_sensor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_dimensions.html">raillabel_providerkit.validation.validate_dimensions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_dimensions.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_dimensions.html#module-raillabel_providerkit.validation.validate_dimensions.validate_dimensions">raillabel_providerkit.validation.validate_dimensions.validate_dimensions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_dimensions.html#raillabel_providerkit.validation.validate_dimensions.validate_dimensions.validate_dimensions"><code class="docutils literal notranslate"><span class="pre">validate_dimensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_dimensions.html#module-raillabel_providerkit.validation.validate_dimensions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html">raillabel_providerkit.validation.validate_ego_track_both_rails package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html#module-raillabel_providerkit.validation.validate_ego_track_both_rails.validate_ego_track_both_rails">raillabel_providerkit.validation.validate_ego_track_both_rails.validate_ego_track_both_rails module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html#raillabel_providerkit.validation.validate_ego_track_both_rails.validate_ego_track_both_rails.validate_ego_track_both_rails"><code class="docutils literal notranslate"><span class="pre">validate_ego_track_both_rails()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html#module-raillabel_providerkit.validation.validate_ego_track_both_rails">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_ego_track_both_rails.html#raillabel_providerkit.validation.validate_ego_track_both_rails.validate_ego_track_both_rails"><code class="docutils literal notranslate"><span class="pre">validate_ego_track_both_rails()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_empty_frames.html">raillabel_providerkit.validation.validate_empty_frames package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_empty_frames.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_empty_frames.html#module-raillabel_providerkit.validation.validate_empty_frames.validate_empty_frames">raillabel_providerkit.validation.validate_empty_frames.validate_empty_frames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_empty_frames.html#raillabel_providerkit.validation.validate_empty_frames.validate_empty_frames.validate_empty_frames"><code class="docutils literal notranslate"><span class="pre">validate_empty_frames()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_empty_frames.html#module-raillabel_providerkit.validation.validate_empty_frames">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_horizon.html">raillabel_providerkit.validation.validate_horizon package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_horizon.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_horizon.html#module-raillabel_providerkit.validation.validate_horizon.validate_horizon">raillabel_providerkit.validation.validate_horizon.validate_horizon module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_horizon.html#raillabel_providerkit.validation.validate_horizon.validate_horizon.validate_horizon"><code class="docutils literal notranslate"><span class="pre">validate_horizon()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_horizon.html#module-raillabel_providerkit.validation.validate_horizon">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_missing_ego_track.html">raillabel_providerkit.validation.validate_missing_ego_track package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_missing_ego_track.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_missing_ego_track.html#module-raillabel_providerkit.validation.validate_missing_ego_track.validate_missing_ego_track">raillabel_providerkit.validation.validate_missing_ego_track.validate_missing_ego_track module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_missing_ego_track.html#raillabel_providerkit.validation.validate_missing_ego_track.validate_missing_ego_track.validate_missing_ego_track"><code class="docutils literal notranslate"><span class="pre">validate_missing_ego_track()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_missing_ego_track.html#module-raillabel_providerkit.validation.validate_missing_ego_track">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_ontology.html">raillabel_providerkit.validation.validate_ontology package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ontology.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ontology.html#module-raillabel_providerkit.validation.validate_ontology.validate_ontology">raillabel_providerkit.validation.validate_ontology.validate_ontology module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_ontology.html#raillabel_providerkit.validation.validate_ontology.validate_ontology.validate_ontology"><code class="docutils literal notranslate"><span class="pre">validate_ontology()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_ontology.html#module-raillabel_providerkit.validation.validate_ontology">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_rail_side.html">raillabel_providerkit.validation.validate_rail_side package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_rail_side.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_rail_side.html#module-raillabel_providerkit.validation.validate_rail_side.validate_rail_side">raillabel_providerkit.validation.validate_rail_side.validate_rail_side module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_rail_side.html#raillabel_providerkit.validation.validate_rail_side.validate_rail_side.validate_rail_side"><code class="docutils literal notranslate"><span class="pre">validate_rail_side()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_rail_side.html#module-raillabel_providerkit.validation.validate_rail_side">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html">raillabel_providerkit.validation.validate_schema package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html#module-raillabel_providerkit.validation.validate_schema.validate_schema">raillabel_providerkit.validation.validate_schema.validate_schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html#raillabel_providerkit.validation.validate_schema.validate_schema.validate_schema"><code class="docutils literal notranslate"><span class="pre">validate_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html#module-raillabel_providerkit.validation.validate_schema">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_schema.html#raillabel_providerkit.validation.validate_schema.validate_schema"><code class="docutils literal notranslate"><span class="pre">validate_schema()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_sensors.html">raillabel_providerkit.validation.validate_sensors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_sensors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_sensors.html#module-raillabel_providerkit.validation.validate_sensors.validate_sensors">raillabel_providerkit.validation.validate_sensors.validate_sensors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_sensors.html#raillabel_providerkit.validation.validate_sensors.validate_sensors.validate_sensors"><code class="docutils literal notranslate"><span class="pre">validate_sensors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_sensors.html#module-raillabel_providerkit.validation.validate_sensors">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html">raillabel_providerkit.validation.validate_transition package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html#module-raillabel_providerkit.validation.validate_transition.validate_transition">raillabel_providerkit.validation.validate_transition.validate_transition module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html#raillabel_providerkit.validation.validate_transition.validate_transition.validate_transition"><code class="docutils literal notranslate"><span class="pre">validate_transition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html#module-raillabel_providerkit.validation.validate_transition">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_transition.html#raillabel_providerkit.validation.validate_transition.validate_transition"><code class="docutils literal notranslate"><span class="pre">validate_transition()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raillabel_providerkit.validation.validate_uris.html">raillabel_providerkit.validation.validate_uris package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_uris.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_uris.html#module-raillabel_providerkit.validation.validate_uris.validate_uris">raillabel_providerkit.validation.validate_uris.validate_uris module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="raillabel_providerkit.validation.validate_uris.html#raillabel_providerkit.validation.validate_uris.validate_uris.validate_uris"><code class="docutils literal notranslate"><span class="pre">validate_uris()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="raillabel_providerkit.validation.validate_uris.html#module-raillabel_providerkit.validation.validate_uris">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-raillabel_providerkit.validation.issue">
+<span id="raillabel-providerkit-validation-issue-module"></span><h2>raillabel_providerkit.validation.issue module<a class="headerlink" href="#module-raillabel_providerkit.validation.issue" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.issue.</span></span><span class="sig-name descname"><span class="pre">Issue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType" title="raillabel_providerkit.validation.issue.IssueType"><span class="pre">IssueType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifiers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An error that was found inside the scene.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue.deserialize">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialized_issue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue.deserialize" title="Link to this definition">¶</a></dt>
+<dd><p>Deserialize a JSON-compatible dictionary back into an Issue class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialized_issue</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]  </em><em>|  </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – The serialized Issue as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deserialized Issue class instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue">Issue</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>jsonschema.exceptions.ValidationError</strong> – If the serialized data does not match the Issue JSONSchema.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue.identifiers">
+<span class="sig-name descname"><span class="pre">identifiers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue.identifiers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue.reason">
+<span class="sig-name descname"><span class="pre">reason</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue.reason" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue.serialize" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize the Issue into a JSON-compatible dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The serialized Issue as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.Issue.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType" title="raillabel_providerkit.validation.issue.IssueType"><span class="pre">IssueType</span></a></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.Issue.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.issue.</span></span><span class="sig-name descname"><span class="pre">IssueIdentifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Bbox'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Cuboid'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Num'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly2d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly3d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Seg3d'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.object" title="raillabel_providerkit.validation.issue.IssueIdentifiers.object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Information for locating an issue.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.annotation">
+<span class="sig-name descname"><span class="pre">annotation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.annotation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.annotation_type">
+<span class="sig-name descname"><span class="pre">annotation_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Bbox'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Cuboid'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Num'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly2d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly3d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Seg3d'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.annotation_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.attribute" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.deserialize">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialized_identifiers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.deserialize" title="Link to this definition">¶</a></dt>
+<dd><p>Deserialize a JSON-compatible dictionary back into an IssueIdentifiers class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialized_identifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – The serialized IssueIdentifiers as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deserialized IssueIdentifiers class instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers">IssueIdentifiers</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If any of the fields have an unexpected type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.frame" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.object">
+<span class="sig-name descname"><span class="pre">object</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.object" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.object_type">
+<span class="sig-name descname"><span class="pre">object_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.object_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.sensor">
+<span class="sig-name descname"><span class="pre">sensor</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.sensor" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueIdentifiers.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.serialize" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize the IssueIdentifiers into a JSON-compatible dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The serialized IssueIdentifiers as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.issue.</span></span><span class="sig-name descname"><span class="pre">IssueType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>General classification of the issue.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ANNOTATION_SENSOR_MISMATCH">
+<span class="sig-name descname"><span class="pre">ANNOTATION_SENSOR_MISMATCH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AnnotationSensorMismatch'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ANNOTATION_SENSOR_MISMATCH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_MISSING">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_MISSING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeMissing'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_MISSING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_SCOPE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_SCOPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeScopeInconsistency'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_SCOPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_TYPE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_TYPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeTypeIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_TYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_UNDEFINED">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_UNDEFINED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeUndefined'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_UNDEFINED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_VALUE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_VALUE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeValueIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_VALUE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.DIMENSION_INVALID">
+<span class="sig-name descname"><span class="pre">DIMENSION_INVALID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DimensionInvalidIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.DIMENSION_INVALID" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.EGO_TRACK_BOTH_RAILS">
+<span class="sig-name descname"><span class="pre">EGO_TRACK_BOTH_RAILS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EgoTrackBothRails'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.EGO_TRACK_BOTH_RAILS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.EMPTY_FRAMES">
+<span class="sig-name descname"><span class="pre">EMPTY_FRAMES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EmptyFramesIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.EMPTY_FRAMES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.HORIZON_CROSSED">
+<span class="sig-name descname"><span class="pre">HORIZON_CROSSED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HorizonCrossedIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.HORIZON_CROSSED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.MISSING_EGO_TRACK">
+<span class="sig-name descname"><span class="pre">MISSING_EGO_TRACK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MissingEgoTrackIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.MISSING_EGO_TRACK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.OBJECT_TYPE_UNDEFINED">
+<span class="sig-name descname"><span class="pre">OBJECT_TYPE_UNDEFINED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ObjectTypeUndefined'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.OBJECT_TYPE_UNDEFINED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.RAIL_SIDE">
+<span class="sig-name descname"><span class="pre">RAIL_SIDE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RailSide'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.RAIL_SIDE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.SCHEMA">
+<span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SchemaIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.SCHEMA" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.SENSOR_ID_UNKNOWN">
+<span class="sig-name descname"><span class="pre">SENSOR_ID_UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SensorIdUnknown'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.SENSOR_ID_UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.SENSOR_TYPE_WRONG">
+<span class="sig-name descname"><span class="pre">SENSOR_TYPE_WRONG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SensorTypeWrong'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.SENSOR_TYPE_WRONG" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.TRANSITION_IDENTICAL_START_END">
+<span class="sig-name descname"><span class="pre">TRANSITION_IDENTICAL_START_END</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TransitionIdenticalStartAndEnd'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.TRANSITION_IDENTICAL_START_END" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.UNEXPECTED_CLASS">
+<span class="sig-name descname"><span class="pre">UNEXPECTED_CLASS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UnexpectedClassIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.UNEXPECTED_CLASS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.URI_FORMAT">
+<span class="sig-name descname"><span class="pre">URI_FORMAT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UriFormatIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.URI_FORMAT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.issue.IssueType.names">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.issue.IssueType.names" title="Link to this definition">¶</a></dt>
+<dd><p>Return the string names of all IssueTypes as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-raillabel_providerkit.validation.issue_schema">
+<span id="raillabel-providerkit-validation-issue-schema-module"></span><h2>raillabel_providerkit.validation.issue_schema module<a class="headerlink" href="#module-raillabel_providerkit.validation.issue_schema" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-raillabel_providerkit.validation.validate">
+<span id="raillabel-providerkit-validation-validate-module"></span><h2>raillabel_providerkit.validation.validate module<a class="headerlink" href="#module-raillabel_providerkit.validation.validate" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate.validate">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.validate.</span></span><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ontology_source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_empty_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_rail_side_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_missing_ego_track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_ego_track_both_rails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_uris</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_annotation_type_per_sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_for_transition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizon_tolerance_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validate a scene based on the Deutsche Bahn Requirements.</p>
+<dl>
+<dt>Args:</dt><dd><p>scene_source: The scene either as a dictionary or as a Path to the scene source file.
+ontology_source: The dataset ontology as a dictionary or as a Path to the ontology YAML</p>
+<blockquote>
+<div><p>file. If not None, issues are returned if the scene contains annotations with invalid
+attributes or object types. Default is None.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>validate_for_empty_frames (optional): If True, issues are returned if the scene contains</dt><dd><p>sensor frames without annotations. Only checks middle/center cameras and lidar sensors.
+Default is True.</p>
+</dd>
+<dt>validate_for_rail_side_order: If True, issues are returned if the scene contains track with</dt><dd><p>a mismatching rail side order. Default is True.</p>
+</dd>
+<dt>validate_for_missing_ego_track: If True, issues are returned if the scene contains frames</dt><dd><p>where the ego track (the track the recording train is driving on) is missing. Checks
+both middle/center cameras and lidar sensors. Default is True.</p>
+</dd>
+<dt>validate_for_ego_track_both_rails: If True, issues are returned if the ego track rails</dt><dd><p>don’t have overlapping y-ranges or don’t have exactly one left and one right rail.
+Default is True.</p>
+</dd>
+<dt>validate_for_sensors: If True, issues are returned if the scene contains sensors that are</dt><dd><p>not supported or have the wrong sensor type.</p>
+</dd>
+<dt>validate_for_uris: If True, issues are returned if the uri fields in the scene contain</dt><dd><p>unsupported values.</p>
+</dd>
+<dt>validate_for_dimensions: If True, issues are returned if the dimensions of cuboids are</dt><dd><p>outside the expected values range.</p>
+</dd>
+</dl>
+<p>validate_for_horizon: If True, issues are returned if annotations cross the horizon.
+validate_for_annotation_type_per_sensor: Validate that annotation types match sensor types.
+validate_for_transition: If True, issues are returned if transition annotations have</p>
+<blockquote>
+<div><p>identical startTrack and endTrack values. Default is True.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>horizon_tolerance_percent: Tolerance buffer as percentage above the horizon line.</dt><dd><p>Annotations within this buffer zone are considered valid. For example, 10.0 means
+annotations up to 10% above the horizon line are accepted. Default is 10.0 (10% buffer).
+This only affects track and transition annotations.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>List of all requirement errors in the scene. If an empty list is returned, then there are no
+errors present and the scene is valid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-raillabel_providerkit.validation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-raillabel_providerkit.validation" title="Link to this heading">¶</a></h2>
+<p>Package for validating raillabel data regarding the format requirements.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">Issue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType" title="raillabel_providerkit.validation.issue.IssueType"><span class="pre">IssueType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifiers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.Issue" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An error that was found inside the scene.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue.deserialize">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialized_issue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a></span></span><a class="headerlink" href="#raillabel_providerkit.validation.Issue.deserialize" title="Link to this definition">¶</a></dt>
+<dd><p>Deserialize a JSON-compatible dictionary back into an Issue class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialized_issue</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]  </em><em>|  </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – The serialized Issue as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deserialized Issue class instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>jsonschema.exceptions.ValidationError</strong> – If the serialized data does not match the Issue JSONSchema.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue.identifiers">
+<span class="sig-name descname"><span class="pre">identifiers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.Issue.identifiers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue.reason">
+<span class="sig-name descname"><span class="pre">reason</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.Issue.reason" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.Issue.serialize" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize the Issue into a JSON-compatible dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The serialized Issue as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.Issue.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType" title="raillabel_providerkit.validation.issue.IssueType"><span class="pre">IssueType</span></a></span><a class="headerlink" href="#raillabel_providerkit.validation.Issue.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">IssueIdentifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">annotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Bbox'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Cuboid'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Num'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly2d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly3d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Seg3d'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.object" title="raillabel_providerkit.validation.IssueIdentifiers.object"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Information for locating an issue.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.annotation">
+<span class="sig-name descname"><span class="pre">annotation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.annotation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.annotation_type">
+<span class="sig-name descname"><span class="pre">annotation_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Bbox'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Cuboid'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Num'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly2d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Poly3d'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Seg3d'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.annotation_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.attribute">
+<span class="sig-name descname"><span class="pre">attribute</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.attribute" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.deserialize">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialized_identifiers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers" title="raillabel_providerkit.validation.issue.IssueIdentifiers"><span class="pre">IssueIdentifiers</span></a></span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.deserialize" title="Link to this definition">¶</a></dt>
+<dd><p>Deserialize a JSON-compatible dictionary back into an IssueIdentifiers class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serialized_identifiers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>  |  </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em>) – The serialized IssueIdentifiers as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deserialized IssueIdentifiers class instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers" title="raillabel_providerkit.validation.IssueIdentifiers">IssueIdentifiers</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If any of the fields have an unexpected type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.frame" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.object">
+<span class="sig-name descname"><span class="pre">object</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.object" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.object_type">
+<span class="sig-name descname"><span class="pre">object_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.object_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.sensor">
+<span class="sig-name descname"><span class="pre">sensor</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.sensor" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueIdentifiers.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueIdentifiers.serialize" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize the IssueIdentifiers into a JSON-compatible dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The serialized IssueIdentifiers as a JSON-compatible dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">IssueType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>General classification of the issue.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ANNOTATION_SENSOR_MISMATCH">
+<span class="sig-name descname"><span class="pre">ANNOTATION_SENSOR_MISMATCH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AnnotationSensorMismatch'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ANNOTATION_SENSOR_MISMATCH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ATTRIBUTE_MISSING">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_MISSING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeMissing'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_MISSING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ATTRIBUTE_SCOPE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_SCOPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeScopeInconsistency'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_SCOPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ATTRIBUTE_TYPE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_TYPE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeTypeIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_TYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ATTRIBUTE_UNDEFINED">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_UNDEFINED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeUndefined'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_UNDEFINED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.ATTRIBUTE_VALUE">
+<span class="sig-name descname"><span class="pre">ATTRIBUTE_VALUE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AttributeValueIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_VALUE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.DIMENSION_INVALID">
+<span class="sig-name descname"><span class="pre">DIMENSION_INVALID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DimensionInvalidIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.DIMENSION_INVALID" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.EGO_TRACK_BOTH_RAILS">
+<span class="sig-name descname"><span class="pre">EGO_TRACK_BOTH_RAILS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EgoTrackBothRails'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.EGO_TRACK_BOTH_RAILS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.EMPTY_FRAMES">
+<span class="sig-name descname"><span class="pre">EMPTY_FRAMES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EmptyFramesIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.EMPTY_FRAMES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.HORIZON_CROSSED">
+<span class="sig-name descname"><span class="pre">HORIZON_CROSSED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HorizonCrossedIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.HORIZON_CROSSED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.MISSING_EGO_TRACK">
+<span class="sig-name descname"><span class="pre">MISSING_EGO_TRACK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MissingEgoTrackIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.MISSING_EGO_TRACK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.OBJECT_TYPE_UNDEFINED">
+<span class="sig-name descname"><span class="pre">OBJECT_TYPE_UNDEFINED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ObjectTypeUndefined'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.OBJECT_TYPE_UNDEFINED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.RAIL_SIDE">
+<span class="sig-name descname"><span class="pre">RAIL_SIDE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RailSide'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.RAIL_SIDE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.SCHEMA">
+<span class="sig-name descname"><span class="pre">SCHEMA</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SchemaIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.SCHEMA" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.SENSOR_ID_UNKNOWN">
+<span class="sig-name descname"><span class="pre">SENSOR_ID_UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SensorIdUnknown'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.SENSOR_ID_UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.SENSOR_TYPE_WRONG">
+<span class="sig-name descname"><span class="pre">SENSOR_TYPE_WRONG</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SensorTypeWrong'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.SENSOR_TYPE_WRONG" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.TRANSITION_IDENTICAL_START_END">
+<span class="sig-name descname"><span class="pre">TRANSITION_IDENTICAL_START_END</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TransitionIdenticalStartAndEnd'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.TRANSITION_IDENTICAL_START_END" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.UNEXPECTED_CLASS">
+<span class="sig-name descname"><span class="pre">UNEXPECTED_CLASS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UnexpectedClassIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.UNEXPECTED_CLASS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.URI_FORMAT">
+<span class="sig-name descname"><span class="pre">URI_FORMAT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UriFormatIssue'</span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.URI_FORMAT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.IssueType.names">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.IssueType.names" title="Link to this definition">¶</a></dt>
+<dd><p>Return the string names of all IssueTypes as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_dimensions">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_dimensions" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether any annotations exceed the predefined bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<a class="reference internal" href="raillabel_providerkit.format.understand_ai.html#raillabel_providerkit.format.understand_ai.Scene" title="raillabel_providerkit.format.understand_ai.Scene"><em>Scene</em></a>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all dimension errors in the scene. If an empty list is returned, then there
+are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_ego_track_both_rails">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_ego_track_both_rails</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_ego_track_both_rails" title="Link to this definition">¶</a></dt>
+<dd><p>Validate that ego track has both left and right rails in center cameras.</p>
+<p>This validator checks:
+1. That the y-ranges of left and right ego track rails overlap
+2. That exactly one left and one right rail exist at the common y position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all ego track rail issues. If an empty list is returned, then there are no
+errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_empty_frames">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_empty_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_empty_frames" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether sensors requiring annotations have at least one annotation per frame.</p>
+<p>Only validates middle/center cameras and lidar sensors. This matches the behavior
+of the legacy annotation-checks tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all empty sensor frame errors in the scene. If an empty list is returned, then
+there are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_horizon">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_horizon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horizon_tolerance_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_horizon" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether all track/transition annotations are below the horizon.</p>
+<p>This validation only applies to <strong>track</strong> and <strong>transition</strong> object types.
+Other object types are not checked against the horizon line.</p>
+<p>The horizon is calculated based on each camera’s pitch angle (tilt), derived
+from the extrinsics rotation matrix. This approach is robust across different
+calibration conventions (OSDAR23, OSDAR26, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p></li>
+<li><p><strong>horizon_tolerance_percent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – Tolerance buffer as percentage of the horizon position from the top of the image.
+Higher values move the horizon line up (smaller Y), making the validation more
+permissive. For example, 10.0 means the horizon is moved up by 10% of its
+distance from the top. Default is 10.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all horizon crossing errors in the scene (only for track/transition
+annotations). If an empty list is returned, then there are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_missing_ego_track">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_missing_ego_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_missing_ego_track" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether all middle cameras and lidar have ego track annotations.</p>
+<p>This matches the behavior of the legacy annotation-checks tool which uses both
+EgoTrackBothRailsValidator (for cameras) and EgoTrackLidarValidator (for lidar).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all missing ego track errors in the scene. If an empty list is returned, then there
+are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_ontology">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_ontology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ontology_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_ontology" title="Link to this definition">¶</a></dt>
+<dd><p>Validate a scene based on the classes and attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scene</strong> (<em>raillabel.Scene</em>) – The scene containing the annotations.</p></li>
+<li><p><strong>ontology_input</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em> or </em><em>Path</em>) – Ontology YAML-data or file containing a information about all classes and their
+attributes. The ontology must adhere to the ontology_schema. If a path is provided, the
+file is loaded as a YAML.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all ontology errors in the scene. If an empty list is returned, then there are no
+errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_rail_side">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_rail_side</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_rail_side" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether all tracks have &lt;= one left and right rail, and that they have correct order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene, that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all rail side errors in the scene. If an empty list is returned, then there are no
+errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_schema">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_schema" title="Link to this definition">¶</a></dt>
+<dd><p>Validate a scene for adherence to the raillabel schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – _description_</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all schema errors in the scene. If an empty list is returned, then there
+are no errors present</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_sensors">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_sensors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_sensors" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether whether all sensors have supported names and have the correct type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all sensor name errors in the scene. If an empty list is returned, then there
+are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_transition">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_transition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_transition" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether transition annotations have different start and end tracks.</p>
+<p>This matches the behavior of the legacy annotation-checks TransitionValidator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<em>raillabel.Scene</em>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all transition errors in the scene. If an empty list is returned, then there
+are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="raillabel_providerkit.validation.validate_uris">
+<span class="sig-prename descclassname"><span class="pre">raillabel_providerkit.validation.</span></span><span class="sig-name descname"><span class="pre">validate_uris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Scene</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue" title="raillabel_providerkit.validation.issue.Issue"><span class="pre">Issue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#raillabel_providerkit.validation.validate_uris" title="Link to this definition">¶</a></dt>
+<dd><p>Validate whether all uri fields in a scene comply with the schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scene</strong> (<a class="reference internal" href="raillabel_providerkit.format.understand_ai.html#raillabel_providerkit.format.understand_ai.Scene" title="raillabel_providerkit.format.understand_ai.Scene"><em>Scene</em></a>) – Scene that should be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all uri format errors in the scene. If an empty list is returned, then there
+are no errors present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#raillabel_providerkit.validation.Issue" title="raillabel_providerkit.validation.Issue">Issue</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; DB InfraGO AG and the raillabel-providerkit contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/dbinfrago/raillabel" aria-label="GitHub"><img src="/_static/img/github-logo.svg"/></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">raillabel_providerkit.validation package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-raillabel_providerkit.validation.issue">raillabel_providerkit.validation.issue module</a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue"><code class="docutils literal notranslate"><span class="pre">Issue</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue.deserialize"><code class="docutils literal notranslate"><span class="pre">Issue.deserialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue.identifiers"><code class="docutils literal notranslate"><span class="pre">Issue.identifiers</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue.reason"><code class="docutils literal notranslate"><span class="pre">Issue.reason</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue.serialize"><code class="docutils literal notranslate"><span class="pre">Issue.serialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.Issue.type"><code class="docutils literal notranslate"><span class="pre">Issue.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.annotation"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.annotation</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.annotation_type"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.annotation_type</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.attribute"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.attribute</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.deserialize"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.deserialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.frame"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.frame</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.object"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.object</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.object_type"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.object_type</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.sensor"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.sensor</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueIdentifiers.serialize"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.serialize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType"><code class="docutils literal notranslate"><span class="pre">IssueType</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ANNOTATION_SENSOR_MISMATCH"><code class="docutils literal notranslate"><span class="pre">IssueType.ANNOTATION_SENSOR_MISMATCH</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_MISSING"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_MISSING</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_SCOPE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_SCOPE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_TYPE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_TYPE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_UNDEFINED"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_UNDEFINED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.ATTRIBUTE_VALUE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_VALUE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.DIMENSION_INVALID"><code class="docutils literal notranslate"><span class="pre">IssueType.DIMENSION_INVALID</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.EGO_TRACK_BOTH_RAILS"><code class="docutils literal notranslate"><span class="pre">IssueType.EGO_TRACK_BOTH_RAILS</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.EMPTY_FRAMES"><code class="docutils literal notranslate"><span class="pre">IssueType.EMPTY_FRAMES</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.HORIZON_CROSSED"><code class="docutils literal notranslate"><span class="pre">IssueType.HORIZON_CROSSED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.MISSING_EGO_TRACK"><code class="docutils literal notranslate"><span class="pre">IssueType.MISSING_EGO_TRACK</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.OBJECT_TYPE_UNDEFINED"><code class="docutils literal notranslate"><span class="pre">IssueType.OBJECT_TYPE_UNDEFINED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.RAIL_SIDE"><code class="docutils literal notranslate"><span class="pre">IssueType.RAIL_SIDE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.SCHEMA"><code class="docutils literal notranslate"><span class="pre">IssueType.SCHEMA</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.SENSOR_ID_UNKNOWN"><code class="docutils literal notranslate"><span class="pre">IssueType.SENSOR_ID_UNKNOWN</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.SENSOR_TYPE_WRONG"><code class="docutils literal notranslate"><span class="pre">IssueType.SENSOR_TYPE_WRONG</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.TRANSITION_IDENTICAL_START_END"><code class="docutils literal notranslate"><span class="pre">IssueType.TRANSITION_IDENTICAL_START_END</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.UNEXPECTED_CLASS"><code class="docutils literal notranslate"><span class="pre">IssueType.UNEXPECTED_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.URI_FORMAT"><code class="docutils literal notranslate"><span class="pre">IssueType.URI_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.issue.IssueType.names"><code class="docutils literal notranslate"><span class="pre">IssueType.names()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-raillabel_providerkit.validation.issue_schema">raillabel_providerkit.validation.issue_schema module</a></li>
+<li><a class="reference internal" href="#module-raillabel_providerkit.validation.validate">raillabel_providerkit.validation.validate module</a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-raillabel_providerkit.validation">Module contents</a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue"><code class="docutils literal notranslate"><span class="pre">Issue</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue.deserialize"><code class="docutils literal notranslate"><span class="pre">Issue.deserialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue.identifiers"><code class="docutils literal notranslate"><span class="pre">Issue.identifiers</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue.reason"><code class="docutils literal notranslate"><span class="pre">Issue.reason</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue.serialize"><code class="docutils literal notranslate"><span class="pre">Issue.serialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.Issue.type"><code class="docutils literal notranslate"><span class="pre">Issue.type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.annotation"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.annotation</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.annotation_type"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.annotation_type</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.attribute"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.attribute</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.deserialize"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.deserialize()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.frame"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.frame</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.object"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.object</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.object_type"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.object_type</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.sensor"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.sensor</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueIdentifiers.serialize"><code class="docutils literal notranslate"><span class="pre">IssueIdentifiers.serialize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType"><code class="docutils literal notranslate"><span class="pre">IssueType</span></code></a><ul>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ANNOTATION_SENSOR_MISMATCH"><code class="docutils literal notranslate"><span class="pre">IssueType.ANNOTATION_SENSOR_MISMATCH</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_MISSING"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_MISSING</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_SCOPE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_SCOPE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_TYPE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_TYPE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_UNDEFINED"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_UNDEFINED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.ATTRIBUTE_VALUE"><code class="docutils literal notranslate"><span class="pre">IssueType.ATTRIBUTE_VALUE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.DIMENSION_INVALID"><code class="docutils literal notranslate"><span class="pre">IssueType.DIMENSION_INVALID</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.EGO_TRACK_BOTH_RAILS"><code class="docutils literal notranslate"><span class="pre">IssueType.EGO_TRACK_BOTH_RAILS</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.EMPTY_FRAMES"><code class="docutils literal notranslate"><span class="pre">IssueType.EMPTY_FRAMES</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.HORIZON_CROSSED"><code class="docutils literal notranslate"><span class="pre">IssueType.HORIZON_CROSSED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.MISSING_EGO_TRACK"><code class="docutils literal notranslate"><span class="pre">IssueType.MISSING_EGO_TRACK</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.OBJECT_TYPE_UNDEFINED"><code class="docutils literal notranslate"><span class="pre">IssueType.OBJECT_TYPE_UNDEFINED</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.RAIL_SIDE"><code class="docutils literal notranslate"><span class="pre">IssueType.RAIL_SIDE</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.SCHEMA"><code class="docutils literal notranslate"><span class="pre">IssueType.SCHEMA</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.SENSOR_ID_UNKNOWN"><code class="docutils literal notranslate"><span class="pre">IssueType.SENSOR_ID_UNKNOWN</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.SENSOR_TYPE_WRONG"><code class="docutils literal notranslate"><span class="pre">IssueType.SENSOR_TYPE_WRONG</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.TRANSITION_IDENTICAL_START_END"><code class="docutils literal notranslate"><span class="pre">IssueType.TRANSITION_IDENTICAL_START_END</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.UNEXPECTED_CLASS"><code class="docutils literal notranslate"><span class="pre">IssueType.UNEXPECTED_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.URI_FORMAT"><code class="docutils literal notranslate"><span class="pre">IssueType.URI_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.IssueType.names"><code class="docutils literal notranslate"><span class="pre">IssueType.names()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_dimensions"><code class="docutils literal notranslate"><span class="pre">validate_dimensions()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_ego_track_both_rails"><code class="docutils literal notranslate"><span class="pre">validate_ego_track_both_rails()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_empty_frames"><code class="docutils literal notranslate"><span class="pre">validate_empty_frames()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_horizon"><code class="docutils literal notranslate"><span class="pre">validate_horizon()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_missing_ego_track"><code class="docutils literal notranslate"><span class="pre">validate_missing_ego_track()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_ontology"><code class="docutils literal notranslate"><span class="pre">validate_ontology()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_rail_side"><code class="docutils literal notranslate"><span class="pre">validate_rail_side()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_schema"><code class="docutils literal notranslate"><span class="pre">validate_schema()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_sensors"><code class="docutils literal notranslate"><span class="pre">validate_sensors()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_transition"><code class="docutils literal notranslate"><span class="pre">validate_transition()</span></code></a></li>
+<li><a class="reference internal" href="#raillabel_providerkit.validation.validate_uris"><code class="docutils literal notranslate"><span class="pre">validate_uris()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
