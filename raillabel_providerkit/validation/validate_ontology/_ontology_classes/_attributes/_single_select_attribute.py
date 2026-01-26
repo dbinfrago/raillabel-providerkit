@@ -46,6 +46,12 @@ class _SingleSelectAttribute(_Attribute):
         attribute_values: bool | float | str | list,
         identifiers: IssueIdentifiers,
     ) -> list[Issue]:
+        # Convert numeric types (int/float) to string for comparison
+        # This handles cases where data contains numeric values (e.g., 1.0, 2.0)
+        # but the ontology defines string options (e.g., "1", "2")
+        if isinstance(attribute_values, int | float):
+            attribute_values = str(int(attribute_values))
+
         type_issues = super().check_type_and_value(attribute_name, attribute_values, identifiers)
         if len(type_issues) > 0:
             return type_issues
@@ -63,6 +69,20 @@ class _SingleSelectAttribute(_Attribute):
             ]
 
         return []
+
+    def _all_options_are_numeric(self) -> bool:
+        """Check if all options are numeric strings (e.g., '1', '2', '10')."""
+        return all(self._is_numeric_string(option) for option in self.options)
+
+    @staticmethod
+    def _is_numeric_string(value: str) -> bool:
+        """Check if a string value represents a valid integer."""
+        try:
+            int(value)
+        except (ValueError, TypeError):
+            return False
+        else:
+            return True
 
     def _stringify_options(self) -> str:
         options_str = ""

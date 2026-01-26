@@ -85,7 +85,10 @@ def get_schema_path(schema_name: str) -> Path:
     ----------
     schema_name : str
         Name of the schema to load. Supported values:
-        - "raillabel": RailLabel JSON schema
+        - "raillabel": Generic RailLabel JSON schema (OpenLABEL subset)
+        - "osdar23": OSDAR23-specific RailLabel schema
+        - "osdar26": OSDAR26-specific RailLabel schema
+        - "automatedtrain": AutomatedTrain-specific RailLabel schema
         - "understand_ai_t4": Understand.AI T4 format schema
         - "ontology": Ontology validation schema (v2)
 
@@ -98,9 +101,18 @@ def get_schema_path(schema_name: str) -> Path:
     ------
     ValueError
         If the schema name is not recognized
+
+    Notes
+    -----
+    The ontology-specific schemas (osdar23, osdar26, automatedtrain) are currently
+    identical copies of the base raillabel schema, as they share the same OpenLABEL
+    structure. Ontology-specific validation is handled by the ontology YAML files.
     """
     valid_schemas = {
         "raillabel": "raillabel_schema.json",
+        "osdar23": "osdar23_schema.json",
+        "osdar26": "osdar26_schema.json",
+        "automatedtrain": "automatedtrain_schema.json",
         "understand_ai_t4": "understand_ai_t4_schema.json",
         "ontology": "ontology_schema_v2.yaml",
     }
@@ -141,7 +153,7 @@ def list_available_schemas() -> list[str]:
     list[str]
         List of available schema names
     """
-    return ["raillabel", "understand_ai_t4", "ontology"]
+    return ["raillabel", "osdar23", "osdar26", "automatedtrain", "understand_ai_t4", "ontology"]
 
 
 __all__ = [
