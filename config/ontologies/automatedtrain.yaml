@@ -1,3 +1,6 @@
+# Copyright DB InfraGO AG and contributors
+# SPDX-License-Identifier: MIT
+
 # AutomatedTrain ontology – clean, schema-valid YAML
 # created: 2026-01-14
 
@@ -571,7 +574,7 @@ switch:
                     "75-100%",
                     undefined
                 ]
-        scope: annotation      
+        scope: annotation
 catenary_pole:
     isBottomVisible:
         sensor_types:
@@ -821,7 +824,7 @@ reflective_test_object:
     attribute_type:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
-    scope: annotation 
+    scope: annotation
 
 trampoline:
   size:
@@ -841,7 +844,7 @@ trampoline:
     attribute_type:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
-    scope: annotation 
+    scope: annotation
 
 plane:
   state:
