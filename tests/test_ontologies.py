@@ -128,7 +128,7 @@ class TestOntologyContent:
             data = yaml.safe_load(f)
 
         # Check for safety-critical classes
-        safety_classes = ["obstacle", "platform", "level_crossing", "speed_sign"]
+        safety_classes = ["track", "signal", "buffer_stop", "switch"]
         for cls in safety_classes:
             assert cls in data, f"Expected safety class {cls} not found"
 
