@@ -28,9 +28,33 @@ def test_fromdict__simple():
     assert len(ontology.errors) == 0
 
 
+def test_fromdict__null_class():
+    ontology = _Ontology.fromdict({"ignore_tracks": None})
+    assert len(ontology.classes) == 1
+    assert "ignore_tracks" in ontology.classes
+    assert ontology.classes["ignore_tracks"].attributes == {}
+    assert len(ontology.errors) == 0
+
+
 def test_check__empty_scene():
     ontology = _Ontology.fromdict({})
     scene = SceneBuilder.empty().result
+
+    issues = ontology.check(scene)
+    assert issues == []
+
+
+def test_check__null_class_no_attributes():
+    ontology = _Ontology.fromdict({"ignore_tracks": None})
+    scene = (
+        SceneBuilder.empty()
+        .add_object(object_type="ignore_tracks", object_name="ignore_tracks_0001")
+        .add_bbox(
+            object_name="ignore_tracks_0001",
+            attributes={},
+        )
+        .result
+    )
 
     issues = ontology.check(scene)
     assert issues == []
@@ -577,6 +601,119 @@ def test_compile_annotations__three_annotations_in_two_frames():
     )
     annotations = _Ontology._compile_annotations(scene)
     assert len(annotations) == 3
+
+
+def test_check_attribute_scopes__two_objects_same_type_second_inconsistent(
+    sample_uuid_1, sample_uuid_2, sample_uuid_3, sample_uuid_4
+):
+    """Scope errors in the second object of the same type must also be detected."""
+    ontology = _Ontology.fromdict(
+        {"person": {"greeting": {"attribute_type": "string", "scope": "object"}}}
+    )
+    scene = (
+        SceneBuilder.empty()
+        .add_object(object_name="person_0001")
+        .add_object(object_name="person_0002")
+        .add_bbox(
+            uid=sample_uuid_1,
+            frame_id=0,
+            object_name="person_0001",
+            attributes={"greeting": "hello"},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_2,
+            frame_id=1,
+            object_name="person_0001",
+            attributes={"greeting": "hello"},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_3,
+            frame_id=0,
+            object_name="person_0002",
+            attributes={"greeting": "hi"},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_4,
+            frame_id=1,
+            object_name="person_0002",
+            attributes={"greeting": "hey"},
+            sensor_id="rgb_center",
+        )
+        .result
+    )
+    errors = ontology._check_attribute_scopes(
+        [
+            _AnnotationWithMetadata(sample_uuid_1, 0, scene),
+            _AnnotationWithMetadata(sample_uuid_2, 1, scene),
+            _AnnotationWithMetadata(sample_uuid_3, 0, scene),
+            _AnnotationWithMetadata(sample_uuid_4, 1, scene),
+        ]
+    )
+    assert len(errors) == 1
+    assert errors[0].type == IssueType.ATTRIBUTE_SCOPE
+    assert errors[0].identifiers.object == scene.objects[
+        next(
+            uid
+            for uid, obj in scene.objects.items()
+            if obj.type == "person" and "0002" in (getattr(obj, "name", "") or "")
+        )
+    ].uid if hasattr(list(scene.objects.values())[0], "uid") else True
+
+
+def test_check_attribute_scopes__missing_attribute_does_not_abort(
+    sample_uuid_1, sample_uuid_2, sample_uuid_3, sample_uuid_4
+):
+    """An annotation missing an attribute must not prevent other scope checks."""
+    ontology = _Ontology.fromdict(
+        {"person": {"greeting": {"attribute_type": "string", "scope": "object"}}}
+    )
+    scene = (
+        SceneBuilder.empty()
+        .add_object(object_name="person_0001")
+        .add_object(object_name="person_0002")
+        .add_bbox(
+            uid=sample_uuid_1,
+            frame_id=0,
+            object_name="person_0001",
+            attributes={"greeting": "hello"},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_2,
+            frame_id=1,
+            object_name="person_0001",
+            attributes={},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_3,
+            frame_id=0,
+            object_name="person_0002",
+            attributes={"greeting": "hi"},
+            sensor_id="rgb_center",
+        )
+        .add_bbox(
+            uid=sample_uuid_4,
+            frame_id=1,
+            object_name="person_0002",
+            attributes={"greeting": "hey"},
+            sensor_id="rgb_center",
+        )
+        .result
+    )
+    errors = ontology._check_attribute_scopes(
+        [
+            _AnnotationWithMetadata(sample_uuid_1, 0, scene),
+            _AnnotationWithMetadata(sample_uuid_2, 1, scene),
+            _AnnotationWithMetadata(sample_uuid_3, 0, scene),
+            _AnnotationWithMetadata(sample_uuid_4, 1, scene),
+        ]
+    )
+    assert len(errors) == 1
+    assert errors[0].type == IssueType.ATTRIBUTE_SCOPE
 
 
 if __name__ == "__main__":

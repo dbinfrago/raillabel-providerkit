@@ -181,7 +181,7 @@ Pre-built ontology parameter files are provided and accessible via the API:
 |----------|------|---------|-------------|
 | `osdar23` | OSDAR23 | OSDAR23 | Original railway environment annotation ontology. Includes standard occlusion ranges (0-25%, 25-50%, 50-75%, 75-99%, 100%) and core railway classes. |
 | `osdar26` | OSDAR26 | OSDAR26 | Extended railway environment ontology with 25 object classes. Features comprehensive signal aspects (Hp, Ks, Vr, Zs, Sh variants), updated occlusion ranges (0-24%, 25-49%, 50-74%, 75-99%, 100%), and additional classes. |
-| `automatedtrain` | AutomatedTrain | AutomatedTrain | Specialized ontology for automated train perception and safety-critical annotation. Includes obstacle detection, platform recognition, level crossings, speed signs. |
+| `automatedtrain` | AutomatedTrain | AutomatedTrain | Specialized ontology for automated train perception. Extended class set including train_front, reflective_test_object, trampoline, plane, and ignore_tracks. |
 
 ### OSDAR26 Classes (25 total)
 - **Persons**: `person`, `crowd`
@@ -189,17 +189,21 @@ Pre-built ontology parameter files are provided and accessible via the API:
 - **Vehicles**: `bicycle`, `group_of_bicycles`, `motorcycle`, `road_vehicle`
 - **Animals**: `animal`, `group_of_animals`
 - **Railway Vehicles**: `train`, `wagon`, `drag_shoe`
-- **Track Infrastructure**: `track`, `transition`, `switch`
+- **Track Infrastructure**: `track`, `switch`, `ignore_tracks`
 - **Signaling**: `signal`, `signal_pole`, `signal_bridge`, `catenary_pole`, `buffer_stop`
 - **Hazards**: `flame`, `smoke`
 
-### AutomatedTrain Classes
+### AutomatedTrain Classes (29 total)
 
-The AutomatedTrain ontology supports safety-critical classes for automated train operation:
-- **Core Classes**: `person`, `crowd`, `train`, `wagon`, `track`, `transition`, `switch`
+- **Persons**: `person`, `crowd`
+- **Personal Mobility**: `personal_item`, `pram`, `scooter`, `wheelchair`
+- **Vehicles**: `bicycle`, `group_of_bicycles`, `motorcycle`, `road_vehicle`
+- **Animals**: `animal`, `group_of_animals`
+- **Railway Vehicles**: `train`, `train_front`, `wagons`, `drag_shoe`
+- **Track Infrastructure**: `track`, `switch`, `ignore_tracks`
 - **Signaling**: `signal`, `signal_pole`, `signal_bridge`, `catenary_pole`, `buffer_stop`
-- **Vehicles**: `road_vehicle`, `bicycle`, `motorcycle`, `animal`
-- **Safety-Critical**: `obstacle`, `platform`, `level_crossing`, `speed_sign`
+- **Hazards**: `flame`, `smoke`
+- **Special**: `reflective_test_object`, `trampoline`, `plane`
 
 ## Supported Sensors
 

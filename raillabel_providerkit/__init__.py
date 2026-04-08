@@ -10,6 +10,7 @@ from .convert import loader_classes
 from .convert.convert import convert
 from .export.export_scenes import export_scenes
 from .ontologies import (
+    detect_ontology,
     get_ontology_path,
     get_schema_path,
     list_available_ontologies,
@@ -29,6 +30,7 @@ __all__ = [
     "convert",
     "export_scenes",
     "validate",
+    "detect_ontology",
     "get_ontology_path",
     "get_schema_path",
     "list_available_ontologies",

@@ -40,8 +40,8 @@ Available Ontologies
     and classes for personal_item, pram, scooter, flame, smoke.
 
 **AutomatedTrain** (``automatedtrain``)
-    Specialized ontology for automated train perception and safety-critical annotation.
-    Includes obstacle detection, platform recognition, level crossings, and speed signs.
+    Specialized ontology for automated train perception. Extended class set (29 classes)
+    including train_front, reflective_test_object, trampoline, plane, and ignore_tracks.
 
 **OSDAR23** (``osdar23``)
     Original railway environment annotation ontology for the OSDAR23 dataset.

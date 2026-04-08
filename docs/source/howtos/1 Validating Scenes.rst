@@ -59,17 +59,15 @@ Pre-built ontology parameter files are provided in the ``config/ontologies/`` di
     - Updated occlusion ranges: 0-24%, 25-49%, 50-74%, 75-99%, 100%
     - Additional object classes: personal_item (suitcase, backpack, handbag, bag, etc.), pram (stroller, buggy, babySeat), scooter (eScooter, scooter, hoverboard)
     - Enhanced animal species coverage (dog, cat, racoon, badger, swan, sheep, cow, horse, pig, fox, wolf, wildBoar, deer, stork, rabbit, bird)
-    - Complete railway infrastructure elements (track, switch, transition, catenary_pole, signal_pole, buffer_stop)
+    - Complete railway infrastructure elements (track, switch, ignore_tracks, catenary_pole, signal_pole, buffer_stop)
     - Hazard detection (flame, smoke)
 
 **AutomatedTrain** (``config/ontologies/automatedtrain.yaml``)
-    Specialized ontology for automated train perception and safety-critical railway environment annotation:
+    Specialized ontology for automated train perception with 29 object classes:
 
-    - **Safety-critical classes**: obstacle, platform, level_crossing, speed_sign
+    - **Extended classes**: train_front, reflective_test_object, trampoline, plane, ignore_tracks
     - Switch state tracking (straight, diverging)
-    - Emergency vehicle detection
-    - Level crossing state monitoring (open, closing, closed, opening)
-    - Boolean safety indicators for critical situations
+    - Uses plural ``wagons`` (vs. singular ``wagon`` in OSDAR26)
 
 Usage Examples
 ##############

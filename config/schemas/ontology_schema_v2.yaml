@@ -47,7 +47,7 @@ definitions:
     class:
         additionalProperties:
             "$ref": "#/definitions/attribute"
-        type: object
+        type: [object, "null"]
 
     integer_attribute:
         const: integer

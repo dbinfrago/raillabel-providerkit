@@ -21,7 +21,8 @@ class _Ontology:
     @classmethod
     def fromdict(cls, data: dict) -> _Ontology:
         return _Ontology(
-            {class_id: _ObjectClass.fromdict(class_) for class_id, class_ in data.items()}, []
+            {class_id: _ObjectClass.fromdict(class_ or {}) for class_id, class_ in data.items()},
+            [],
         )
 
     def check(self, scene: raillabel.Scene) -> list[Issue]:
@@ -56,7 +57,7 @@ class _Ontology:
         self, annotations_with_metadata: list[_AnnotationWithMetadata]
     ) -> list[Issue]:
         errors: list[Issue] = []
-        checked_attributes_by_object_type: dict[str, list[str]] = {}
+        checked_keys: set[tuple[str, object, str]] = set()
 
         for annotation_with_metadata in annotations_with_metadata:
             object_type_name = annotation_with_metadata.object_type
@@ -66,8 +67,7 @@ class _Ontology:
                 continue
             object_class = self.classes[object_type_name]
 
-            if object_type_name not in checked_attributes_by_object_type:
-                checked_attributes_by_object_type[object_type_name] = []
+            object_id = annotation_with_metadata.annotation.object_id
 
             for (
                 attribute_name,
@@ -77,19 +77,20 @@ class _Ontology:
                 if attribute is None:
                     continue
 
-                if attribute_name in checked_attributes_by_object_type[object_type_name]:
+                key = (object_type_name, object_id, attribute_name)
+                if key in checked_keys:
                     continue
-                checked_attributes_by_object_type[object_type_name].append(attribute_name)
+                checked_keys.add(key)
 
                 for other_annotation_with_metadata in annotations_with_metadata:
                     if (
-                        other_annotation_with_metadata is annotations_with_metadata
+                        other_annotation_with_metadata is annotation_with_metadata
                         or other_annotation_with_metadata.object_type != object_type_name
                     ):
                         continue
 
                     if attribute_name not in other_annotation_with_metadata.annotation.attributes:
-                        return []
+                        continue
                     other_attribute_value = other_annotation_with_metadata.annotation.attributes[
                         attribute_name
                     ]

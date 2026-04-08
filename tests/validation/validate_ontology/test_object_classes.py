@@ -38,6 +38,14 @@ def test_fromdict__empty():
     assert object_class.attributes == {}
 
 
+def test_check__no_attributes_no_annotation_attributes():
+    object_class = _ObjectClass.fromdict({})
+    annotation_metadata = build_bbox_with_attributes({})
+
+    issues = object_class.check(annotation_metadata)
+    assert issues == []
+
+
 def test_fromdict__boolean_attributes():
     object_class = _ObjectClass.fromdict({"isPeelable": {"attribute_type": "boolean"}})
     assert object_class.attributes == {

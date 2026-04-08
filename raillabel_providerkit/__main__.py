@@ -452,8 +452,8 @@ def export_command(
 @click.option(
     "--horizon-tolerance",
     type=float,
-    default=0.0,
-    help="Tolerance buffer as percentage above horizon (e.g., 5.0 for 5%%). Default is 0.0.",
+    default=10.0,
+    help="Tolerance buffer as percentage above horizon (e.g., 10.0 for 10%%). Default is 10.0.",
 )
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
 def run_raillabel_providerkit(  # noqa: PLR0913

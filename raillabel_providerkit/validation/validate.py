@@ -9,6 +9,7 @@ from pathlib import Path
 from raillabel import Scene
 from raillabel.json_format import JSONScene
 
+from raillabel_providerkit.ontologies import detect_ontology, get_ontology_path
 from raillabel_providerkit.validation import Issue
 
 from . import (
@@ -95,6 +96,10 @@ def validate(  # noqa: C901, PLR0912, PLR0913
 
     if ontology_source is not None:
         errors.extend(validate_ontology(scene, ontology_source))
+    else:
+        detected = detect_ontology(scene)
+        if detected is not None:
+            errors.extend(validate_ontology(scene, get_ontology_path(detected)))
 
     if validate_for_empty_frames:
         errors.extend(validate_empty_frames(scene))

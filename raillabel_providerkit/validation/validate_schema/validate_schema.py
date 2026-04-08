@@ -17,7 +17,7 @@ def validate_schema(data: dict) -> list[Issue]:
     Parameters
     ----------
     data : dict
-        _description_
+        The scene data as a dictionary to validate against the raillabel schema.
 
     Returns
     -------
@@ -73,13 +73,6 @@ def _make_errors_readable(errors: ValidationError) -> list[Issue]:  # noqa: C901
                 )
 
     return readable_errors
-
-
-def _build_error_path(loc: list[str]) -> str:
-    path = "$"
-    for part in loc:
-        path += f".{part}"
-    return path
 
 
 def _convert_missing_error_to_issue(error: dict) -> Issue:

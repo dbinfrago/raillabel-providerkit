@@ -61,7 +61,8 @@ def validate_horizon(
     for frame_uid, frame in filtered_scene.frames.items():
         for annotation_uid, annotation in frame.annotations.items():
             if not isinstance(annotation, Poly2d):
-                raise AssertionError  # noqa: TRY004
+                msg = f"Expected Poly2d annotation but got {type(annotation).__name__}"
+                raise TypeError(msg)
 
             sensor_id = annotation.sensor_id
 
@@ -119,7 +120,7 @@ def _validate_annotation_for_horizon(
 
         # Apply tolerance buffer: move horizon line up by the tolerance percentage
         # The horizon_y is measured from the top of the image (Y=0 is top)
-        # Moving it "up" means making it smaller
+        # Moving it "up" means making it smaller (more permissive for tracks)
         # tolerance_percent% of horizon_y is subtracted
         horizon_y_with_buffer = horizon_y * (1.0 - horizon_tolerance_percent / 100.0)
 

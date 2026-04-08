@@ -14,7 +14,11 @@ for scene validation. Instead of managing ontology files separately, you can use
 All ontology files are stored centrally in the config/ontologies/ directory.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+
+import raillabel
 
 
 def _get_config_dir() -> Path:
@@ -156,7 +160,55 @@ def list_available_schemas() -> list[str]:
     return ["raillabel", "osdar23", "osdar26", "automatedtrain", "understand_ai_t4", "ontology"]
 
 
+_UNIQUE_CLASSES: dict[str, set[str]] = {
+    "automatedtrain": {"train_front", "reflective_test_object", "trampoline", "plane"},
+    "osdar23": {"transition"},
+}
+
+_EXCLUSIVE_PAIRS: dict[str, set[str]] = {
+    "automatedtrain": {"personal_item", "pram", "scooter"},
+    "osdar26": {"wagon"},
+}
+
+
+def detect_ontology(scene: raillabel.Scene) -> str | None:
+    """Detect which ontology matches the object types in a scene.
+
+    Uses unique class names to determine which ontology should be applied. Returns
+    None if no ontology can be reliably detected.
+
+    Parameters
+    ----------
+    scene : raillabel.Scene
+        The loaded scene to analyze.
+
+    Returns
+    -------
+    str | None
+        Name of the detected ontology ('automatedtrain', 'osdar23', 'osdar26'),
+        or None if detection is ambiguous or no objects are present.
+    """
+    object_types = {obj.type for obj in scene.objects.values()}
+
+    if not object_types:
+        return None
+
+    for ontology_name, unique_classes in _UNIQUE_CLASSES.items():
+        if object_types & unique_classes:
+            return ontology_name
+
+    if "wagon" in object_types:
+        return "osdar26"
+    if "wagons" in object_types:
+        if object_types & _EXCLUSIVE_PAIRS["automatedtrain"]:
+            return "automatedtrain"
+        return "osdar23"
+
+    return None
+
+
 __all__ = [
+    "detect_ontology",
     "get_ontology_path",
     "get_schema_path",
     "list_available_ontologies",

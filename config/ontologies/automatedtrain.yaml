@@ -523,7 +523,7 @@ track:
     attribute_type: boolean
     scope: frame
 
-  trackId:
+  trackID:
     attribute_type: string
     scope: annotation
 
@@ -812,10 +812,6 @@ smoke:
         scope: annotation
 
 ignore_tracks:
-  noError:
-    attribute_type:
-      type: single-select
-      options: [noError]
 
 
 reflective_test_object:

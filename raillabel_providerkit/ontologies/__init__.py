@@ -4,6 +4,7 @@
 """Package for built-in ontology and schema definitions."""
 
 from .manager import (
+    detect_ontology,
     get_ontology_path,
     get_schema_path,
     list_available_ontologies,
@@ -11,6 +12,7 @@ from .manager import (
 )
 
 __all__ = [
+    "detect_ontology",
     "get_ontology_path",
     "get_schema_path",
     "list_available_ontologies",

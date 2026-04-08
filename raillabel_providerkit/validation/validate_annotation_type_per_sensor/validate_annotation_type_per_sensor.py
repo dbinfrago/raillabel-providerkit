@@ -84,8 +84,6 @@ def _sensor_type(scene: raillabel.Scene, sensor_id: str) -> str | None:
     """Return the sensor type ('camera', 'lidar', 'radar') or None if unknown."""
     sensors = getattr(scene, "sensors", {}) or {}
     sensor = sensors.get(sensor_id)
-    if sensor is None and hasattr(sensors, "get"):
-        sensor = sensors.get(sensor_id)
     if sensor is None:
         return None
     s_type = getattr(sensor, "type", None)

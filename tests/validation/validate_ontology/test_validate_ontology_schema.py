@@ -25,6 +25,11 @@ def test_empty_class_valid():
     _validate_ontology_schema(ontology)
 
 
+def test_null_class_valid():
+    ontology = {"ignore_tracks": None}
+    _validate_ontology_schema(ontology)
+
+
 def test_valid_attribute_types():
     ontology = {
         "person": {
