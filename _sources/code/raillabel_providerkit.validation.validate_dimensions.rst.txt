@@ -1,0 +1,21 @@
+raillabel\_providerkit.validation.validate\_dimensions package
+==============================================================
+
+Submodules
+----------
+
+raillabel\_providerkit.validation.validate\_dimensions.validate\_dimensions module
+----------------------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.validation.validate_dimensions.validate_dimensions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.validation.validate_dimensions
+   :members:
+   :show-inheritance:
+   :undoc-members:

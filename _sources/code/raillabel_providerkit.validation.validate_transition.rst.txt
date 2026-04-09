@@ -1,0 +1,21 @@
+raillabel\_providerkit.validation.validate\_transition package
+==============================================================
+
+Submodules
+----------
+
+raillabel\_providerkit.validation.validate\_transition.validate\_transition module
+----------------------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.validation.validate_transition.validate_transition
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.validation.validate_transition
+   :members:
+   :show-inheritance:
+   :undoc-members:
