@@ -174,8 +174,9 @@ _EXCLUSIVE_PAIRS: dict[str, set[str]] = {
 def detect_ontology(scene: raillabel.Scene) -> str | None:
     """Detect which ontology matches the object types in a scene.
 
-    Uses unique class names to determine which ontology should be applied. Returns
-    None if no ontology can be reliably detected.
+    Uses unique class names to determine which ontology should be applied.
+    Falls back to 'automatedtrain' when no OSDAR23/OSDAR26-specific classes are found.
+    Returns None only if the scene has no objects.
 
     Parameters
     ----------
@@ -186,7 +187,7 @@ def detect_ontology(scene: raillabel.Scene) -> str | None:
     -------
     str | None
         Name of the detected ontology ('automatedtrain', 'osdar23', 'osdar26'),
-        or None if detection is ambiguous or no objects are present.
+        or None if no objects are present.
     """
     object_types = {obj.type for obj in scene.objects.values()}
 
@@ -204,7 +205,7 @@ def detect_ontology(scene: raillabel.Scene) -> str | None:
             return "automatedtrain"
         return "osdar23"
 
-    return None
+    return "automatedtrain"
 
 
 __all__ = [

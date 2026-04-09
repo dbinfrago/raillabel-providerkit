@@ -38,7 +38,8 @@ class _ObjectClass:
             if attribute_class.supports(attribute):
                 return attribute_class.fromdict(attribute)
 
-        raise ValueError(f"No attribute class supports definition: {attribute}")
+        msg = f"No attribute class supports definition: {attribute}"
+        raise ValueError(msg)
 
     def _check_undefined_attributes(
         self, annotation_metadata: _AnnotationWithMetadata

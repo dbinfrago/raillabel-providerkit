@@ -654,13 +654,18 @@ def test_check_attribute_scopes__two_objects_same_type_second_inconsistent(
     )
     assert len(errors) == 1
     assert errors[0].type == IssueType.ATTRIBUTE_SCOPE
-    assert errors[0].identifiers.object == scene.objects[
-        next(
-            uid
-            for uid, obj in scene.objects.items()
-            if obj.type == "person" and "0002" in (getattr(obj, "name", "") or "")
-        )
-    ].uid if hasattr(list(scene.objects.values())[0], "uid") else True
+    assert (
+        errors[0].identifiers.object
+        == scene.objects[
+            next(
+                uid
+                for uid, obj in scene.objects.items()
+                if obj.type == "person" and "0002" in (getattr(obj, "name", "") or "")
+            )
+        ].uid
+        if hasattr(list(scene.objects.values())[0], "uid")
+        else True
+    )
 
 
 def test_check_attribute_scopes__missing_attribute_does_not_abort(

@@ -33,6 +33,7 @@ from .validate_annotation_type_per_sensor.validate_annotation_type_per_sensor im
 def validate(  # noqa: C901, PLR0912, PLR0913
     scene_source: dict | Path,
     ontology_source: dict | Path | None = None,
+    validate_for_ontology: bool = True,
     validate_for_empty_frames: bool = True,
     validate_for_rail_side_order: bool = True,
     validate_for_missing_ego_track: bool = True,
@@ -52,6 +53,8 @@ def validate(  # noqa: C901, PLR0912, PLR0913
         ontology_source: The dataset ontology as a dictionary or as a Path to the ontology YAML
             file. If not None, issues are returned if the scene contains annotations with invalid
             attributes or object types. Default is None.
+        validate_for_ontology: If True, ontology validation is performed. When no ontology_source
+            is provided, auto-detection determines the ontology. Default is True.
         validate_for_empty_frames (optional): If True, issues are returned if the scene contains
             sensor frames without annotations. Only checks middle/center cameras and lidar sensors.
             Default is True.
@@ -94,12 +97,13 @@ def validate(  # noqa: C901, PLR0912, PLR0913
     scene = Scene.from_json(JSONScene(**scene_source))
     errors = []
 
-    if ontology_source is not None:
-        errors.extend(validate_ontology(scene, ontology_source))
-    else:
-        detected = detect_ontology(scene)
-        if detected is not None:
-            errors.extend(validate_ontology(scene, get_ontology_path(detected)))
+    if validate_for_ontology:
+        if ontology_source is not None:
+            errors.extend(validate_ontology(scene, ontology_source))
+        else:
+            detected = detect_ontology(scene)
+            if detected is not None:
+                errors.extend(validate_ontology(scene, get_ontology_path(detected)))
 
     if validate_for_empty_frames:
         errors.extend(validate_empty_frames(scene))

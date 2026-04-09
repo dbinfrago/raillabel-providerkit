@@ -48,7 +48,7 @@ def test_valid_attribute_types():
     _validate_ontology_schema(ontology)
 
 
-def test_valid_attribute_types():
+def test_invalid_attribute_type():
     ontology = {
         "person": {
             "wildcard": {"attribute_type": "unknown"},

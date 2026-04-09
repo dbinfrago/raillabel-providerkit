@@ -87,11 +87,11 @@ def test_detect_ontology__osdar23_by_wagons_without_exclusive():
     assert detect_ontology(scene) == "osdar23"
 
 
-def test_detect_ontology__no_discriminator():
+def test_detect_ontology__fallback_to_automatedtrain():
     scene = (
         SceneBuilder.empty()
         .add_object(object_type="person", object_name="person_0001")
         .add_bbox(object_name="person_0001")
         .result
     )
-    assert detect_ontology(scene) is None
+    assert detect_ontology(scene) == "automatedtrain"
