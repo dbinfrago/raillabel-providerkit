@@ -10,7 +10,7 @@ from raillabel import Scene
 from raillabel.json_format import JSONScene
 
 from raillabel_providerkit.ontologies import detect_ontology, get_ontology_path
-from raillabel_providerkit.validation import Issue
+from raillabel_providerkit.validation import Issue, IssueType
 
 from . import (
     validate_dimensions,
@@ -89,6 +89,15 @@ def validate(  # noqa: C901, PLR0912, PLR0913
     if isinstance(scene_source, Path):
         with scene_source.open() as scene_file:
             scene_source = json.load(scene_file)
+
+    if not isinstance(scene_source, dict):
+        return [
+            Issue(
+                type=IssueType.SCHEMA,
+                identifiers=[],
+                reason="The provided data is not a valid JSON object (expected a mapping).",
+            )
+        ]
 
     schema_errors = validate_schema(scene_source)
     if schema_errors != []:

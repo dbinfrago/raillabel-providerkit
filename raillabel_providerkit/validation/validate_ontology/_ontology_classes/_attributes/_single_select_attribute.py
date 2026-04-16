@@ -58,6 +58,25 @@ class _SingleSelectAttribute(_Attribute):
             return type_issues
 
         if attribute_values not in self.options:
+            suggested = (
+                self._find_whitespace_match(attribute_values)
+                if isinstance(attribute_values, str)
+                else None
+            )
+            if suggested is not None:
+                return [
+                    Issue(
+                        type=IssueType.ATTRIBUTE_VALUE,
+                        reason=(
+                            f"Attribute '{attribute_name}' has an undefined value"
+                            f" '{attribute_values}' (defined options: {self._stringify_options()})."
+                            f" [FIXABLE] Did you mean '{suggested}'?"
+                        ),
+                        identifiers=identifiers,
+                        fixable=True,
+                        suggested_value=suggested,
+                    )
+                ]
             return [
                 Issue(
                     type=IssueType.ATTRIBUTE_VALUE,
@@ -84,6 +103,17 @@ class _SingleSelectAttribute(_Attribute):
             return False
         else:
             return True
+
+    def _find_whitespace_match(self, value: str) -> str | None:
+        """Find an option that matches the value when whitespace is normalized.
+
+        Returns the correct ontology option if a match is found, otherwise None.
+        """
+        normalized_value = "".join(value.split())
+        for option in self.options:
+            if "".join(option.split()) == normalized_value:
+                return option
+        return None
 
     def _stringify_options(self) -> str:
         options_str = ""

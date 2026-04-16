@@ -29,6 +29,14 @@ def validate_schema(data: dict) -> list[Issue]:
         JSONScene(**data)
     except ValidationError as errors:
         return _make_errors_readable(errors)
+    except TypeError:
+        return [
+            Issue(
+                type=IssueType.SCHEMA,
+                identifiers=[],
+                reason="The provided data is not a valid JSON object (expected a mapping).",
+            )
+        ]
     else:
         return []
 

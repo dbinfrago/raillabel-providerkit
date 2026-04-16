@@ -55,8 +55,24 @@ class _MultiSelectAttribute(_Attribute):
         if len(type_issues) > 0:
             return type_issues
 
-        for attribute_value in attribute_values:
+        for attribute_value in attribute_values:  # type: ignore[union-attr]
             if attribute_value not in self.options:
+                suggested = self._find_whitespace_match(attribute_value)
+                if suggested is not None:
+                    return [
+                        Issue(
+                            type=IssueType.ATTRIBUTE_VALUE,
+                            reason=(
+                                f"Attribute '{attribute_name}' has an undefined value"
+                                f" '{attribute_value}' (defined options:"
+                                f" {self._stringify_options()})."
+                                f" [FIXABLE] Did you mean '{suggested}'?"
+                            ),
+                            identifiers=identifiers,
+                            fixable=True,
+                            suggested_value=suggested,
+                        )
+                    ]
                 return [
                     Issue(
                         type=IssueType.ATTRIBUTE_VALUE,
@@ -103,3 +119,14 @@ class _MultiSelectAttribute(_Attribute):
             options_str = options_str[:-2]
 
         return options_str
+
+    def _find_whitespace_match(self, value: str) -> str | None:
+        """Find an option that matches the value when whitespace is normalized.
+
+        Returns the correct ontology option if a match is found, otherwise None.
+        """
+        normalized_value = "".join(value.split())
+        for option in self.options:
+            if "".join(option.split()) == normalized_value:
+                return option
+        return None

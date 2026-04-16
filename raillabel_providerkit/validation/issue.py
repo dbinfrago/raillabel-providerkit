@@ -3,7 +3,7 @@
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Literal
+from typing import Any, Literal, cast
 from uuid import UUID
 
 import jsonschema
@@ -90,18 +90,19 @@ class IssueIdentifiers:
             If any of the fields have an unexpected type
         """
         _verify_identifiers_schema(serialized_identifiers)
+        annotation_raw = serialized_identifiers.get("annotation")
+        object_raw = serialized_identifiers.get("object")
         return IssueIdentifiers(
-            annotation=UUID(serialized_identifiers.get("annotation"))
-            if serialized_identifiers.get("annotation") is not None
-            else None,
-            annotation_type=serialized_identifiers.get("annotation_type"),
-            attribute=serialized_identifiers.get("attribute"),
-            frame=serialized_identifiers.get("frame"),
-            object=UUID(serialized_identifiers.get("object"))
-            if serialized_identifiers.get("object") is not None
-            else None,
-            object_type=serialized_identifiers.get("object_type"),
-            sensor=serialized_identifiers.get("sensor"),
+            annotation=UUID(str(annotation_raw)) if annotation_raw is not None else None,
+            annotation_type=cast(
+                Literal["Bbox", "Cuboid", "Num", "Poly2d", "Poly3d", "Seg3d"] | None,
+                serialized_identifiers.get("annotation_type"),
+            ),
+            attribute=cast(str | None, serialized_identifiers.get("attribute")),
+            frame=cast(int | None, serialized_identifiers.get("frame")),
+            object=UUID(str(object_raw)) if object_raw is not None else None,
+            object_type=cast(str | None, serialized_identifiers.get("object_type")),
+            sensor=cast(str | None, serialized_identifiers.get("sensor")),
         )
 
 
@@ -112,6 +113,8 @@ class Issue:
     type: IssueType
     identifiers: IssueIdentifiers | list[str | int]
     reason: str | None = None
+    fixable: bool = False
+    suggested_value: str | None = None
 
     def serialize(self) -> dict[str, str | dict[str, str | int] | list[str | int]]:
         """Serialize the Issue into a JSON-compatible dictionary.
@@ -130,6 +133,8 @@ class Issue:
                     else self.identifiers
                 ),
                 "reason": self.reason,
+                "fixable": self.fixable if self.fixable else None,
+                "suggested_value": self.suggested_value,
             }
         )
 
@@ -155,12 +160,15 @@ class Issue:
             If the serialized data does not match the Issue JSONSchema.
         """
         _verify_issue_schema(serialized_issue)
+        identifiers = serialized_issue["identifiers"]
         return Issue(
             type=IssueType(serialized_issue["type"]),
-            identifiers=IssueIdentifiers.deserialize(serialized_issue["identifiers"])
-            if not isinstance(serialized_issue["identifiers"], list)
-            else serialized_issue["identifiers"],
-            reason=serialized_issue.get("reason"),
+            identifiers=IssueIdentifiers.deserialize(cast(dict[str, str | int], identifiers))
+            if not isinstance(identifiers, list)
+            else identifiers,
+            reason=cast(str | None, serialized_issue.get("reason")),
+            fixable=cast(bool, serialized_issue.get("fixable", False)),
+            suggested_value=cast(str | None, serialized_issue.get("suggested_value")),
         )
 
 
@@ -202,6 +210,8 @@ ISSUES_SCHEMA = {
                     ]
                 },
                 "reason": {"type": "string"},
+                "fixable": {"type": "boolean"},
+                "suggested_value": {"type": "string"},
             },
             "required": ["type", "identifiers"],
         },
@@ -211,8 +221,10 @@ ISSUES_SCHEMA = {
 
 
 def _verify_issue_schema(d: dict) -> None:
-    jsonschema.validate(d, ISSUES_SCHEMA["definitions"]["issue"])
+    schema = cast(dict[str, Any], ISSUES_SCHEMA["definitions"])
+    jsonschema.validate(d, schema["issue"])
 
 
 def _verify_identifiers_schema(d: dict) -> None:
-    jsonschema.validate(d, ISSUES_SCHEMA["definitions"]["issue"]["properties"]["identifiers"])
+    schema = cast(dict[str, Any], ISSUES_SCHEMA["definitions"])
+    jsonschema.validate(d, schema["issue"]["properties"]["identifiers"])

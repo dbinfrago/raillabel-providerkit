@@ -12,6 +12,7 @@ import jsonschema
 from tqdm import tqdm
 
 from raillabel_providerkit import export_scenes, validate
+from raillabel_providerkit.validation.fix_attribute_values import fix_attribute_values
 from raillabel_providerkit.validation.issue import ISSUES_SCHEMA, Issue, IssueIdentifiers
 
 
@@ -196,6 +197,9 @@ def _print_summary(
     # Print detailed breakdown for attribute-related issues
     _print_attribute_details(scene_issues)
 
+    # Print fix recommendation if there are fixable issues
+    _print_fix_recommendation(scene_issues)
+
     click.echo("=" * 60)
 
 
@@ -240,6 +244,27 @@ def _print_attribute_details(scene_issues: dict[str, list[Issue]]) -> None:
                 click.echo(f"      {count:>5}x {attr_name}")
 
 
+def _print_fix_recommendation(scene_issues: dict[str, list[Issue]]) -> None:
+    """Print a recommendation to use --fix if fixable issues were found."""
+    fixable_count = 0
+    for issues in scene_issues.values():
+        for issue in issues:
+            if issue.fixable:
+                fixable_count += 1
+
+    if fixable_count > 0:
+        click.echo()
+        click.secho(
+            f"RECOMMENDATION: {fixable_count} issue(s) can be auto-fixed (whitespace mismatches).",
+            fg="yellow",
+            bold=True,
+        )
+        click.secho(
+            "  Run again with --fix --ontology <PATH> to apply corrections automatically.",
+            fg="yellow",
+        )
+
+
 @click.group()
 def cli() -> None:
     """RailLabel Providerkit - Tools for annotation providers."""
@@ -279,6 +304,15 @@ def cli() -> None:
     ),
 )
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
+@click.option(
+    "--fix",
+    is_flag=True,
+    default=False,
+    help=(
+        "Automatically fix attribute values with whitespace mismatches "
+        "(e.g., '0-25 %%' -> '0-25%%'). Requires --ontology."
+    ),
+)
 def validate_command(  # noqa: PLR0913
     annotations_folder: Path,
     output_folder: Path,
@@ -287,10 +321,18 @@ def validate_command(  # noqa: PLR0913
     use_json: bool,
     horizon_tolerance: float,
     quiet: bool,
+    fix: bool,
 ) -> None:
     """Check raillabel scenes' annotations for errors."""
     _run_validation(
-        annotations_folder, output_folder, ontology, use_csv, use_json, horizon_tolerance, quiet
+        annotations_folder,
+        output_folder,
+        ontology,
+        use_csv,
+        use_json,
+        horizon_tolerance,
+        quiet,
+        fix,
     )
 
 
@@ -302,10 +344,15 @@ def _run_validation(  # noqa: PLR0913
     use_json: bool,
     horizon_tolerance_percent: float,
     quiet: bool,
+    fix: bool = False,
 ) -> None:
     """Validate all scenes in a folder and output validation results."""
     # Stop early if there is nothing to output
     if not use_csv and not use_json:
+        return
+
+    if fix and ontology is None:
+        click.secho("ERROR: --fix requires --ontology to be specified.", fg="red", bold=True)
         return
 
     # Ensure output folder exists
@@ -321,15 +368,53 @@ def _run_validation(  # noqa: PLR0913
         estimated = _estimate_duration(len(scene_files))
         click.echo(f"Found {len(scene_files)} scene(s) to validate")
         click.echo(f"Estimated duration: ~{estimated}")
+        if fix:
+            click.echo("Fix mode: ON - whitespace mismatches will be auto-corrected")
         click.echo()
 
     # Start timing
     start_time = time.time()
 
-    # Collect all issues for summary
+    # Run validation loop
+    total_fixes_applied, scene_issues = _validate_scene_files(
+        scene_files,
+        ontology,
+        use_csv,
+        use_json,
+        output_folder,
+        horizon_tolerance_percent,
+        quiet,
+        fix,
+    )
+
+    # Calculate elapsed time
+    elapsed_time = time.time() - start_time
+
+    if fix and not quiet and total_fixes_applied > 0:
+        click.echo()
+        click.secho(f"Applied {total_fixes_applied} fix(es) to source files.", fg="green", bold=True)
+
+    _print_summary(scene_issues, len(scene_files), elapsed_time, quiet)
+
+
+def _validate_scene_files(  # noqa: PLR0913
+    scene_files: list[Path],
+    ontology: Path | None,
+    use_csv: bool,
+    use_json: bool,
+    output_folder: Path,
+    horizon_tolerance_percent: float,
+    quiet: bool,
+    fix: bool,
+) -> tuple[int, dict[str, list[Issue]]]:
+    """Validate each scene file and return (total_fixes, scene_issues)."""
+    total_fixes_applied = 0
     scene_issues: dict[str, list[Issue]] = {}
 
     for scene_path in tqdm(scene_files, desc="Validating files", disable=quiet):
+        if fix and ontology is not None:
+            total_fixes_applied += _apply_fixes(scene_path, ontology, quiet)
+
         issues = validate(
             scene_path,
             ontology,
@@ -344,10 +429,30 @@ def _run_validation(  # noqa: PLR0913
         if use_csv:
             store_issues_to_csv(issues, output_folder / scene_name.replace(".json", ".issues.csv"))
 
-    # Calculate elapsed time
-    elapsed_time = time.time() - start_time
+    return total_fixes_applied, scene_issues
 
-    _print_summary(scene_issues, len(scene_files), elapsed_time, quiet)
+
+def _apply_fixes(scene_path: Path, ontology: Path, quiet: bool) -> int:
+    """Apply whitespace fixes to a single scene file. Returns number of fixes applied."""
+    with scene_path.open() as f:
+        scene_data = json.load(f)
+
+    if not isinstance(scene_data, dict):
+        return 0
+
+    fixed_data, fix_descriptions = fix_attribute_values(scene_data, ontology)
+
+    if not fix_descriptions:
+        return 0
+
+    with scene_path.open("w") as f:
+        json.dump(fixed_data, f, indent=2)
+
+    if not quiet:
+        for desc in fix_descriptions:
+            click.echo(f"  FIXED [{scene_path.name}]: {desc}")
+
+    return len(fix_descriptions)
 
 
 @cli.command(name="export")
@@ -456,6 +561,12 @@ def export_command(
     help="Tolerance buffer as percentage above horizon (e.g., 10.0 for 10%%). Default is 10.0.",
 )
 @click.option("-q", "--quiet", is_flag=True, help="Disable progress bars")
+@click.option(
+    "--fix",
+    is_flag=True,
+    default=False,
+    help=("Automatically fix attribute values with whitespace mismatches. Requires --ontology."),
+)
 def run_raillabel_providerkit(  # noqa: PLR0913
     annotations_folder: Path,
     output_folder: Path,
@@ -464,10 +575,18 @@ def run_raillabel_providerkit(  # noqa: PLR0913
     use_json: bool,
     horizon_tolerance: float,
     quiet: bool,
+    fix: bool,
 ) -> None:
     """Check a raillabel scene's annotations for errors (legacy command)."""
     _run_validation(
-        annotations_folder, output_folder, ontology, use_csv, use_json, horizon_tolerance, quiet
+        annotations_folder,
+        output_folder,
+        ontology,
+        use_csv,
+        use_json,
+        horizon_tolerance,
+        quiet,
+        fix,
     )
 
 

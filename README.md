@@ -6,7 +6,7 @@
 # RailLabel Providerkit
 
 <!-- prettier-ignore -->
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/dbinfrago/raillabel-providerkit/releases)
+[![Version](https://img.shields.io/badge/version-1.4.1-blue.svg)](https://github.com/dbinfrago/raillabel-providerkit/releases)
 ![Build](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
 ![Lint](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
 [![Python](https://img.shields.io/badge/python-3.10%2B-green.svg)](https://www.python.org/)
@@ -111,6 +111,23 @@ python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ont
 ```
 
 The tolerance is specified as a percentage. Annotations within this buffer zone above the horizon are considered valid. Default is 10.0% to account for typical calibration variations. This helps reduce false positives when horizon calculations are slightly inaccurate. **Note:** Horizon validation only checks track and transition annotations, not other object types.
+
+### Auto-Fix for Whitespace Mismatches (`--fix`)
+
+When attribute values differ from ontology options only by whitespace (e.g. `"0-25 %"` instead of `"0-25%"`), the `--fix` flag automatically corrects them in-place:
+
+```zsh
+# Fix whitespace mismatches and validate
+python -m raillabel_providerkit validate /path/to/scenes/ /path/to/output/ --ontology config/ontologies/osdar26.yaml --fix
+```
+
+The fix will:
+- Compare each attribute value against the ontology's valid options
+- If a value matches after removing all whitespace, replace it with the correct option
+- Write the corrected scene back to disk
+- Report each fix applied (e.g. `FIXED [scene.json]: 'occlusion' value '0-25 %' -> '0-25%'`)
+
+After validation, a summary recommends using `--fix` if fixable issues were detected but the flag was not used. The `--fix` flag requires an `--ontology` to be specified.
 
 ## Exporting Scenes
 

@@ -74,10 +74,14 @@ def validate_horizon(
                 sensor=sensor_id,
             )
 
+            sensor = filtered_scene.sensors[sensor_id]
+            if not isinstance(sensor, Camera):
+                continue
+
             issues.extend(
                 _validate_annotation_for_horizon(
                     annotation,
-                    filtered_scene.sensors[sensor_id],
+                    sensor,
                     identifiers,
                     horizon_tolerance_percent,
                 )
