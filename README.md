@@ -6,7 +6,7 @@
 # RailLabel Providerkit
 
 <!-- prettier-ignore -->
-[![Version](https://img.shields.io/badge/version-1.4.1-blue.svg)](https://github.com/dbinfrago/raillabel-providerkit/releases)
+[![Version](https://img.shields.io/badge/version-1.4.2-blue.svg)](https://github.com/dbinfrago/raillabel-providerkit/releases)
 ![Build](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/build-test-publish.yml/badge.svg)
 ![Lint](https://github.com/dbinfrago/raillabel-providerkit/actions/workflows/lint.yml/badge.svg)
 [![Python](https://img.shields.io/badge/python-3.10%2B-green.svg)](https://www.python.org/)
