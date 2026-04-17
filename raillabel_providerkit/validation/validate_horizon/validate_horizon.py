@@ -125,8 +125,9 @@ def _validate_annotation_for_horizon(
         # Apply tolerance buffer: move horizon line up by the tolerance percentage
         # The horizon_y is measured from the top of the image (Y=0 is top)
         # Moving it "up" means making it smaller (more permissive for tracks)
-        # tolerance_percent% of horizon_y is subtracted
-        horizon_y_with_buffer = horizon_y * (1.0 - horizon_tolerance_percent / 100.0)
+        # We subtract an absolute amount based on abs(horizon_y) so the direction
+        # is always correct, even when horizon_y is negative or zero.
+        horizon_y_with_buffer = horizon_y - abs(horizon_y) * (horizon_tolerance_percent / 100.0)
 
         if point.y < horizon_y_with_buffer:
             return [

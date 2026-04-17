@@ -125,7 +125,7 @@ def _convert_too_long_error_to_issue(error: dict) -> Issue:
         type=IssueType.SCHEMA,
         identifiers=error["loc"],
         reason=(
-            f"Should have length of {error['ctx']['actual_length']} but has length of "
-            f"{error['ctx']['max_length']}."
+            f"Should have max length of {error['ctx']['max_length']} but has length of "
+            f"{error['ctx']['actual_length']}."
         ),
     )

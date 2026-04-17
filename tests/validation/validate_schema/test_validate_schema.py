@@ -219,7 +219,7 @@ def test_tuple_too_long():
                 "pose_wrt_parent",
                 "translation",
             ],
-            reason="Should have length of 4 but has length of 3.",
+            reason="Should have max length of 3 but has length of 4.",
         )
     ]
 

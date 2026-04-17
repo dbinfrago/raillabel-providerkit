@@ -60,11 +60,11 @@ class IssueIdentifiers:
         """
         return _clean_dict(
             {
-                "annotation": str(self.annotation),
+                "annotation": str(self.annotation) if self.annotation is not None else None,
                 "annotation_type": self.annotation_type,
                 "attribute": self.attribute,
                 "frame": self.frame,
-                "object": str(self.object),
+                "object": str(self.object) if self.object is not None else None,
                 "object_type": self.object_type,
                 "sensor": self.sensor,
             }
@@ -173,8 +173,8 @@ class Issue:
 
 
 def _clean_dict(d: dict) -> dict:
-    """Remove all fields in a dict that are None or 'None'."""
-    return {k: v for k, v in d.items() if str(v) != "None"}
+    """Remove all fields in a dict that have a value of None."""
+    return {k: v for k, v in d.items() if v is not None}
 
 
 ISSUES_SCHEMA = {

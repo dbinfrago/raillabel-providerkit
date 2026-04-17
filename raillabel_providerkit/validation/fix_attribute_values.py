@@ -73,13 +73,22 @@ def _build_option_lookup(ontology: dict) -> dict[str, dict[str, set[str]]]:
     """Build a lookup: {object_type: {attribute_name: set_of_valid_options}}.
 
     Only includes single-select and multi-select attributes.
+    Supports both flat ontology format (class_name → attr_name → attr_def) and
+    wrapped format (classes → class_name → attributes → attr_name → attr_def).
     """
     lookup: dict[str, dict[str, set[str]]] = {}
-    classes = ontology.get("classes", {})
+    # Support both flat ontology YAML (top-level keys are class names)
+    # and wrapped format ("classes" key wraps class definitions)
+    classes = ontology.get("classes", ontology)
     for class_name, class_def in classes.items():
-        attributes = class_def.get("attributes", {})
+        if not isinstance(class_def, dict):
+            continue
+        # Support both direct attributes (flat YAML) and nested "attributes" key
+        attributes = class_def.get("attributes", class_def)
         attr_lookup: dict[str, set[str]] = {}
         for attr_name, attr_def in attributes.items():
+            if not isinstance(attr_def, dict):
+                continue
             attr_type = attr_def.get("attribute_type")
             if isinstance(attr_type, dict) and attr_type.get("type") in (
                 "single-select",

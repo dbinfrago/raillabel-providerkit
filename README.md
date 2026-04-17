@@ -42,7 +42,7 @@ git clone https://github.com/dbinfrago/raillabel-providerkit
 cd raillabel-providerkit
 python -m venv .venv
 
-source .venv/bin/activate.sh  # for Linux / Mac
+source .venv/bin/activate  # for Linux / Mac
 .venv\Scripts\activate  # for Windows
 
 pip install -U pip pre-commit
@@ -177,7 +177,7 @@ from raillabel_providerkit import validate, get_ontology_path
 
 # Using a built-in ontology
 ontology_path = get_ontology_path("osdar26")
-issues = validate("path/to/scene.json", ontology=ontology_path)
+issues = validate("path/to/scene.json", ontology_source=ontology_path)
 
 # List available ontologies
 from raillabel_providerkit import list_available_ontologies

@@ -62,49 +62,46 @@ def store_issues_to_csv(issues: list[Issue], filepath: Path) -> None:
     """
     issues_serialized = [issue.serialize() for issue in issues]
 
-    file = Path.open(filepath, "w")
+    with Path.open(filepath, "w") as file:
+        writer = csv.writer(file, dialect="excel-tab")
+        writer.writerow(
+            [
+                "issue_type",
+                "frame",
+                "sensor",
+                "object_type",
+                "object",
+                "annotation",
+                "attribute",
+                "schema_path",
+                "reason",
+            ]
+        )
 
-    writer = csv.writer(file, dialect="excel-tab")
-    writer.writerow(
-        [
-            "issue_type",
-            "frame",
-            "sensor",
-            "object_type",
-            "object",
-            "annotation",
-            "attribute",
-            "schema_path",
-            "reason",
-        ]
-    )
+        for issue in issues_serialized:
+            issue_type = issue["type"]
+            reason = issue.get("reason", "")
+            if not isinstance(issue_type, str) or not isinstance(reason, str):
+                raise TypeError
 
-    for issue in issues_serialized:
-        issue_type = issue["type"]
-        reason = issue.get("reason", "")
-        if not isinstance(issue_type, str) or not isinstance(reason, str):
-            raise TypeError
+            row: list[str | int] = []
+            row.append(issue_type)
+            identifiers = issue["identifiers"]
+            if isinstance(identifiers, dict):
+                row.append(identifiers.get("frame", ""))
+                row.append(identifiers.get("sensor", ""))
+                row.append(identifiers.get("object_type", ""))
+                row.append(identifiers.get("object", ""))
+                row.append(identifiers.get("annotation", ""))
+                row.append(identifiers.get("attribute", ""))
+                row.append("")
+            else:
+                # It's a schema issue, so there are no standard identifiers
+                row.extend(["", "", "", "", "", ""])
+                row.append(str(identifiers))
+            row.append(reason)
 
-        row: list[str | int] = []
-        row.append(issue_type)
-        identifiers = issue["identifiers"]
-        if isinstance(identifiers, dict):
-            row.append(identifiers.get("frame", ""))
-            row.append(identifiers.get("sensor", ""))
-            row.append(identifiers.get("object_type", ""))
-            row.append(identifiers.get("object", ""))
-            row.append(identifiers.get("annotation", ""))
-            row.append(identifiers.get("attribute", ""))
-            row.append("")
-        else:
-            # It's a schema issue, so there are no standard identifiers
-            row.extend(["", "", "", "", "", ""])
-            row.append(str(identifiers))
-        row.append(reason)
-
-        writer.writerow(row)
-
-    file.close()
+            writer.writerow(row)
 
 
 # Time constants for duration formatting

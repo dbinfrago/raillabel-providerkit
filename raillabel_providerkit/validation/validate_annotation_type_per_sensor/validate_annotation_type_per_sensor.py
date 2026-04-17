@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import Any
+from typing import Any, Literal, cast
 from uuid import UUID
 
 import raillabel
@@ -48,7 +48,15 @@ def _get_annotation_id(anno: object) -> UUID | None:
     return getattr(anno, "id", None)
 
 
+_KNOWN_ANNO_TYPES = {"Bbox", "Cuboid", "Poly2d", "Poly3d", "Num", "Seg3d"}
+
+
 def _get_annotation_type(anno: object) -> str | None:
+    # raillabel annotations encode the type as the class name (Bbox, Poly2d, …).
+    class_name = type(anno).__name__
+    if class_name in _KNOWN_ANNO_TYPES:
+        return class_name
+    # Fallback for generic objects with an explicit .type attribute.
     t = getattr(anno, "type", None)
     if not t:
         return None
@@ -86,7 +94,8 @@ def _sensor_type(scene: raillabel.Scene, sensor_id: str) -> str | None:
     sensor = sensors.get(sensor_id)
     if sensor is None:
         return None
-    s_type = getattr(sensor, "type", None)
+    # raillabel sensors use a class-level TYPE attribute (e.g. Camera.TYPE = "camera")
+    s_type = getattr(sensor, "TYPE", None) or getattr(sensor, "type", None)
     return str(s_type).lower() if s_type else None
 
 
@@ -119,7 +128,10 @@ def validate_annotation_type_per_sensor(scene: raillabel.Scene) -> list[Issue]:
                     frame=frame_id,
                     sensor=sensor_id,
                     annotation=_get_annotation_id(anno),
-                    annotation_type=a_type,
+                    annotation_type=cast(
+                        Literal["Bbox", "Cuboid", "Num", "Poly2d", "Poly3d", "Seg3d"] | None,
+                        a_type,
+                    ),
                 ),
                 reason=(
                     f"Annotation type '{a_type}' not allowed for sensor type '{s_type}'. "

@@ -62,7 +62,7 @@ def export_scenes(  # noqa: C901
         msg = "At least one export format must be specified"
         raise ValueError(msg)
 
-    valid_formats = {"json", "csv"}
+    valid_formats: set[ExportFormat] = {"json", "csv"}
     invalid = set(formats) - valid_formats
     if invalid:
         msg = f"Invalid format(s): {invalid}. Valid formats: {valid_formats}"
@@ -136,10 +136,10 @@ def _export_to_csv(scene: raillabel.Scene, output_folder: Path, filename_stem: s
     annotations_data = []
 
     for frame_id, frame in scene.frames.items():
-        for object_id, annotation in frame.annotations.items():
+        for annotation_id, annotation in frame.annotations.items():
             row = {
                 "frame_id": frame_id,
-                "object_id": object_id,
+                "annotation_id": annotation_id,
                 "annotation_type": annotation.__class__.__name__,
                 "sensor_id": getattr(annotation, "sensor_id", ""),
             }

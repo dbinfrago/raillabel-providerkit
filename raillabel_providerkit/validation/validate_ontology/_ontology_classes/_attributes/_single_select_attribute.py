@@ -50,7 +50,12 @@ class _SingleSelectAttribute(_Attribute):
         # This handles cases where data contains numeric values (e.g., 1.0, 2.0)
         # but the ontology defines string options (e.g., "1", "2")
         # Only convert if all options are numeric strings
-        if isinstance(attribute_values, int | float) and self._all_options_are_numeric():
+        # Note: bool must be excluded because isinstance(True, int) is True in Python
+        if (
+            not isinstance(attribute_values, bool)
+            and isinstance(attribute_values, int | float)
+            and self._all_options_are_numeric()
+        ):
             attribute_values = str(int(attribute_values))
 
         type_issues = super().check_type_and_value(attribute_name, attribute_values, identifiers)

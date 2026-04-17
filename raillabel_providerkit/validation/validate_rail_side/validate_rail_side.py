@@ -56,8 +56,7 @@ def validate_rail_side(scene: raillabel.Scene) -> list[Issue]:
                 )
 
                 count_errors = _check_rail_counts(context, left_count, right_count)
-                exactly_one_left_and_right_rail_exist = count_errors != []
-                if exactly_one_left_and_right_rail_exist:
+                if count_errors:
                     errors.extend(count_errors)
                     continue
 
