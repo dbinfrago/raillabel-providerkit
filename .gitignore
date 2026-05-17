@@ -169,3 +169,7 @@ playground/
 scripts/
 .github/instructions.md
 .instructions*
+config/ontologies/*_test.yaml
+out_*
+raillabel-providerkit/
+config/ontologies/*_test.yaml
