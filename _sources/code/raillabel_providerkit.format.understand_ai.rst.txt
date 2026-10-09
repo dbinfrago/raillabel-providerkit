@@ -1,0 +1,117 @@
+raillabel\_providerkit.format.understand\_ai package
+====================================================
+
+Submodules
+----------
+
+raillabel\_providerkit.format.understand\_ai.bounding\_box\_2d module
+---------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.bounding_box_2d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.bounding\_box\_3d module
+---------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.bounding_box_3d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.coordinate\_system module
+----------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.coordinate_system
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.frame module
+---------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.frame
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.metadata module
+------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.metadata
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.point\_3d module
+-------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.point_3d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.polygon\_2d module
+---------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.polygon_2d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.polyline\_2d module
+----------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.polyline_2d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.quaternion module
+--------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.quaternion
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.scene module
+---------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.scene
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.segmentation\_3d module
+--------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.segmentation_3d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.sensor\_reference module
+---------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.sensor_reference
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+raillabel\_providerkit.format.understand\_ai.size\_3d module
+------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai.size_3d
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.format.understand_ai
+   :members:
+   :show-inheritance:
+   :undoc-members:

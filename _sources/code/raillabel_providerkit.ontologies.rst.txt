@@ -1,0 +1,21 @@
+raillabel\_providerkit.ontologies package
+=========================================
+
+Submodules
+----------
+
+raillabel\_providerkit.ontologies.manager module
+------------------------------------------------
+
+.. automodule:: raillabel_providerkit.ontologies.manager
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.ontologies
+   :members:
+   :show-inheritance:
+   :undoc-members:

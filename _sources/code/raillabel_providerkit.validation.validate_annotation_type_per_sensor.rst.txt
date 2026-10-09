@@ -1,0 +1,21 @@
+raillabel\_providerkit.validation.validate\_annotation\_type\_per\_sensor package
+=================================================================================
+
+Submodules
+----------
+
+raillabel\_providerkit.validation.validate\_annotation\_type\_per\_sensor.validate\_annotation\_type\_per\_sensor module
+------------------------------------------------------------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.validation.validate_annotation_type_per_sensor.validate_annotation_type_per_sensor
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.validation.validate_annotation_type_per_sensor
+   :members:
+   :show-inheritance:
+   :undoc-members:

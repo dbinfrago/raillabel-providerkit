@@ -1,0 +1,8 @@
+raillabel-providerkit
+=====================
+
+.. toctree::
+   :maxdepth: 4
+
+   raillabel_providerkit
+   tests

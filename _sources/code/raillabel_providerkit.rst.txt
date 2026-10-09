@@ -1,0 +1,34 @@
+raillabel\_providerkit package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   raillabel_providerkit.convert
+   raillabel_providerkit.export
+   raillabel_providerkit.format
+   raillabel_providerkit.gui
+   raillabel_providerkit.ontologies
+   raillabel_providerkit.validation
+
+Submodules
+----------
+
+raillabel\_providerkit.exceptions module
+----------------------------------------
+
+.. automodule:: raillabel_providerkit.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit
+   :members:
+   :show-inheritance:
+   :undoc-members:

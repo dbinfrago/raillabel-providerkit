@@ -1,0 +1,21 @@
+raillabel\_providerkit.validation.validate\_schema package
+==========================================================
+
+Submodules
+----------
+
+raillabel\_providerkit.validation.validate\_schema.validate\_schema module
+--------------------------------------------------------------------------
+
+.. automodule:: raillabel_providerkit.validation.validate_schema.validate_schema
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: raillabel_providerkit.validation.validate_schema
+   :members:
+   :show-inheritance:
+   :undoc-members:
