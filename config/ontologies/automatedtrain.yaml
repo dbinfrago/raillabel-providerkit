@@ -202,13 +202,14 @@ train:
 
   order:
     sensor_types:
-            [
-                radar,
-                lidar
-            ]
+      [
+        camera,
+        radar,
+        lidar
+      ]
     attribute_type:
       type: single-select
-      options: ["1","2","3","4","5","6","7","8","9","10", unknown]
+      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", unknown]
     scope: annotation
 
   type:
@@ -223,6 +224,7 @@ train:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 train_front:
   connectedTo:
@@ -251,6 +253,7 @@ train_front:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 wagons:
   connectedTo:
     attribute_type: multi-reference
@@ -272,14 +275,14 @@ wagons:
 
   order:
     sensor_types:
-            [
-                radar,
-                lidar
-            ]
+      [
+        camera,
+        radar,
+        lidar
+      ]
     attribute_type:
       type: single-select
-      options:
-        ["1","2","3","4","5","6","7","8","9","10", unknown]
+      options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", unknown]
     scope: annotation
 
   occlusion:
@@ -288,6 +291,7 @@ wagons:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 motorcycle:
   connectedTo:
@@ -313,6 +317,7 @@ motorcycle:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 road_vehicle:
   connectedTo:
@@ -342,6 +347,7 @@ road_vehicle:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 animal:
   connectedTo:
@@ -412,6 +418,7 @@ animal:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 group_of_animals:
   count:
     attribute_type:
@@ -477,6 +484,7 @@ group_of_animals:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 wheelchair:
   connectedTo:
     attribute_type: multi-reference
@@ -514,6 +522,7 @@ drag_shoe:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 track:
   connectedTo:
     attribute_type: multi-reference
@@ -540,119 +549,134 @@ track:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 switch:
-    connectedTo:
-        attribute_type: multi-reference
-        scope: object
-    state:
-        attribute_type: multi-reference
-        scope: frame
-    type:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    simpleSwitch,
-                    curvedSwitch,
-                    crossSwitch,
-                    unknown
-                ]
-        scope: object
-    occlusion:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+
+  state:
+    attribute_type: multi-reference
+    scope: frame
+
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          simpleSwitch,
+          curvedSwitch,
+          crossSwitch,
+          unknown
+        ]
+    scope: object
+
+  occlusion:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
+
 catenary_pole:
-    isBottomVisible:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type: boolean
-        scope: object
-    type:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    solid,
-                    structured,
-                    unknown
-                ]
-        scope: object
-    connectedTo:
-        attribute_type: multi-reference
-        scope: object
-    occlusion:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  isBottomVisible:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type: boolean
+    scope: object
+
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          solid,
+          structured,
+          unknown
+        ]
+    scope: object
+
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+
+  occlusion:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
+
 signal_pole:
-    isBottomVisible:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type: boolean
-        scope: annotation
-    type:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    solid,
-                    structured,
-                    unknown
-                ]
-        scope: object
-    connectedTo:
-        attribute_type: multi-reference
-        scope: object
-    occlusion:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  isBottomVisible:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type: boolean
+    scope: annotation
+
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          solid,
+          structured,
+          unknown
+        ]
+    scope: object
+
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+
+  occlusion:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
 
 signal:
   connectedTo:
@@ -690,126 +714,139 @@ signal:
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
 
+
 signal_bridge:
-    connectedTo:
-        attribute_type: multi-reference
-        scope: object
-    type:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    solid,
-                    structured,
-                    unknown
-                ]
-        scope: object
-    occlusion:
-        sensor_types:
-            [
-                camera,
-                lidar
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+
+  type:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          solid,
+          structured,
+          unknown
+        ]
+    scope: object
+
+  occlusion:
+    sensor_types:
+      [
+        camera,
+        lidar
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
+
 buffer_stop:
-    connectedTo:
-        attribute_type: multi-reference
-        scope: object
-    occlusion:
-        sensor_types:
-            [
-                camera,
-                lidar,
-                radar
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  connectedTo:
+    attribute_type: multi-reference
+    scope: object
+
+  occlusion:
+    sensor_types:
+      [
+        camera,
+        lidar,
+        radar
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
+
 flame:
-    size:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    big,
-                    small,
-                    unknown
-                ]
-        scope: frame
-    occlusion:
-        sensor_types:
-            [
-                camera
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  size:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          big,
+          small,
+          unknown
+        ]
+    scope: frame
+
+  occlusion:
+    sensor_types:
+      [
+        camera
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
 
 smoke:
-    color:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    white,
-                    gray,
-                    black,
-                    other,
-                    unknown
-                ]
-        scope: frame
-    size:
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    big,
-                    small,
-                    unknown
-                ]
-        scope: frame
-    occlusion:
-        sensor_types:
-            [
-                camera
-            ]
-        attribute_type:
-            type: single-select
-            options:
-                [
-                    "0-25%",
-                    "25-50%",
-                    "50-75%",
-                    "75-100%",
-                    undefined
-                ]
-        scope: annotation
+  color:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          white,
+          gray,
+          black,
+          other,
+          unknown
+        ]
+    scope: frame
+
+  size:
+    attribute_type:
+      type: single-select
+      options:
+        [
+          big,
+          small,
+          unknown
+        ]
+    scope: frame
+
+  occlusion:
+    sensor_types:
+      [
+        camera
+      ]
+    attribute_type:
+      type: single-select
+      options:
+        [
+          "0-25%",
+          "25-50%",
+          "50-75%",
+          "75-100%",
+          undefined
+        ]
+    scope: annotation
+
 
 ignore_tracks:
 
@@ -821,6 +858,7 @@ reflective_test_object:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 trampoline:
   size:
@@ -841,6 +879,7 @@ trampoline:
       type: single-select
       options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
     scope: annotation
+
 
 plane:
   state:
@@ -868,6 +907,82 @@ plane:
         ]
     scope: object
 
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+hectometer_board:
+  text:
+    attribute_type: string
+    scope: object
+
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+electrical_telecommunications_cabinet:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+operational_building:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+light_pole:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+kilometer_stone:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+pzb_magnet:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+platform:
+  occlusion:
+    sensor_types: [camera, lidar]
+    attribute_type:
+      type: single-select
+      options: ["0-25%", "25-50%", "50-75%", "75-100%", undefined]
+    scope: annotation
+
+
+manhole_cover:
   occlusion:
     sensor_types: [camera, lidar]
     attribute_type:
